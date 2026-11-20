@@ -34,6 +34,12 @@ export const auth = betterAuth({
     process.env.NEXT_PUBLIC_APP_URL,
   ].filter(Boolean),
   emailAndPassword: { enabled: true },
+  account: {
+    accountLinking: {
+      enabled: true,
+      trustedProviders: ["google"],
+    },
+  },
   ...(hasGoogleCreds
     ? {
         socialProviders: {
