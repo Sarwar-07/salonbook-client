@@ -5,7 +5,16 @@ import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { MongoClient } from 'mongodb';
 
-const client = new MongoClient(process.env.MONGODB_URI);
+let client;
+if (process.env.NODE_ENV === 'development') {
+  if (!globalThis._mongoClient) {
+    globalThis._mongoClient = new MongoClient(process.env.MONGODB_URI);
+  }
+  client = globalThis._mongoClient;
+} else {
+  client = new MongoClient(process.env.MONGODB_URI);
+}
+
 const db = client.db(process.env.DB_NAME || 'salonbook_db');
 
 const hasGoogleCreds = Boolean(
@@ -16,9 +25,14 @@ const hasGoogleCreds = Boolean(
 );
 
 export const auth = betterAuth({
-  database: mongodbAdapter(db),
+  database: mongodbAdapter(db, { client }),
   baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
   secret: process.env.BETTER_AUTH_SECRET,
+  trustedOrigins: [
+    'http://localhost:3000',
+    process.env.BETTER_AUTH_URL,
+    process.env.NEXT_PUBLIC_APP_URL,
+  ].filter(Boolean),
   emailAndPassword: { enabled: true },
   ...(hasGoogleCreds
     ? {

@@ -61,6 +61,14 @@ function RegisterForm() {
       return;
     }
 
+    if (image?.trim()) {
+      const trimmedImage = image.trim();
+      if (trimmedImage.startsWith('data:')) {
+        toast.error('Please enter a valid http:// or https:// image URL, or leave it blank.');
+        return;
+      }
+    }
+
     setLoading(true);
 
     try {
@@ -72,7 +80,7 @@ function RegisterForm() {
       });
 
       if (res?.error) {
-        toast.error(res.error.message || 'Registration failed. Email may already be registered.');
+        toast.error(res.error.message || 'Registration failed');
         return;
       }
 
