@@ -27,6 +27,7 @@ export function AuthProvider({ children }) {
     } catch (err) {
       console.error('Failed to sign out:', err);
     }
+    toast.success('Logged out successfully');
     router.push('/');
   }, [router]);
 
