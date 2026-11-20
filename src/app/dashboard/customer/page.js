@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -15,13 +15,15 @@ import {
   CalendarCheck,
   CheckCircle2,
   Hourglass,
-  DollarSign,
   Plus,
   User,
   Sparkles,
   Receipt,
   Loader2,
-  FileText,
+  Eye,
+  X,
+  AlertTriangle,
+  Info,
 } from 'lucide-react';
 
 const FALLBACK_IMAGE =
@@ -36,17 +38,15 @@ export default function CustomerDashboardPage() {
   const [activeTab, setActiveTab] = useState('appointments'); // 'appointments' | 'payments'
   const [statusFilter, setStatusFilter] = useState('All');
 
-  const [stats, setStats] = useState({
-    totalAppointments: 0,
-    confirmedAppointments: 0,
-    pendingAppointments: 0,
-    totalSpent: 0,
-  });
   const [appointments, setAppointments] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [dashboardLoading, setDashboardLoading] = useState(true);
   const [payingAppointmentId, setPayingAppointmentId] = useState(null);
-  const [cancellingId, setCancellingId] = useState(null);
+
+  // Modal States
+  const [selectedAppointment, setSelectedAppointment] = useState(null); // For "View Details"
+  const [appointmentToCancel, setAppointmentToCancel] = useState(null); // For "Cancel Confirmation"
+  const [cancellingLoading, setCancellingLoading] = useState(false);
 
   // 1. Route Protection
   useEffect(() => {
@@ -62,15 +62,11 @@ export default function CustomerDashboardPage() {
   // 2. Fetch Dashboard Data
   const refreshData = async () => {
     try {
-      const [statsRes, apptsRes, txsRes] = await Promise.all([
-        apiRequest('/api/dashboard/customer-stats'),
+      const [apptsRes, txsRes] = await Promise.all([
         apiRequest('/api/appointments/my'),
         apiRequest('/api/transactions/my'),
       ]);
 
-      if (statsRes?.stats) {
-        setStats(statsRes.stats);
-      }
       if (Array.isArray(apptsRes)) {
         setAppointments(apptsRes);
       }
@@ -88,16 +84,12 @@ export default function CustomerDashboardPage() {
     let isCancelled = false;
     const loadData = async () => {
       try {
-        const [statsRes, apptsRes, txsRes] = await Promise.all([
-          apiRequest('/api/dashboard/customer-stats'),
+        const [apptsRes, txsRes] = await Promise.all([
           apiRequest('/api/appointments/my'),
           apiRequest('/api/transactions/my'),
         ]);
 
         if (!isCancelled) {
-          if (statsRes?.stats) {
-            setStats(statsRes.stats);
-          }
           if (Array.isArray(apptsRes)) {
             setAppointments(apptsRes);
           }
@@ -146,25 +138,26 @@ export default function CustomerDashboardPage() {
     }
   };
 
-  // 4. Handle Cancel Appointment
-  const handleCancelAppointment = async (appointmentId) => {
-    const confirmed = window.confirm(
-      'Are you sure you want to cancel this pending appointment? This slot will be released.'
-    );
-    if (!confirmed) return;
+  // 4. Handle Cancel Appointment (triggered from React Modal)
+  const confirmCancelAppointment = async () => {
+    if (!appointmentToCancel) return;
 
-    setCancellingId(appointmentId);
+    setCancellingLoading(true);
     try {
-      await apiRequest(`/api/appointments/${appointmentId}/cancel`, {
+      await apiRequest(`/api/appointments/${appointmentToCancel._id}/cancel`, {
         method: 'PATCH',
       });
       toast.success('Appointment cancelled successfully');
+      setAppointmentToCancel(null);
+      if (selectedAppointment?._id === appointmentToCancel._id) {
+        setSelectedAppointment(null);
+      }
       await refreshData();
     } catch (err) {
       console.error('Cancellation error:', err);
       toast.error(err.message || 'Failed to cancel appointment');
     } finally {
-      setCancellingId(null);
+      setCancellingLoading(false);
     }
   };
 
@@ -173,6 +166,12 @@ export default function CustomerDashboardPage() {
     if (statusFilter === 'All') return true;
     return appt.status === statusFilter;
   });
+
+  // KPI Counts
+  const totalRequestsCount = appointments.length;
+  const pendingCount = appointments.filter((a) => a.status === 'pending').length;
+  const confirmedCount = appointments.filter((a) => a.status === 'confirmed').length;
+  const cancelledCount = appointments.filter((a) => a.status === 'cancelled').length;
 
   // Loading state
   if (authLoading || (!user && authLoading) || (dashboardLoading && user?.role !== 'admin')) {
@@ -223,16 +222,16 @@ export default function CustomerDashboardPage() {
         </div>
       </div>
 
-      {/* 4 Summary KPI Stat Cards */}
+      {/* 4 Required Customer Overview KPI Stat Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-        {/* Total Bookings */}
+        {/* 1. Total Appointment Requests */}
         <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
           <div className="space-y-1">
             <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
-              Total Bookings
+              Total Appointment Requests
             </p>
             <p className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-              {stats.totalAppointments || appointments.length}
+              {totalRequestsCount}
             </p>
           </div>
           <div className="w-11 h-11 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center">
@@ -240,29 +239,14 @@ export default function CustomerDashboardPage() {
           </div>
         </div>
 
-        {/* Confirmed Sessions */}
+        {/* 2. Pending Appointments */}
         <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
           <div className="space-y-1">
             <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
-              Confirmed
-            </p>
-            <p className="font-serif text-2xl sm:text-3xl font-bold text-emerald-700">
-              {stats.confirmedAppointments || 0}
-            </p>
-          </div>
-          <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
-            <CheckCircle2 className="w-5 h-5" />
-          </div>
-        </div>
-
-        {/* Pending Approval */}
-        <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
-          <div className="space-y-1">
-            <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
-              Pending
+              Pending Appointments
             </p>
             <p className="font-serif text-2xl sm:text-3xl font-bold text-amber-700">
-              {stats.pendingAppointments || 0}
+              {pendingCount}
             </p>
           </div>
           <div className="w-11 h-11 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center">
@@ -270,18 +254,33 @@ export default function CustomerDashboardPage() {
           </div>
         </div>
 
-        {/* Total Spent */}
+        {/* 3. Confirmed Appointments */}
         <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
           <div className="space-y-1">
             <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
-              Total Spent
+              Confirmed Appointments
             </p>
-            <p className="font-serif text-2xl sm:text-3xl font-bold text-amber-900">
-              ${Number(stats.totalSpent || 0).toFixed(2)}
+            <p className="font-serif text-2xl sm:text-3xl font-bold text-emerald-700">
+              {confirmedCount}
             </p>
           </div>
-          <div className="w-11 h-11 rounded-xl bg-amber-800/10 text-amber-800 flex items-center justify-center">
-            <DollarSign className="w-5 h-5" />
+          <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
+            <CheckCircle2 className="w-5 h-5" />
+          </div>
+        </div>
+
+        {/* 4. Cancelled Appointments */}
+        <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
+          <div className="space-y-1">
+            <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
+              Cancelled Appointments
+            </p>
+            <p className="font-serif text-2xl sm:text-3xl font-bold text-rose-700">
+              {cancelledCount}
+            </p>
+          </div>
+          <div className="w-11 h-11 rounded-xl bg-rose-50 text-rose-700 flex items-center justify-center">
+            <XCircle className="w-5 h-5" />
           </div>
         </div>
       </div>
@@ -363,7 +362,10 @@ export default function CustomerDashboardPage() {
               {filteredAppointments.map((appt) => {
                 const formattedPrice = Number(appt.price || 0).toFixed(2);
                 const isPaid = appt.paymentStatus === 'paid';
-                const canPay = !isPaid && appt.status !== 'cancelled';
+
+                // Strict Payment Rule: ONLY confirmed & unpaid gets Pay Now
+                const canPay = appt.status === 'confirmed' && appt.paymentStatus === 'unpaid';
+                const isPending = appt.status === 'pending';
                 const canCancel = appt.status === 'pending';
 
                 return (
@@ -448,8 +450,19 @@ export default function CustomerDashboardPage() {
                         </span>
                       </div>
 
-                      {/* Action Buttons */}
-                      <div className="flex items-center gap-2">
+                      {/* Action Buttons & Notice */}
+                      <div className="flex flex-wrap items-center gap-2">
+                        {/* View Details Button */}
+                        <button
+                          type="button"
+                          onClick={() => setSelectedAppointment(appt)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 font-medium text-xs shadow-2xs transition-colors cursor-pointer"
+                        >
+                          <Eye className="w-3.5 h-3.5 text-stone-500" />
+                          <span>View Details</span>
+                        </button>
+
+                        {/* Strict Payment Rule: ONLY if confirmed and unpaid */}
                         {canPay && (
                           <button
                             type="button"
@@ -471,18 +484,22 @@ export default function CustomerDashboardPage() {
                           </button>
                         )}
 
+                        {/* Strict Rule: When pending, display Awaiting Admin Confirmation badge */}
+                        {isPending && (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
+                            <Clock className="w-3.5 h-3.5 text-amber-600" />
+                            <span>Awaiting Admin Confirmation</span>
+                          </span>
+                        )}
+
+                        {/* Cancel Button (triggers React confirmation modal) */}
                         {canCancel && (
                           <button
                             type="button"
-                            disabled={cancellingId === appt._id}
-                            onClick={() => handleCancelAppointment(appt._id)}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold transition-colors cursor-pointer disabled:opacity-50"
+                            onClick={() => setAppointmentToCancel(appt)}
+                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold transition-colors cursor-pointer"
                           >
-                            {cancellingId === appt._id ? (
-                              <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                            ) : (
-                              <XCircle className="w-3.5 h-3.5" />
-                            )}
+                            <XCircle className="w-3.5 h-3.5" />
                             <span>Cancel</span>
                           </button>
                         )}
@@ -562,6 +579,224 @@ export default function CustomerDashboardPage() {
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* ======================================================== */}
+      {/* 1. VIEW DETAILS MODAL */}
+      {/* ======================================================== */}
+      {selectedAppointment && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-stone-200 space-y-6">
+            {/* Header */}
+            <div className="flex items-start justify-between pb-4 border-b border-stone-100">
+              <div>
+                <span className="text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                  Appointment Details
+                </span>
+                <h3 className="font-serif text-2xl font-bold text-stone-900 mt-1">
+                  {selectedAppointment.serviceName}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedAppointment(null)}
+                className="w-8 h-8 rounded-full bg-stone-100 text-stone-500 hover:bg-stone-200 hover:text-stone-800 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Service Snapshot */}
+            <div className="flex items-center gap-4 bg-stone-50 rounded-2xl p-4 border border-stone-200/80">
+              <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-stone-200 shrink-0">
+                <Image
+                  src={selectedAppointment.serviceImage || FALLBACK_IMAGE}
+                  alt={selectedAppointment.serviceName || 'Service'}
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
+              </div>
+              <div className="space-y-1">
+                <span className="text-[10px] uppercase tracking-wider font-semibold text-stone-500">
+                  Category: {selectedAppointment.serviceCategory || 'Artisan Service'}
+                </span>
+                <p className="font-serif font-bold text-lg text-stone-900">
+                  ${Number(selectedAppointment.price || 0).toFixed(2)}
+                </p>
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                      selectedAppointment.status === 'confirmed'
+                        ? 'bg-emerald-100 text-emerald-800'
+                        : selectedAppointment.status === 'completed'
+                        ? 'bg-blue-100 text-blue-800'
+                        : selectedAppointment.status === 'cancelled'
+                        ? 'bg-rose-100 text-rose-800'
+                        : 'bg-amber-100 text-amber-900'
+                    }`}
+                  >
+                    Status: {selectedAppointment.status}
+                  </span>
+                  <span
+                    className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                      selectedAppointment.paymentStatus === 'paid'
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                        : 'bg-stone-100 text-stone-600'
+                    }`}
+                  >
+                    Payment: {selectedAppointment.paymentStatus || 'unpaid'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Detailed Meta Grid */}
+            <div className="grid grid-cols-2 gap-4 text-xs sm:text-sm">
+              <div className="space-y-1 bg-[#FAF8F5] p-3 rounded-xl border border-stone-200/60">
+                <p className="text-stone-500 text-[11px] uppercase font-semibold">Appointment Date</p>
+                <p className="font-semibold text-stone-800 flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-amber-800" />
+                  {selectedAppointment.appointmentDate}
+                </p>
+              </div>
+
+              <div className="space-y-1 bg-[#FAF8F5] p-3 rounded-xl border border-stone-200/60">
+                <p className="text-stone-500 text-[11px] uppercase font-semibold">Reserved Slot</p>
+                <p className="font-semibold text-stone-800 flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-amber-800" />
+                  {selectedAppointment.timeSlot}
+                </p>
+              </div>
+
+              <div className="space-y-1 bg-[#FAF8F5] p-3 rounded-xl border border-stone-200/60">
+                <p className="text-stone-500 text-[11px] uppercase font-semibold">Client Name</p>
+                <p className="font-medium text-stone-800">{selectedAppointment.customerName || user?.name || '—'}</p>
+              </div>
+
+              <div className="space-y-1 bg-[#FAF8F5] p-3 rounded-xl border border-stone-200/60">
+                <p className="text-stone-500 text-[11px] uppercase font-semibold">Contact Email</p>
+                <p className="font-medium text-stone-800 truncate">{selectedAppointment.customerEmail || user?.email || '—'}</p>
+              </div>
+            </div>
+
+            {/* Notes */}
+            <div className="space-y-1.5 bg-[#FAF8F5] p-3.5 rounded-xl border border-stone-200/60 text-xs">
+              <p className="text-stone-500 text-[11px] uppercase font-semibold flex items-center gap-1">
+                <Info className="w-3.5 h-3.5 text-stone-400" />
+                <span>Special Instructions / Notes</span>
+              </p>
+              <p className="text-stone-700 italic">
+                {selectedAppointment.notes || 'No special instructions were noted for this appointment.'}
+              </p>
+            </div>
+
+            {/* Booking ID */}
+            <div className="text-[11px] text-stone-400 font-mono">
+              Booking Ref: {selectedAppointment._id}
+            </div>
+
+            {/* Footer Buttons */}
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-stone-100">
+              <button
+                type="button"
+                onClick={() => setSelectedAppointment(null)}
+                className="px-4 py-2 rounded-xl border border-stone-300 text-stone-700 text-xs font-semibold hover:bg-stone-50 transition-colors cursor-pointer"
+              >
+                Close
+              </button>
+
+              {/* Strict Pay Now rule inside modal */}
+              {selectedAppointment.status === 'confirmed' &&
+                selectedAppointment.paymentStatus === 'unpaid' && (
+                  <button
+                    type="button"
+                    disabled={payingAppointmentId === selectedAppointment._id}
+                    onClick={() => handleStripePayment(selectedAppointment._id)}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-800 hover:bg-amber-900 text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer disabled:opacity-50"
+                  >
+                    {payingAppointmentId === selectedAppointment._id ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Redirecting...</span>
+                      </>
+                    ) : (
+                      <>
+                        <CreditCard className="w-3.5 h-3.5" />
+                        <span>Pay Now (${Number(selectedAppointment.price || 0).toFixed(2)})</span>
+                      </>
+                    )}
+                  </button>
+                )}
+
+              {/* Cancel Button inside modal if pending */}
+              {selectedAppointment.status === 'pending' && (
+                <button
+                  type="button"
+                  onClick={() => setAppointmentToCancel(selectedAppointment)}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-colors cursor-pointer"
+                >
+                  <XCircle className="w-3.5 h-3.5" />
+                  <span>Cancel Booking</span>
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ======================================================== */}
+      {/* 2. REACT CONFIRMATION MODAL FOR CANCELLATION */}
+      {/* ======================================================== */}
+      {appointmentToCancel && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-stone-200 space-y-5">
+            <div className="w-12 h-12 rounded-full bg-rose-50 text-rose-600 border border-rose-200 flex items-center justify-center mx-auto">
+              <AlertTriangle className="w-6 h-6" />
+            </div>
+
+            <div className="text-center space-y-2">
+              <h3 className="font-serif text-xl font-bold text-stone-900">
+                Cancel Appointment?
+              </h3>
+              <p className="text-xs sm:text-sm text-stone-500 leading-relaxed">
+                Are you sure you want to cancel your appointment for{' '}
+                <strong className="text-stone-800">{appointmentToCancel.serviceName}</strong> on{' '}
+                <strong className="text-stone-800">{appointmentToCancel.appointmentDate}</strong> at{' '}
+                <strong className="text-stone-800">{appointmentToCancel.timeSlot}</strong>?
+              </p>
+              <p className="text-xs text-rose-600 font-medium">
+                This reserved salon slot will be released immediately.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 pt-2">
+              <button
+                type="button"
+                disabled={cancellingLoading}
+                onClick={() => setAppointmentToCancel(null)}
+                className="flex-1 py-2.5 rounded-xl border border-stone-300 text-stone-700 text-xs sm:text-sm font-semibold hover:bg-stone-50 transition-colors cursor-pointer disabled:opacity-50"
+              >
+                Keep Booking
+              </button>
+              <button
+                type="button"
+                disabled={cancellingLoading}
+                onClick={confirmCancelAppointment}
+                className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm font-semibold shadow-xs transition-colors cursor-pointer disabled:opacity-50 inline-flex items-center justify-center gap-1.5"
+              >
+                {cancellingLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Cancelling...</span>
+                  </>
+                ) : (
+                  <span>Yes, Cancel</span>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

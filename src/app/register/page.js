@@ -56,6 +56,16 @@ function RegisterForm() {
       return;
     }
 
+    if (!/[A-Z]/.test(password)) {
+      toast.error('Password must contain at least one uppercase letter (A-Z)');
+      return;
+    }
+
+    if (!/[a-z]/.test(password)) {
+      toast.error('Password must contain at least one lowercase letter (a-z)');
+      return;
+    }
+
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
       return;
@@ -205,6 +215,9 @@ function RegisterForm() {
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
           </div>
+          <p className="text-[11px] text-stone-400 mt-1">
+            Must be at least 6 characters with uppercase (A-Z) and lowercase (a-z) letters.
+          </p>
         </div>
 
         {/* Confirm Password */}

@@ -395,6 +395,25 @@ export default function AdminDashboardPage() {
     (adminStats.stats?.statusBreakdown?.cancelled || 0) ||
     1;
 
+  // 6 Required Overview KPI Counts
+  const registeredCustomersCount =
+    users.filter((u) => u.role === 'customer').length ||
+    adminStats.stats?.totalUsers ||
+    users.length;
+  const activeServicesCount =
+    adminStats.stats?.activeServices ?? services.filter((s) => s.status === 'active').length;
+  const totalAppointmentsCount =
+    adminStats.stats?.totalAppointments ?? appointments.length;
+  const pendingAppointmentsCount =
+    appointments.filter((a) => a.status === 'pending').length;
+  const confirmedAppointmentsCount =
+    appointments.filter((a) => a.status === 'confirmed').length;
+  const successfulPaymentsCount = transactions.length;
+  const totalRevenue =
+    adminStats.stats?.totalRevenue ??
+    transactions.reduce((sum, tx) => sum + (Number(tx.amount) || 0), 0);
+  const formattedRevenue = Number(totalRevenue || 0).toFixed(2);
+
   // Loading skeleton state
   if (authLoading || (!user && authLoading) || (dashboardLoading && user?.role === 'admin')) {
     return (
@@ -513,46 +532,16 @@ export default function AdminDashboardPage() {
       {/* ======================================================== */}
       {activeTab === 'overview' && (
         <div className="space-y-8">
-          {/* 4 KPI Cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            {/* Total Revenue */}
+          {/* 6 Required Overview KPI Cards */}
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            {/* 1. Total Registered Customers */}
             <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
               <div className="space-y-1">
                 <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
-                  Total Revenue
-                </p>
-                <p className="font-serif text-2xl sm:text-3xl font-bold text-amber-900">
-                  ${Number(adminStats.stats?.totalRevenue || 0).toFixed(2)}
-                </p>
-              </div>
-              <div className="w-11 h-11 rounded-xl bg-amber-800/10 text-amber-800 flex items-center justify-center">
-                <DollarSign className="w-5 h-5" />
-              </div>
-            </div>
-
-            {/* Total Appointments */}
-            <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
-              <div className="space-y-1">
-                <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
-                  Appointments
+                  Total Registered Customers
                 </p>
                 <p className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-                  {adminStats.stats?.totalAppointments || appointments.length}
-                </p>
-              </div>
-              <div className="w-11 h-11 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center">
-                <CalendarCheck className="w-5 h-5" />
-              </div>
-            </div>
-
-            {/* Registered Users */}
-            <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
-              <div className="space-y-1">
-                <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
-                  Registered Clients
-                </p>
-                <p className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-                  {adminStats.stats?.totalUsers || users.length}
+                  {registeredCustomersCount}
                 </p>
               </div>
               <div className="w-11 h-11 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center">
@@ -560,18 +549,81 @@ export default function AdminDashboardPage() {
               </div>
             </div>
 
-            {/* Active Services */}
+            {/* 2. Total Active Services */}
             <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
               <div className="space-y-1">
                 <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
-                  Active Services
+                  Total Active Services
                 </p>
                 <p className="font-serif text-2xl sm:text-3xl font-bold text-emerald-700">
-                  {adminStats.stats?.activeServices || 0}
+                  {activeServicesCount}
                 </p>
               </div>
               <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
                 <Scissors className="w-5 h-5" />
+              </div>
+            </div>
+
+            {/* 3. Total Appointment Requests */}
+            <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
+              <div className="space-y-1">
+                <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
+                  Total Appointment Requests
+                </p>
+                <p className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
+                  {totalAppointmentsCount}
+                </p>
+              </div>
+              <div className="w-11 h-11 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center">
+                <CalendarCheck className="w-5 h-5" />
+              </div>
+            </div>
+
+            {/* 4. Pending Appointments */}
+            <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
+              <div className="space-y-1">
+                <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
+                  Pending Appointments
+                </p>
+                <p className="font-serif text-2xl sm:text-3xl font-bold text-amber-700">
+                  {pendingAppointmentsCount}
+                </p>
+              </div>
+              <div className="w-11 h-11 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center">
+                <Clock className="w-5 h-5" />
+              </div>
+            </div>
+
+            {/* 5. Confirmed Appointments */}
+            <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
+              <div className="space-y-1">
+                <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
+                  Confirmed Appointments
+                </p>
+                <p className="font-serif text-2xl sm:text-3xl font-bold text-emerald-700">
+                  {confirmedAppointmentsCount}
+                </p>
+              </div>
+              <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
+                <CheckCircle2 className="w-5 h-5" />
+              </div>
+            </div>
+
+            {/* 6. Total Successful Payments */}
+            <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs flex items-center justify-between">
+              <div className="space-y-1">
+                <p className="text-xs uppercase tracking-wider text-stone-500 font-medium">
+                  Total Successful Payments
+                </p>
+                <p className="font-serif text-2xl sm:text-3xl font-bold text-amber-900">
+                  {successfulPaymentsCount}
+                </p>
+                <p className="text-[11px] font-semibold text-stone-500">
+                  ${formattedRevenue} total revenue
+                </p>
+              </div>
+              <div className="w-11 h-11 rounded-xl bg-amber-800/10 text-amber-800 flex items-center justify-center">
+                <DollarSign className="w-5 h-5" />
               </div>
             </div>
           </div>
@@ -1000,7 +1052,7 @@ export default function AdminDashboardPage() {
                     <th className="py-3.5 px-5">Fee</th>
                     <th className="py-3.5 px-5">Payment</th>
                     <th className="py-3.5 px-5">Status</th>
-                    <th className="py-3.5 px-5 text-right">Update Status</th>
+                    <th className="py-3.5 px-5 text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-100">
@@ -1060,20 +1112,48 @@ export default function AdminDashboardPage() {
                             </span>
                           </td>
                           <td className="py-3.5 px-5 text-right">
-                            <select
-                              value={appt.status}
-                              disabled={updatingApptId === appt._id}
-                              onChange={(e) =>
-                                handleUpdateAppointmentStatus(appt._id, e.target.value)
-                              }
-                              className="py-1 px-2.5 rounded-lg border border-stone-300 text-xs font-medium text-stone-800 bg-white focus:outline-none focus:border-amber-800 cursor-pointer disabled:opacity-50"
-                            >
-                              {APPOINTMENT_STATUSES.map((st) => (
-                                <option key={st} value={st}>
-                                  {st.charAt(0).toUpperCase() + st.slice(1)}
-                                </option>
-                              ))}
-                            </select>
+                            <div className="flex items-center justify-end gap-2">
+                              {/* Confirm button: only for pending */}
+                              {appt.status === 'pending' && (
+                                <button
+                                  type="button"
+                                  disabled={updatingApptId === appt._id}
+                                  onClick={() => handleUpdateAppointmentStatus(appt._id, 'confirmed')}
+                                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer disabled:opacity-50"
+                                >
+                                  {updatingApptId === appt._id ? (
+                                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                  ) : (
+                                    <CheckCircle2 className="w-3.5 h-3.5" />
+                                  )}
+                                  <span>Confirm</span>
+                                </button>
+                              )}
+
+                              {/* Cancel button: for pending or confirmed */}
+                              {(appt.status === 'pending' || appt.status === 'confirmed') && (
+                                <button
+                                  type="button"
+                                  disabled={updatingApptId === appt._id}
+                                  onClick={() => handleUpdateAppointmentStatus(appt._id, 'cancelled')}
+                                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold transition-colors cursor-pointer disabled:opacity-50"
+                                >
+                                  {updatingApptId === appt._id ? (
+                                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                  ) : (
+                                    <X className="w-3.5 h-3.5" />
+                                  )}
+                                  <span>Cancel</span>
+                                </button>
+                              )}
+
+                              {appt.status === 'completed' && (
+                                <span className="text-[11px] text-stone-400 italic">Completed</span>
+                              )}
+                              {appt.status === 'cancelled' && (
+                                <span className="text-[11px] text-stone-400 italic">Cancelled</span>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       );
@@ -1258,6 +1338,7 @@ export default function AdminDashboardPage() {
                   <tr>
                     <th className="py-3.5 px-5">Client Email</th>
                     <th className="py-3.5 px-5">Treatment</th>
+                    <th className="py-3.5 px-5">Appointment Date</th>
                     <th className="py-3.5 px-5">Transaction Date</th>
                     <th className="py-3.5 px-5">Stripe Session Ref</th>
                     <th className="py-3.5 px-5">Gross Amount</th>
@@ -1267,12 +1348,18 @@ export default function AdminDashboardPage() {
                 <tbody className="divide-y divide-stone-100">
                   {transactions.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="py-8 text-center text-stone-400">
+                      <td colSpan={7} className="py-8 text-center text-stone-400">
                         No transactions registered in ledger yet.
                       </td>
                     </tr>
                   ) : (
                     transactions.map((tx) => {
+                      const matchedAppt = appointments.find(
+                        (a) => String(a._id) === String(tx.appointmentId)
+                      );
+                      const appointmentDateStr =
+                        matchedAppt?.appointmentDate || tx.appointmentDate || '—';
+
                       const dateStr = tx.createdAt
                         ? new Date(tx.createdAt).toLocaleDateString(undefined, {
                             year: 'numeric',
@@ -1290,6 +1377,9 @@ export default function AdminDashboardPage() {
                             {tx.customerEmail}
                           </td>
                           <td className="py-3.5 px-5 text-stone-700">{tx.serviceName}</td>
+                          <td className="py-3.5 px-5 text-stone-700 font-medium">
+                            {appointmentDateStr}
+                          </td>
                           <td className="py-3.5 px-5 text-stone-500">{dateStr}</td>
                           <td className="py-3.5 px-5 font-mono text-xs text-stone-500">
                             {truncatedSession}
