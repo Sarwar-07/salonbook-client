@@ -162,7 +162,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
                 <Link
                   href="/services"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-gradient-to-r from-[#C89B6E] to-[#A2683A] hover:opacity-95 text-[#121110] font-bold text-xs uppercase tracking-widest shadow-lg shadow-[#C89B6E]/20 hover:shadow-xl transition-all duration-300 active:scale-95"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-gradient-to-r from-[#C89B6E] to-[#A2683A] hover:opacity-95 text-[#121110] font-bold text-xs uppercase tracking-widest shadow-lg shadow-[#C89B6E]/20 hover:shadow-xl transition-all duration-300 active:scale-95 whitespace-nowrap"
                 >
                   <span>Explore Salon Services</span>
                   <ArrowRight className="w-4 h-4" />
@@ -170,14 +170,14 @@ export default function HomePage() {
 
                 <Link
                   href="/services"
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 rounded-full bg-white/5 hover:bg-white/10 text-white font-semibold text-xs uppercase tracking-widest border border-white/20 hover:border-white/40 transition-all duration-200"
+                  className="w-full sm:w-auto inline-flex gta6:hidden items-center justify-center px-7 py-4 rounded-full bg-white/5 hover:bg-white/10 text-white font-semibold text-xs uppercase tracking-widest border border-white/20 hover:border-white/40 transition-all duration-200"
                 >
                   <span>View Treatments</span>
                 </Link>
 
                 <Link
                   href="/gta-eras"
-                  className="hidden gta6:inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-xs font-extrabold uppercase tracking-wider bg-gradient-to-r from-[#FDE08D] via-[#F7B286] to-[#F472B6] !text-[#1B103B] shadow-lg hover:brightness-105 transition"
+                  className="hidden gta6:inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-xs font-extrabold uppercase tracking-wider bg-gradient-to-r from-[#FDE08D] via-[#F7B286] to-[#F472B6] !text-[#1B103B] shadow-lg hover:brightness-105 transition whitespace-nowrap"
                 >
                   <span>Explore GTA Eras</span>
                   <ArrowRight className="w-4 h-4 !text-[#1B103B]" />
