@@ -111,6 +111,23 @@ export default function Navbar() {
                 </Link>
               );
             })}
+
+            {/* GTA Eras link — only visible in GTA Mode */}
+            <Link
+              href="/gta-eras"
+              onClick={closeMenus}
+              className={`hidden gta6:inline-flex relative items-center gap-1 px-4 py-2 text-xs uppercase tracking-widest font-semibold transition-all duration-300 ${
+                isActive('/gta-eras')
+                  ? 'text-[#FCD34D] font-bold'
+                  : 'text-stone-300 hover:text-[#FCD34D]'
+              }`}
+            >
+              <Sparkles className="w-3 h-3 text-[#F7B286]" />
+              <span>GTA Eras</span>
+              {isActive('/gta-eras') && (
+                <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#FDE08D] via-[#F7B286] to-[#F472B6] rounded-full animate-in fade-in duration-200" />
+              )}
+            </Link>
           </nav>
 
           {/* Right Side Auth Actions & Profile Pill (Desktop) */}
@@ -324,6 +341,22 @@ export default function Navbar() {
                 <User className="w-4 h-4 text-stone-400" />
               </Link>
             )}
+
+            {/* GTA Eras mobile link — only visible in GTA Mode */}
+            <Link
+              href="/gta-eras"
+              onClick={closeMenus}
+              className={`hidden gta6:block px-4 py-2.5 rounded-xl text-xs uppercase tracking-widest font-semibold transition-colors ${
+                isActive('/gta-eras')
+                  ? 'bg-[#27184A] text-[#FCD34D] font-bold'
+                  : 'text-stone-300 hover:bg-[#27184A]/60'
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <Sparkles className="w-3.5 h-3.5 text-[#F7B286]" />
+                <span>GTA Eras Archive</span>
+              </span>
+            </Link>
           </div>
 
           {/* Mobile Footer CTAs */}

@@ -160,6 +160,16 @@ export default function GtaProtagonistSection() {
             From Starfish Island to Leonida Keys—explore signature hairstyles, sharp fades, and executive recovery rituals modeled by the franchise&apos;s most legendary leads.
           </p>
 
+          <div className="pt-1">
+            <Link
+              href="/gta-eras"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#1B103B] font-extrabold text-xs uppercase tracking-wider hover:bg-[#FDE68A] hover:scale-105 active:scale-95 transition-all shadow-md"
+            >
+              <span>Explore All GTA Eras &amp; Chronology</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
           {/* Era Filter Bar */}
           <div className="pt-2 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
             {ERA_FILTERS.map((era) => {
@@ -185,9 +195,8 @@ export default function GtaProtagonistSection() {
         {/* 9-Card Roster Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredProtagonists.map((p) => {
-            const bookingHref = `/services?category=${encodeURIComponent(
-              p.category
-            )}&search=${encodeURIComponent(p.searchQuery)}`;
+            const eraHref = `/gta-eras/${p.slug}`;
+            const categoryHref = `/services?category=${encodeURIComponent(p.category)}`;
 
             return (
               <div
@@ -196,7 +205,9 @@ export default function GtaProtagonistSection() {
               >
                 {/* Card Top: Poster Artwork */}
                 <div className="space-y-4">
-                  <ProtagonistPoster model={p} />
+                  <Link href={eraHref} className="block cursor-pointer">
+                    <ProtagonistPoster model={p} />
+                  </Link>
 
                   <div className="space-y-2 pt-1">
                     {/* Era & Game Badge */}
@@ -211,37 +222,41 @@ export default function GtaProtagonistSection() {
                     </div>
 
                     {/* Protagonist Name */}
-                    <h3 className="font-serif text-2xl font-bold text-white group-hover:text-[#FCD34D] transition-colors leading-tight">
-                      {p.name}
-                    </h3>
+                    <Link href={eraHref} className="block">
+                      <h3 className="font-serif text-2xl font-bold text-white group-hover:text-[#FCD34D] transition-colors leading-tight">
+                        {p.name}
+                      </h3>
+                    </Link>
 
                     {/* Signature Look */}
                     <div className="pt-0.5">
                       <p className="text-xs font-bold uppercase tracking-wide text-[#FCD34D]">
-                        Look: {p.signatureLook}
+                        Look: {p.signatureTreatment || p.signatureLook}
                       </p>
                     </div>
 
                     {/* Barber Note */}
-                    <p className="text-xs text-[#F3E8FF] leading-relaxed font-light pt-0.5">
+                    <p className="text-xs text-[#F3E8FF] leading-relaxed font-light pt-0.5 line-clamp-3">
                       {p.barberNote}
                     </p>
                   </div>
                 </div>
 
-                {/* Card Bottom: Stylist Spec & CTA */}
-                <div className="pt-5 mt-5 border-t border-white/15 flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-[11px] text-[#F3E8FF]">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#F7B286]" />
-                    <span>SalonBook Stylist Spec</span>
-                  </div>
-
+                {/* Card Bottom: Character & Era CTA + Book Category Link */}
+                <div className="pt-5 mt-5 border-t border-white/15 flex items-center justify-between gap-2">
                   <Link
-                    href={bookingHref}
+                    href={eraHref}
                     className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white hover:text-[#FCD34D] transition-all group-hover:translate-x-1"
                   >
-                    <span>Book This Look</span>
+                    <span>Character &amp; Era</span>
                     <ArrowRight className="w-3.5 h-3.5 text-[#F7B286] group-hover:text-[#FCD34D]" />
+                  </Link>
+
+                  <Link
+                    href={categoryHref}
+                    className="text-xs font-bold uppercase tracking-wider text-[#F7B286] hover:text-white transition-colors"
+                  >
+                    Book {p.category}
                   </Link>
                 </div>
               </div>
