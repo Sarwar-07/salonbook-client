@@ -16,21 +16,21 @@ export default function ViceCityBackdrop({ className = '' }) {
         preserveAspectRatio="xMidYMid slice"
       >
         <defs>
-          {/* Exact GTA VI Key Art Leonida Dusk Sky Gradient:
-              #4B367C (twilight lavender) -> #C96E9B (flamingo-rose) -> #F7B286 (warm golden-peach) */}
+          {/* Authentic GTA VI Key Art Leonida Dusk Sky Gradient:
+              #5B4296 (twilight periwinkle) -> #D4729C (flamingo rose) -> #F8B385 (golden peach horizon) */}
           <linearGradient id="vcSky" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#4B367C" />
-            <stop offset="48%" stopColor="#C96E9B" />
-            <stop offset="82%" stopColor="#F7B286" />
-            <stop offset="100%" stopColor="#FCE7B0" />
+            <stop offset="0%" stopColor="#5B4296" />
+            <stop offset="46%" stopColor="#D4729C" />
+            <stop offset="82%" stopColor="#F8B385" />
+            <stop offset="100%" stopColor="#FCE7BA" />
           </linearGradient>
 
           {/* Soft Horizon Sun Radiance */}
           <radialGradient id="vcSunGlow" cx="62%" cy="72%" r="48%">
             <stop offset="0%" stopColor="#FFF2B2" stopOpacity="0.75" />
-            <stop offset="40%" stopColor="#F7B286" stopOpacity="0.5" />
-            <stop offset="80%" stopColor="#C96E9B" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="#4B367C" stopOpacity="0" />
+            <stop offset="40%" stopColor="#F8B385" stopOpacity="0.5" />
+            <stop offset="80%" stopColor="#D4729C" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#5B4296" stopOpacity="0" />
           </radialGradient>
 
           {/* Ocean Water Gradient */}
@@ -42,20 +42,13 @@ export default function ViceCityBackdrop({ className = '' }) {
 
           {/* Water Sun Reflection Gradient */}
           <linearGradient id="vcReflection" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#F7B286" stopOpacity="0.55" />
-            <stop offset="45%" stopColor="#C96E9B" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#FCE7B0" stopOpacity="0.08" />
-          </linearGradient>
-
-          {/* Left-to-Right Twilight-Plum Readability Scrim */}
-          <linearGradient id="vcReadabilityScrim" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#1C1238" stopOpacity="0.84" />
-            <stop offset="55%" stopColor="#1C1238" stopOpacity="0.54" />
-            <stop offset="100%" stopColor="#1C1238" stopOpacity="0.14" />
+            <stop offset="0%" stopColor="#F8B385" stopOpacity="0.55" />
+            <stop offset="45%" stopColor="#D4729C" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#FCE7BA" stopOpacity="0.08" />
           </linearGradient>
         </defs>
 
-        {/* 1. Sky Canvas */}
+        {/* 1. Sky Canvas (Vibrant, sun-drenched sunset sky without heavy black veil) */}
         <rect width="1440" height="515" fill="url(#vcSky)" />
         <rect width="1440" height="515" fill="url(#vcSunGlow)" />
 
@@ -71,7 +64,7 @@ export default function ViceCityBackdrop({ className = '' }) {
 
         {/* 3. Pastel Lavender Vice City High-Rise Skyline */}
         {/* Layer A: Far Distant Pastel Towers */}
-        <g fill="#8C6BA5" opacity="0.55">
+        <g fill="#9372B0" opacity="0.55">
           <rect x="70" y="445" width="40" height="70" />
           <rect x="115" y="430" width="30" height="85" />
           <rect x="150" y="455" width="45" height="60" />
@@ -84,7 +77,7 @@ export default function ViceCityBackdrop({ className = '' }) {
         </g>
 
         {/* Layer B: Midground Twilight Lavender Skyline */}
-        <g fill="#573678" opacity="0.85">
+        <g fill="#5F3B82" opacity="0.85">
           {/* Left Cluster */}
           <rect x="90" y="460" width="50" height="55" />
           <rect x="145" y="440" width="40" height="75" />
@@ -92,12 +85,12 @@ export default function ViceCityBackdrop({ className = '' }) {
           <rect x="280" y="450" width="45" height="65" />
           <rect x="340" y="435" width="65" height="80" />
           <rect x="355" y="415" width="35" height="20" />
-          <line x1="372" y1="415" x2="372" y2="390" stroke="#F7B286" strokeWidth="1.5" opacity="0.75" />
+          <line x1="372" y1="415" x2="372" y2="390" stroke="#F8B385" strokeWidth="1.5" opacity="0.75" />
 
           {/* Right Skyline (Ocean Drive towers) */}
           <rect x="980" y="410" width="65" height="105" />
           <rect x="995" y="385" width="35" height="25" />
-          <line x1="1012" y1="385" x2="1012" y2="360" stroke="#FCE7B0" strokeWidth="1.5" opacity="0.75" />
+          <line x1="1012" y1="385" x2="1012" y2="360" stroke="#FCE7BA" strokeWidth="1.5" opacity="0.75" />
           <rect x="1055" y="430" width="85" height="85" />
           <path d="M1055 430 Q1097 405 1140 430 Z" />
           <rect x="1150" y="390" width="60" height="125" />
@@ -109,16 +102,15 @@ export default function ViceCityBackdrop({ className = '' }) {
         {/* 4. Ocean / Coastal Water Reflection */}
         <rect y="510" width="1440" height="170" fill="url(#vcOcean)" />
         <polygon points="560,510 880,510 1020,680 420,680" fill="url(#vcReflection)" />
-        <line x1="500" y1="525" x2="940" y2="525" stroke="#F7B286" strokeWidth="1.5" opacity="0.5" />
-        <line x1="460" y1="545" x2="980" y2="545" stroke="#C96E9B" strokeWidth="1.5" opacity="0.4" />
-        <line x1="410" y1="570" x2="1030" y2="570" stroke="#FCE7B0" strokeWidth="1.2" opacity="0.35" />
-        <line x1="350" y1="605" x2="1090" y2="605" stroke="#F7B286" strokeWidth="1" opacity="0.25" />
+        <line x1="500" y1="525" x2="940" y2="525" stroke="#F8B385" strokeWidth="1.5" opacity="0.5" />
+        <line x1="460" y1="545" x2="980" y2="545" stroke="#D4729C" strokeWidth="1.5" opacity="0.4" />
+        <line x1="410" y1="570" x2="1030" y2="570" stroke="#FCE7BA" strokeWidth="1.2" opacity="0.35" />
+        <line x1="350" y1="605" x2="1090" y2="605" stroke="#F8B385" strokeWidth="1" opacity="0.25" />
 
         {/* 5. Layered Dark-Plum Palm Tree Silhouettes (Framing Both Edges) */}
-        <g fill="#180E30">
+        <g fill="#1A0E30">
           {/* LEFT PALMS */}
           <path d="M60 540 Q100 380 180 250 Q170 250 90 390 Q50 480 40 540 Z" />
-          {/* Main Palm Fronds */}
           <path d="M180 250 Q265 200 325 240 Q255 250 180 250 Z" />
           <path d="M180 250 Q285 250 325 300 Q255 290 180 250 Z" />
           <path d="M180 250 Q235 320 255 370 Q215 330 180 250 Z" />
@@ -149,9 +141,6 @@ export default function ViceCityBackdrop({ className = '' }) {
           <path d="M1275 340 Q1210 360 1190 410 Q1235 385 1275 340 Z" fill="#251645" />
           <path d="M1275 340 Q1325 280 1375 290 Q1325 320 1275 340 Z" fill="#251645" />
         </g>
-
-        {/* 6. Left-to-Right Twilight-Plum Readability Scrim (Ensures Hero Headline & Description Are Sharp) */}
-        <rect width="1440" height="680" fill="url(#vcReadabilityScrim)" />
       </svg>
     </div>
   );

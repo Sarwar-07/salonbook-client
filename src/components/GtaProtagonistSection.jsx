@@ -19,7 +19,7 @@ function ProtagonistPoster({ model }) {
   }, []);
 
   return (
-    <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-[#180F33] border border-white/20 shadow-lg group-hover:border-[#F7B286]/60 transition-all">
+    <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#180F33] border border-white/20 shadow-lg group-hover:border-[#F7B286]/60 transition-all">
       {!imgError ? (
         <div className="relative w-full h-full overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -31,11 +31,11 @@ function ProtagonistPoster({ model }) {
             className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
           />
 
-          {/* Subtle bottom twilight-plum gradient vignette */}
+          {/* Subtle bottom twilight-plum gradient vignette covering bottom name label */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: 'linear-gradient(180deg, transparent 55%, rgba(24, 15, 51, 0.92) 100%)',
+              background: 'linear-gradient(180deg, transparent 65%, rgba(24, 15, 51, 0.95) 100%)',
             }}
           />
 
