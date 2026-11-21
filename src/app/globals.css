@@ -59,111 +59,225 @@ h1, h2, h3, h4, .font-serif {
 /* GTA 6 VICE CITY THEME OVERRIDES (Triggered by html.gta6) */
 /* ======================================================== */
 html.gta6 {
-  --background: #0D0722;
-  --foreground: #FFF7ED;
+  --background: #130D26;
+  --foreground: #FFFFFF;
 }
 
 html.gta6 body {
-  background-color: #0D0722;
-  color: #FFF7ED;
+  background-color: #130D26;
+  color: #FFFFFF;
   background-image:
-    radial-gradient(ellipse at 15% 15%, rgba(255, 46, 147, 0.12) 0%, transparent 45%),
-    radial-gradient(ellipse at 85% 85%, rgba(0, 240, 255, 0.10) 0%, transparent 45%);
+    radial-gradient(ellipse at 15% 15%, rgba(244, 63, 94, 0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 85%, rgba(249, 115, 22, 0.06) 0%, transparent 45%);
   background-attachment: fixed;
 }
 
-/* Light page and section surfaces converted to deep twilight violet */
+/* Light page and section surfaces converted to deep twilight indigo */
 html.gta6 [class*="bg-[#FAF"],
 html.gta6 [class*="bg-[#F6F"],
 html.gta6 [class*="bg-[#F2E"],
-html.gta6 .bg-stone-50,
-html.gta6 .bg-stone-100 {
-  background-color: #0D0722 !important;
+html.gta6 .bg-stone-50 {
+  background-color: #130D26 !important;
 }
 
-/* Cards, Modals, Inputs, and Dropdowns converted to dark twilight glass with neon magenta borders */
+/* Cards, Panels, Modals, and Dropdowns converted to rich dark violet */
 html.gta6 .bg-white,
 html.gta6 [class*="bg-white/"] {
-  background-color: rgba(22, 12, 54, 0.90) !important;
-  border-color: rgba(255, 46, 147, 0.35) !important;
-  box-shadow: 0 8px 32px rgba(13, 7, 34, 0.7), 0 0 12px rgba(255, 46, 147, 0.15) !important;
-  color: #FFF7ED !important;
+  background-color: #1D143B !important;
+  border-color: rgba(244, 114, 182, 0.30) !important;
+  box-shadow: 0 12px 32px rgba(5, 2, 18, 0.55) !important;
+  color: #FFFFFF !important;
 }
 
-/* Header styled as frosted midnight violet with #FF2E93 bottom hairline border */
+/* Header styled as frosted twilight violet */
 html.gta6 header {
-  background-color: rgba(13, 7, 34, 0.85) !important;
-  border-bottom-color: #FF2E93 !important;
-  box-shadow: 0 4px 25px rgba(255, 46, 147, 0.18) !important;
+  background-color: rgba(19, 13, 38, 0.88) !important;
+  border-bottom: 1px solid rgba(244, 114, 182, 0.35) !important;
+  box-shadow: 0 4px 25px rgba(5, 2, 18, 0.5) !important;
 }
 
-/* Headings transformed to bold uppercase tracking with crisp #FFF7ED text and neon text-shadow */
+/* FOOTER: Deep Leonida Midnight Plum (NEVER overridden by bright gradient) */
+html.gta6 footer {
+  background-color: #110B22 !important;
+  background-image: none !important;
+  border-top: 1px solid rgba(251, 113, 133, 0.35) !important;
+  color: #E2E8F0 !important;
+}
+
+html.gta6 footer [class*="bg-[#181614]"],
+html.gta6 footer .bg-stone-900 {
+  background-color: #1A1133 !important;
+  border-color: rgba(251, 113, 133, 0.25) !important;
+}
+
+html.gta6 footer h1,
+html.gta6 footer h2,
+html.gta6 footer h3,
+html.gta6 footer h4 {
+  color: #FFFFFF !important;
+  text-shadow: none !important;
+}
+
+html.gta6 footer p,
+html.gta6 footer span,
+html.gta6 footer a,
+html.gta6 footer li {
+  color: #E2E8F0 !important;
+}
+
+html.gta6 footer a:hover {
+  color: #F43F5E !important;
+}
+
+/* High-contrast typography */
 html.gta6 h1,
 html.gta6 h2,
-html.gta6 h3 {
-  color: #FFF7ED !important;
-  text-shadow: 0 0 12px rgba(255, 46, 147, 0.4), 0 0 24px rgba(0, 240, 255, 0.25);
-  letter-spacing: 0.03em;
+html.gta6 h3,
+html.gta6 h4,
+html.gta6 [class*="text-[#181512]"],
+html.gta6 [class*="text-[#121110]"],
+html.gta6 [class*="text-[#181614]"],
+html.gta6 [class*="text-[#1C1917]"],
+html.gta6 .text-stone-900,
+html.gta6 .text-stone-800 {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 10px rgba(10, 5, 25, 0.75);
 }
 
-/* Body / secondary text in high-contrast soft lavender */
 html.gta6 .text-stone-700,
-html.gta6 .text-stone-600,
-html.gta6 .text-stone-500 {
-  color: #DDD6FE !important;
+html.gta6 .text-stone-600 {
+  color: #E2E8F0 !important;
 }
 
+html.gta6 .text-stone-500,
 html.gta6 .text-stone-400,
 html.gta6 .text-stone-300 {
-  color: #C4B5FD !important;
+  color: #CBD5E1 !important;
 }
 
-/* Border overrides */
+/* Accent icons, badges, and gold text -> sharp amber */
+html.gta6 [class*="text-[#824D25]"],
+html.gta6 [class*="text-[#A2683A]"],
+html.gta6 [class*="text-[#A85A32]"],
+html.gta6 [class*="text-[#B45309]"],
+html.gta6 [class*="text-[#C89B6E]"],
+html.gta6 [class*="text-[#D97706]"],
+html.gta6 .text-amber-800,
+html.gta6 .text-amber-700,
+html.gta6 .text-amber-600 {
+  color: #FBBF24 !important;
+  text-shadow: 0 2px 8px rgba(10, 5, 25, 0.8);
+}
+
+/* Neutral borders */
 html.gta6 [class*="border-stone-"] {
-  border-color: rgba(255, 46, 147, 0.25) !important;
+  border-color: rgba(244, 114, 182, 0.25) !important;
 }
 
-/* Form input fields & textareas */
+/* Form input fields, selects & textareas */
 html.gta6 input,
 html.gta6 select,
 html.gta6 textarea {
-  background-color: rgba(13, 7, 34, 0.75) !important;
-  border-color: rgba(255, 46, 147, 0.4) !important;
-  color: #FFF7ED !important;
+  background-color: #120B26 !important;
+  border: 1px solid rgba(244, 114, 182, 0.40) !important;
+  color: #FFFFFF !important;
+}
+
+html.gta6 input::placeholder,
+html.gta6 textarea::placeholder {
+  color: #94A3B8 !important;
 }
 
 html.gta6 input:focus,
 html.gta6 select:focus,
 html.gta6 textarea:focus {
-  border-color: #00F0FF !important;
-  box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.25) !important;
+  border-color: #F43F5E !important;
+  box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.35) !important;
 }
 
-/* Primary bronze / dark CTA buttons transformed into Vice City sunset gradient */
-html.gta6 [class*="bg-[#A85A32]"],
-html.gta6 [class*="bg-[#B45309]"],
-html.gta6 [class*="bg-[#181512]"],
-html.gta6 [class*="bg-[#121110]"],
-html.gta6 [class*="from-[#A2683A]"],
-html.gta6 [class*="from-[#C89B6E]"],
-html.gta6 .bg-amber-800 {
-  background: linear-gradient(135deg, #FF2E93 0%, #FF7A00 100%) !important;
+/* Secondary surface badges */
+html.gta6 .bg-stone-100,
+html.gta6 .bg-stone-200 {
+  background-color: #231846 !important;
+  color: #E2E8F0 !important;
+}
+
+/* Status pills */
+html.gta6 .bg-emerald-50,
+html.gta6 .bg-green-50 {
+  background-color: rgba(16, 185, 129, 0.18) !important;
+  color: #6EE7B7 !important;
+}
+
+html.gta6 .bg-red-50,
+html.gta6 .bg-rose-50 {
+  background-color: rgba(244, 63, 94, 0.18) !important;
+  color: #FDA4AF !important;
+}
+
+html.gta6 .bg-amber-50,
+html.gta6 .bg-yellow-50 {
+  background-color: rgba(245, 158, 11, 0.18) !important;
+  color: #FCD34D !important;
+}
+
+html.gta6 .bg-blue-50,
+html.gta6 .bg-sky-50 {
+  background-color: rgba(14, 165, 233, 0.18) !important;
+  color: #7DD3FC !important;
+}
+
+/* Table headers & data cells */
+html.gta6 th {
+  color: #E2E8F0 !important;
+}
+
+html.gta6 td {
+  color: #CBD5E1 !important;
+}
+
+html.gta6 [class*="divide-stone-"] > * + * {
+  border-color: rgba(244, 114, 182, 0.2) !important;
+}
+
+/* Primary action buttons: sunset coral-to-magenta gradient */
+html.gta6 button[class*="bg-[#A85A32]"],
+html.gta6 button[class*="bg-[#B45309]"],
+html.gta6 button[class*="bg-[#181512]"],
+html.gta6 button[class*="bg-[#121110]"],
+html.gta6 button[class*="bg-amber-800"],
+html.gta6 button[class*="from-[#A2683A]"],
+html.gta6 button[class*="from-[#C89B6E]"],
+html.gta6 a[class*="bg-[#A85A32]"],
+html.gta6 a[class*="bg-[#B45309]"],
+html.gta6 a[class*="bg-[#181512]"],
+html.gta6 a[class*="bg-[#121110]"],
+html.gta6 a[class*="bg-amber-800"],
+html.gta6 a[class*="from-[#A2683A]"],
+html.gta6 a[class*="from-[#C89B6E]"] {
+  background: linear-gradient(135deg, #F43F5E 0%, #EC4899 55%, #F97316 100%) !important;
   color: #FFFFFF !important;
-  border-color: rgba(255, 46, 147, 0.6) !important;
-  box-shadow: 0 0 15px rgba(255, 46, 147, 0.45) !important;
+  border-color: rgba(244, 63, 94, 0.6) !important;
+  box-shadow: 0 4px 18px rgba(244, 63, 94, 0.35) !important;
 }
 
-/* Accent icons and gold text turned into glowing cyan/magenta */
-html.gta6 [class*="text-[#824D25]"],
-html.gta6 [class*="text-[#A2683A]"],
-html.gta6 [class*="text-[#C89B6E]"] {
-  color: #00F0FF !important;
+html.gta6 button[class*="bg-[#A85A32]"]:hover,
+html.gta6 button[class*="bg-[#B45309]"]:hover,
+html.gta6 button[class*="bg-[#181512]"]:hover,
+html.gta6 button[class*="bg-[#121110]"]:hover,
+html.gta6 a[class*="bg-[#A85A32]"]:hover,
+html.gta6 a[class*="bg-[#B45309]"]:hover,
+html.gta6 a[class*="bg-[#181512]"]:hover,
+html.gta6 a[class*="bg-[#121110]"]:hover {
+  background: linear-gradient(135deg, #FB7185 0%, #F43F5E 55%, #FB923C 100%) !important;
+  box-shadow: 0 6px 24px rgba(244, 63, 94, 0.5) !important;
 }
 
+/* Custom scrollbar in Vice City mode */
 html.gta6 ::-webkit-scrollbar-track {
-  background: #0D0722;
+  background: #130D26;
 }
 
 html.gta6 ::-webkit-scrollbar-thumb {
-  background: #FF2E93;
+  background: #F43F5E;
 }
