@@ -7,75 +7,73 @@ import {
   Mail,
   Clock,
   ArrowRight,
+  Sparkles,
 } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const quickLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Services & Treatments', href: '/services' },
-    { name: 'About SalonBook', href: '/about' },
-    { name: 'Contact & Location', href: '/contact' },
-    { name: 'Customer Sign Up', href: '/register' },
-  ];
-
-  const popularCategories = [
-    { name: 'Hair Styling & Cuts', href: '/services?category=Hair+Styling' },
-    { name: 'Facial & Skin Therapy', href: '/services?category=Facial+%26+Skin' },
-    { name: 'Bridal & Occasion Makeup', href: '/services?category=Bridal+Makeup' },
-    { name: 'Spa, Body & Massage', href: '/services?category=Spa+%26+Massage' },
-    { name: 'Nail Artistry & Care', href: '/services?category=Nail+Artistry' },
+  const navigationLinks = [
+    { name: 'Home Atelier', href: '/' },
+    { name: 'Services & Rituals', href: '/services' },
+    { name: 'Our Artisans & Story', href: '/about' },
+    { name: 'Concierge Inquiry', href: '/contact' },
+    { name: 'Create Account', href: '/register' },
+    { name: 'Client Sign In', href: '/login' },
   ];
 
   return (
-    <footer className="bg-[#1C1917] text-stone-300 border-t border-stone-800">
-      {/* Top Banner / Newsletter or Accent */}
-      <div className="border-b border-stone-800/80">
+    <footer className="bg-[#181512] text-stone-300 border-t border-stone-800/80">
+      {/* Top Editorial Invitation Banner */}
+      <div className="border-b border-stone-800/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-stone-900/60 border border-stone-800 rounded-3xl p-6 sm:p-8">
-            <div className="space-y-1 text-center md:text-left">
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-stone-100">
-                Experience Haute Beauty & Wellness
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-stone-900/40 border border-stone-800/80 rounded-3xl p-6 sm:p-8">
+            <div className="space-y-1.5 text-center md:text-left">
+              <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#C48E60]">
+                Private Reservations
+              </span>
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#FAF7F2]">
+                Experience Bespoke Beauty &amp; Serenity
               </h3>
-              <p className="text-sm text-stone-400">
-                Reserve your bespoke salon session with master stylists and certified therapists.
+              <p className="text-xs sm:text-sm text-stone-400 max-w-xl">
+                Reserve your signature treatment with our master stylists and holistic estheticians. Instant real-time confirmation.
               </p>
             </div>
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-amber-600 hover:bg-amber-500 text-stone-950 font-semibold text-sm transition-all duration-200 shadow-md hover:shadow-amber-500/20 active:scale-95 shrink-0"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 text-[#FAF7F2] font-semibold text-xs uppercase tracking-widest transition-all duration-200 shadow-md active:scale-95 shrink-0"
             >
-              <span>Explore Services</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Explore Treatments</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Main Multi-Column Grid */}
+      {/* Main 4-Column Architectural Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
-          {/* Brand Story Column (4 cols) */}
-          <div className="lg:col-span-4 space-y-4">
+          {/* Column 1: Brand & Heritage Story (4 cols) */}
+          <div className="lg:col-span-4 space-y-5">
             <Link href="/" className="inline-flex items-center group">
               <Logo variant="light" showTagline />
             </Link>
-            <p className="text-sm text-stone-400 leading-relaxed max-w-sm">
-              SalonBook redefines the luxury salon and spa experience. From visionary hair design to restorative skin therapies, our master artisans curate an unparalleled sanctuary of rejuvenation and elegance.
+            <p className="text-xs sm:text-sm text-stone-400 leading-relaxed max-w-sm">
+              SalonBook redefines the luxury salon and spa experience. Combining visionary hair architecture with botanical restorative therapies, our artisans curate a personal sanctuary of rejuvenation and effortless elegance.
             </p>
-            <div className="flex items-center gap-3 pt-2">
+
+            {/* Social Media Links with Inline SVGs */}
+            <div className="flex items-center gap-3 pt-1">
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Instagram"
-                className="w-9 h-9 rounded-full bg-stone-800 flex items-center justify-center text-stone-400 hover:text-amber-400 hover:bg-stone-700 transition-colors"
+                className="w-9 h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-400 hover:text-[#C48E60] hover:border-[#C48E60]/50 transition-all cursor-pointer"
               >
                 <svg
-                  width="20"
-                  height="20"
-                  className="w-5 h-5"
+                  width="18"
+                  height="18"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -88,34 +86,34 @@ export default function Footer() {
                   <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
                 </svg>
               </a>
+
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Facebook"
-                className="w-9 h-9 rounded-full bg-stone-800 flex items-center justify-center text-stone-400 hover:text-amber-400 hover:bg-stone-700 transition-colors"
+                className="w-9 h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-400 hover:text-[#C48E60] hover:border-[#C48E60]/50 transition-all cursor-pointer"
               >
                 <svg
-                  width="20"
-                  height="20"
-                  className="w-5 h-5"
+                  width="18"
+                  height="18"
                   viewBox="0 0 24 24"
                   fill="currentColor"
                 >
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                 </svg>
               </a>
+
               <a
                 href="https://twitter.com"
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Twitter"
-                className="w-9 h-9 rounded-full bg-stone-800 flex items-center justify-center text-stone-400 hover:text-amber-400 hover:bg-stone-700 transition-colors"
+                aria-label="Twitter / X"
+                className="w-9 h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-400 hover:text-[#C48E60] hover:border-[#C48E60]/50 transition-all cursor-pointer"
               >
                 <svg
-                  width="20"
-                  height="20"
-                  className="w-5 h-5"
+                  width="18"
+                  height="18"
                   viewBox="0 0 24 24"
                   fill="currentColor"
                 >
@@ -125,17 +123,17 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links (2 cols) */}
+          {/* Column 2: Important Navigation Links (2.5 cols) */}
           <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-amber-500 font-sans">
-              Quick Links
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#C48E60]">
+              Navigation
             </h4>
             <ul className="space-y-2.5">
-              {quickLinks.map((link) => (
+              {navigationLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-stone-400 hover:text-stone-100 hover:underline transition-colors"
+                    className="text-xs sm:text-sm text-stone-400 hover:text-[#FAF7F2] transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -144,73 +142,73 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Popular Categories (3 cols) */}
+          {/* Column 3: Salon Contact Info & Concierge (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-amber-500 font-sans">
-              Popular Categories
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#C48E60]">
+              Private Concierge
             </h4>
-            <ul className="space-y-2.5">
-              {popularCategories.map((cat) => (
-                <li key={cat.name}>
-                  <Link
-                    href={cat.href}
-                    className="text-sm text-stone-400 hover:text-stone-100 hover:underline transition-colors"
-                  >
-                    {cat.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div className="space-y-3 text-xs sm:text-sm text-stone-400">
+              <div className="flex items-center gap-2.5">
+                <Phone className="w-4 h-4 text-[#C48E60] shrink-0" />
+                <p className="text-stone-300 font-medium">+1 (800) 555-SALON</p>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <Mail className="w-4 h-4 text-[#C48E60] shrink-0" />
+                <p className="text-stone-300">concierge@salonbook.com</p>
+              </div>
+
+              <div className="pt-2 border-t border-stone-800/60">
+                <p className="text-[11px] text-stone-500 leading-relaxed">
+                  For private atelier bookings, VIP bridal parties, or press appointments, our senior concierge desk is at your service.
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* Contact & Hours Column (3 cols) */}
+          {/* Column 4: Salon Address & Opening Hours (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-amber-500 font-sans">
-              Salon & Spa Hours
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#C48E60]">
+              Atelier &amp; Hours
             </h4>
-            <div className="space-y-3 text-sm text-stone-400">
+            <div className="space-y-3.5 text-xs sm:text-sm text-stone-400">
               <div className="flex items-start gap-2.5">
-                <Clock className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#C48E60] shrink-0 mt-0.5" />
+                <p className="text-xs leading-relaxed text-stone-300">
+                  452 Madison Avenue, 8th Floor<br />
+                  New York, NY 10022
+                </p>
+              </div>
+
+              <div className="flex items-start gap-2.5">
+                <Clock className="w-4 h-4 text-[#C48E60] shrink-0 mt-0.5" />
                 <div className="text-xs leading-relaxed">
-                  <p className="font-medium text-stone-300">Mon – Sat: 9:00 AM – 8:00 PM</p>
+                  <p className="text-stone-300 font-medium">Mon – Sat: 9:00 AM – 8:00 PM</p>
                   <p className="text-stone-500">Sunday: 10:00 AM – 6:00 PM</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                <p className="text-xs leading-relaxed text-stone-300">
-                  452 Madison Avenue, Suite 800, New York, NY 10022
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-amber-500 shrink-0" />
-                <p className="text-xs text-stone-300">+1 (800) 555-SALON</p>
-              </div>
-
-              <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-amber-500 shrink-0" />
-                <p className="text-xs text-stone-300">concierge@salonbook.com</p>
-              </div>
+              <p className="text-[11px] text-[#C48E60] italic">
+                Complimentary private valet parking on Madison Ave.
+              </p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom Copyright & Legal Bar */}
-      <div className="border-t border-stone-800/80 bg-stone-950/60">
+      <div className="border-t border-stone-800/80 bg-stone-950/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
-          <p>© {currentYear} SalonBook Haute Salon & Spa. All rights reserved.</p>
+          <p>© {currentYear} SalonBook Haute Salon &amp; Spa. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/about" className="hover:text-stone-300 transition-colors">
-              Privacy Policy
+              Privacy Protocol
             </Link>
             <Link href="/about" className="hover:text-stone-300 transition-colors">
-              Terms of Service
+              Terms of Reservation
             </Link>
             <Link href="/contact" className="hover:text-stone-300 transition-colors">
-              Customer Support
+              Sanctuary Concierge
             </Link>
           </div>
         </div>

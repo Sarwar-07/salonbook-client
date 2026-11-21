@@ -15,6 +15,7 @@ import {
   CalendarCheck,
   LogOut,
   ShieldCheck,
+  Sparkles,
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -75,19 +76,19 @@ export default function Navbar() {
   const dashboardHref = user?.role === 'admin' ? '/dashboard/admin' : '/dashboard/customer';
 
   return (
-    <header className="sticky top-0 z-50 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-stone-200">
+    <header className="sticky top-0 z-50 bg-[#FAF7F2]/85 backdrop-blur-xl border-b border-stone-200/70 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Brand Logo */}
+          {/* Brand Logo on Left */}
           <Link
             href="/"
             onClick={closeMenus}
-            className="group transition-transform active:scale-95 inline-flex items-center"
+            className="group transition-transform active:scale-95 inline-flex items-center shrink-0"
           >
             <Logo showTagline />
           </Link>
 
-          {/* Center Navigation Links (Desktop) */}
+          {/* Clean Center Navigation Links with Bronze Active Indicator (Desktop) */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             {navLinks.map((link) => {
               const active = isActive(link.href);
@@ -96,19 +97,22 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={closeMenus}
-                  className={`px-3.5 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
+                  className={`relative px-4 py-2 text-xs uppercase tracking-widest font-semibold transition-all duration-300 ${
                     active
-                      ? 'bg-amber-800/10 text-amber-900 font-semibold shadow-xs'
-                      : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100/70'
+                      ? 'text-[#824D25] font-bold'
+                      : 'text-stone-600 hover:text-[#181512]'
                   }`}
                 >
-                  {link.name}
+                  <span>{link.name}</span>
+                  {active && (
+                    <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#C48E60] via-[#A2683A] to-[#824D25] rounded-full animate-in fade-in duration-200" />
+                  )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Right Side Auth Actions (Desktop) */}
+          {/* Right Side Auth Actions & Profile Pill (Desktop) */}
           <div className="hidden md:flex items-center gap-3">
             {loading ? (
               <div className="flex items-center gap-2">
@@ -119,9 +123,9 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setIsDropdownOpen((prev) => !prev)}
-                  className="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-full border border-stone-200 bg-white hover:border-amber-700/40 hover:bg-amber-50/30 transition-all cursor-pointer shadow-xs"
+                  className="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-full border border-stone-300/80 bg-white/90 hover:border-[#A2683A]/50 hover:bg-[#FAF7F2] transition-all cursor-pointer shadow-xs"
                 >
-                  <div className="w-8 h-8 rounded-full overflow-hidden bg-amber-800 text-white flex items-center justify-center text-xs font-semibold shrink-0">
+                  <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-br from-[#A2683A] to-[#824D25] text-white flex items-center justify-center text-xs font-semibold shrink-0">
                     {user.image && !imgError ? (
                       <Image
                         src={user.image}
@@ -137,10 +141,10 @@ export default function Navbar() {
                     )}
                   </div>
                   <div className="text-left hidden lg:block">
-                    <p className="text-xs font-medium text-stone-900 leading-tight max-w-[120px] truncate">
+                    <p className="text-xs font-semibold text-[#181512] leading-tight max-w-[120px] truncate">
                       {user.name}
                     </p>
-                    <p className="text-[10px] text-stone-500 capitalize leading-tight">
+                    <p className="text-[10px] text-stone-500 uppercase font-medium tracking-wider leading-tight">
                       {user.role}
                     </p>
                   </div>
@@ -153,20 +157,20 @@ export default function Navbar() {
 
                 {/* Dropdown Menu */}
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-stone-200/80 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-stone-200 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                     <div className="px-4 py-3 border-b border-stone-100">
-                      <p className="text-sm font-semibold text-stone-900 truncate">{user.name}</p>
+                      <p className="text-sm font-semibold text-[#181512] truncate">{user.name}</p>
                       <p className="text-xs text-stone-500 truncate mt-0.5">{user.email}</p>
                       <div className="mt-2 flex items-center gap-1.5">
                         <span
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider ${
+                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                             user.role === 'admin'
-                              ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                              ? 'bg-[#EEDCC8] text-[#824D25] border border-[#C48E60]/40'
                               : 'bg-stone-100 text-stone-700 border border-stone-200'
                           }`}
                         >
                           {user.role === 'admin' ? (
-                            <ShieldCheck className="w-3 h-3 text-amber-700" />
+                            <ShieldCheck className="w-3 h-3 text-[#824D25]" />
                           ) : (
                             <User className="w-3 h-3 text-stone-600" />
                           )}
@@ -179,7 +183,7 @@ export default function Navbar() {
                       <Link
                         href={dashboardHref}
                         onClick={closeMenus}
-                        className="flex items-center gap-2.5 px-4 py-2 text-sm text-stone-700 hover:bg-stone-50 hover:text-amber-800 transition-colors"
+                        className="flex items-center gap-2.5 px-4 py-2 text-sm text-stone-700 hover:bg-[#FAF7F2] hover:text-[#824D25] transition-colors"
                       >
                         {user.role === 'admin' ? (
                           <LayoutDashboard className="w-4 h-4 text-stone-400" />
@@ -192,7 +196,7 @@ export default function Navbar() {
                       <Link
                         href="/dashboard/profile"
                         onClick={closeMenus}
-                        className="flex items-center gap-2.5 px-4 py-2 text-sm text-stone-700 hover:bg-stone-50 hover:text-amber-800 transition-colors"
+                        className="flex items-center gap-2.5 px-4 py-2 text-sm text-stone-700 hover:bg-[#FAF7F2] hover:text-[#824D25] transition-colors"
                       >
                         <User className="w-4 h-4 text-stone-400" />
                         <span>My Profile</span>
@@ -206,7 +210,7 @@ export default function Navbar() {
                           closeMenus();
                           logout();
                         }}
-                        className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-rose-700 hover:bg-rose-50/80 transition-colors text-left cursor-pointer"
+                        className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-rose-700 hover:bg-rose-50 transition-colors text-left cursor-pointer"
                       >
                         <LogOut className="w-4 h-4 text-rose-600" />
                         <span>Sign Out</span>
@@ -220,16 +224,16 @@ export default function Navbar() {
                 <Link
                   href="/login"
                   onClick={closeMenus}
-                  className="px-4 py-2 text-sm font-medium text-stone-700 hover:text-stone-900 hover:bg-stone-100/70 rounded-full transition-colors"
+                  className="px-4 py-2 text-xs uppercase tracking-widest font-semibold text-stone-700 hover:text-[#181512] transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
-                  href="/services"
+                  href="/register"
                   onClick={closeMenus}
-                  className="px-5 py-2 text-sm font-medium text-white bg-amber-800 hover:bg-amber-900 rounded-full shadow-sm hover:shadow transition-all duration-200 active:scale-95"
+                  className="px-5 py-2.5 text-xs uppercase tracking-widest font-semibold text-white bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 rounded-full shadow-xs hover:shadow transition-all duration-200 active:scale-95"
                 >
-                  Book Now
+                  Sign Up
                 </Link>
               </div>
             )}
@@ -241,7 +245,7 @@ export default function Navbar() {
               type="button"
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
               aria-label="Toggle navigation menu"
-              className="p-2 rounded-xl text-stone-700 hover:bg-stone-200/60 transition-colors cursor-pointer"
+              className="p-2 rounded-xl text-stone-800 hover:bg-stone-200/60 transition-colors cursor-pointer"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -251,11 +255,11 @@ export default function Navbar() {
 
       {/* Mobile Drawer Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-stone-200 bg-[#FAF8F5] px-4 pt-3 pb-6 space-y-4 shadow-lg animate-in slide-in-from-top duration-200">
+        <div className="md:hidden border-t border-stone-200/80 bg-[#FAF7F2] px-4 pt-3 pb-6 space-y-4 shadow-xl animate-in slide-in-from-top-2 duration-200">
           {/* User badge if logged in */}
           {user && (
-            <div className="flex items-center gap-3 p-3 bg-white rounded-xl border border-stone-200 shadow-xs">
-              <div className="w-10 h-10 rounded-full bg-amber-800 text-white flex items-center justify-center font-semibold text-sm shrink-0 overflow-hidden">
+            <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-stone-200 shadow-xs">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#A2683A] to-[#824D25] text-white flex items-center justify-center font-semibold text-sm shrink-0 overflow-hidden">
                 {user.image && !imgError ? (
                   <Image
                     src={user.image}
@@ -271,13 +275,13 @@ export default function Navbar() {
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-stone-900 truncate">{user.name}</p>
+                <p className="text-sm font-semibold text-[#181512] truncate">{user.name}</p>
                 <p className="text-xs text-stone-500 truncate">{user.email}</p>
               </div>
               <span
-                className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full ${
+                className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
                   user.role === 'admin'
-                    ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                    ? 'bg-[#EEDCC8] text-[#824D25] border border-[#C48E60]/40'
                     : 'bg-stone-100 text-stone-700 border border-stone-200'
                 }`}
               >
@@ -295,9 +299,9 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={closeMenus}
-                  className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                  className={`px-4 py-2.5 rounded-xl text-xs uppercase tracking-widest font-semibold transition-colors ${
                     active
-                      ? 'bg-amber-800/10 text-amber-900 font-semibold'
+                      ? 'bg-[#EEDCC8]/60 text-[#824D25] font-bold'
                       : 'text-stone-700 hover:bg-stone-100'
                   }`}
                 >
@@ -310,48 +314,43 @@ export default function Navbar() {
               <Link
                 href="/dashboard/profile"
                 onClick={closeMenus}
-                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                  isActive('/dashboard/profile')
-                    ? 'bg-amber-800/10 text-amber-900 font-semibold'
-                    : 'text-stone-700 hover:bg-stone-100'
-                }`}
+                className="px-4 py-2.5 rounded-xl text-xs uppercase tracking-widest font-semibold text-stone-700 hover:bg-stone-100 flex items-center justify-between"
               >
-                My Profile
+                <span>My Profile</span>
+                <User className="w-4 h-4 text-stone-400" />
               </Link>
             )}
           </div>
 
-          {/* Mobile Auth Actions */}
-          <div className="pt-3 border-t border-stone-200 flex flex-col gap-2">
-            {loading ? (
-              <div className="h-10 bg-stone-200/70 rounded-xl animate-pulse" />
-            ) : user ? (
+          {/* Mobile Footer CTAs */}
+          <div className="pt-2 border-t border-stone-200">
+            {user ? (
               <button
                 type="button"
                 onClick={() => {
                   closeMenus();
                   logout();
                 }}
-                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs uppercase tracking-widest font-bold transition-colors cursor-pointer"
               >
                 <LogOut className="w-4 h-4" />
                 <span>Sign Out</span>
               </button>
             ) : (
-              <div className="flex flex-col gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 <Link
                   href="/login"
                   onClick={closeMenus}
-                  className="w-full text-center py-2.5 px-4 rounded-xl text-sm font-medium text-stone-800 bg-white border border-stone-300 hover:bg-stone-50 transition-colors"
+                  className="py-2.5 rounded-xl text-center text-xs uppercase tracking-widest font-semibold border border-stone-300 bg-white text-stone-800 hover:bg-stone-50"
                 >
                   Sign In
                 </Link>
                 <Link
-                  href="/services"
+                  href="/register"
                   onClick={closeMenus}
-                  className="w-full text-center py-2.5 px-4 rounded-xl text-sm font-medium text-white bg-amber-800 hover:bg-amber-900 shadow-sm transition-colors"
+                  className="py-2.5 rounded-xl text-center text-xs uppercase tracking-widest font-semibold bg-gradient-to-r from-[#A2683A] to-[#824D25] text-white shadow-xs"
                 >
-                  Book Now
+                  Sign Up
                 </Link>
               </div>
             )}

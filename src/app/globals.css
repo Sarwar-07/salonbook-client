@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FAF8F5;
-  --foreground: #1C1917;
-  --color-ivory: #FAF8F5;
-  --color-charcoal: #1C1917;
-  --color-gold: #B45309;
-  --color-gold-light: #D97706;
-  --color-rose: #9F5850;
-  --color-rose-light: #F4EBE8;
+  --background: #FAF7F2;
+  --foreground: #181512;
+  --color-alabaster: #FAF7F2;
+  --color-obsidian: #181512;
+  --color-bronze: #A2683A;
+  --color-bronze-dark: #824D25;
+  --color-bronze-light: #C48E60;
+  --color-champagne: #EEDCC8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-sans), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
@@ -28,4 +28,27 @@ body {
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Subtle luxury scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D8D0C5;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B6ABA0;
 }
