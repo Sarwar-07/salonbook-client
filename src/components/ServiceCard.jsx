@@ -4,12 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import ServiceImage from '@/components/ServiceImage';
 import { Clock, ArrowRight } from 'lucide-react';
+import { getMatchingProtagonist } from '@/data/gtaProtagonists';
 
 export default function ServiceCard({ service }) {
   if (!service) return null;
 
   const formattedPrice = Number(service.price || 0).toFixed(0);
   const duration = service.duration || 60;
+  const protagonist = getMatchingProtagonist(service);
 
   return (
     <article className="group bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl hover:border-[#C89B6E]/50 transition-all duration-300 flex flex-col h-full">
@@ -24,11 +26,18 @@ export default function ServiceCard({ service }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-        {/* Floating Frosted Category Pill */}
-        <div className="absolute top-4 left-4 z-10">
+        {/* Floating Category Pill & Neon Modeled By Badge in GTA 6 mode */}
+        <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1.5">
           <span className="bg-white/90 backdrop-blur-md text-[#824D25] text-[10px] font-bold uppercase tracking-[0.15em] px-3.5 py-1.5 rounded-full shadow-xs border border-white/60">
             {service.category || 'Treatment'}
           </span>
+
+          {protagonist && (
+            <span className="hidden gta6:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#0D0722]/90 backdrop-blur-md text-[#00F0FF] border border-[#FF2E93]/70 shadow-[0_0_12px_rgba(255,46,147,0.55)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF2E93] animate-pulse" />
+              <span>Modeled by {protagonist.name}</span>
+            </span>
+          )}
         </div>
 
         {/* Tabular Price Tag Overlay */}

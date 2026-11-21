@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ServiceCard from '@/components/ServiceCard';
 import ViceCityBackdrop from '@/components/ViceCityBackdrop';
+import GtaProtagonistSection from '@/components/GtaProtagonistSection';
 import { apiRequest } from '@/lib/api';
 import {
   Scissors,
@@ -396,6 +397,12 @@ export default function HomePage() {
           )}
         </div>
       </section>
+
+      {/* ======================================================== */}
+      {/* GTA SERIES PROTAGONISTS — SALON & BARBER STYLE MODELS */}
+      {/* (Only visible when Vice 6 mode is active: hidden gta6:block) */}
+      {/* ======================================================== */}
+      <GtaProtagonistSection />
 
       {/* ======================================================== */}
       {/* 4. MODERN EDITORIAL SPLIT SECTION (`bg-white`) */}
