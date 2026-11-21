@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { signIn, signUp } from '@/lib/auth-client';
+import { signIn } from '@/lib/auth-client';
+import { useAuth } from '@/context/AuthContext';
+import { apiRequest } from '@/lib/api';
 import toast from 'react-hot-toast';
 import {
   Sparkles,
@@ -13,14 +15,13 @@ import {
   Mail,
   Loader2,
   ArrowRight,
-  Shield,
-  User,
 } from 'lucide-react';
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
+  const { user, loading: authLoading } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,13 +29,18 @@ function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
 
-  const fillDemoCredentials = (demoEmail, demoPassword) => {
-    setEmail(demoEmail);
-    setPassword(demoPassword);
-    toast.success(
-      `Autofilled ${demoEmail === 'admin@salonbook.com' ? 'Admin' : 'Customer'} credentials`
-    );
-  };
+  // If already authenticated, redirect to destination or role dashboard
+  useEffect(() => {
+    if (!authLoading && user) {
+      if (callbackUrl && callbackUrl !== '/') {
+        router.push(callbackUrl);
+      } else if (user.role === 'admin') {
+        router.push('/dashboard/admin');
+      } else {
+        router.push('/dashboard/customer');
+      }
+    }
+  }, [user, authLoading, router, callbackUrl]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,39 +63,41 @@ function LoginForm() {
       });
 
       if (res?.error) {
-        // If demo credentials and user does not exist in Better Auth yet, auto-register it
-        const normalized = email.trim().toLowerCase();
-        if (
-          normalized === 'admin@salonbook.com' ||
-          normalized === 'customer@salonbook.com'
-        ) {
-          const demoName =
-            normalized === 'admin@salonbook.com'
-              ? 'Aria Montgomery (Admin)'
-              : 'Sophia Laurent';
-
-          const signUpRes = await signUp.email({
-            email: normalized,
-            password,
-            name: demoName,
-          });
-
-          if (signUpRes?.error) {
-            toast.error(signUpRes.error.message || 'Failed to initialize demo account');
-            return;
-          }
-
-          toast.success('Welcome back to SalonBook!');
-          router.push(callbackUrl);
-          return;
-        }
-
         toast.error(res.error.message || 'Invalid email or password');
         return;
       }
 
       toast.success('Welcome back to SalonBook!');
-      router.push(callbackUrl);
+
+      // Role-based redirect
+      try {
+        const data = await apiRequest('/api/auth/jwt', {
+          method: 'POST',
+          body: {
+            email: email.trim().toLowerCase(),
+          },
+        });
+
+        if (data?.token && typeof window !== 'undefined') {
+          localStorage.setItem('salonbook_token', data.token);
+        }
+
+        const role = data?.user?.role || res?.data?.user?.role;
+
+        if (callbackUrl && callbackUrl !== '/') {
+          router.push(callbackUrl);
+        } else if (role === 'admin') {
+          router.push('/dashboard/admin');
+        } else {
+          router.push('/dashboard/customer');
+        }
+      } catch {
+        if (callbackUrl && callbackUrl !== '/') {
+          router.push(callbackUrl);
+        } else {
+          router.push('/dashboard/customer');
+        }
+      }
     } catch (err) {
       console.error('Sign in error:', err);
       toast.error(err.message || 'Something went wrong. Please try again.');
@@ -103,7 +111,7 @@ function LoginForm() {
     try {
       await signIn.social({
         provider: 'google',
-        callbackURL: callbackUrl,
+        callbackURL: callbackUrl && callbackUrl !== '/' ? callbackUrl : '/dashboard/customer',
       });
     } catch (err) {
       console.error('Google sign in error:', err);
@@ -125,31 +133,6 @@ function LoginForm() {
         <p className="text-xs sm:text-sm text-stone-500">
           Sign in to access your bespoke appointments & treatments
         </p>
-      </div>
-
-      {/* Demo Credentials Quick-Select Pill Box */}
-      <div className="mb-6 p-3.5 bg-[#FAF8F5] border border-amber-800/15 rounded-2xl space-y-2">
-        <p className="text-[11px] font-semibold text-amber-900 uppercase tracking-wider text-center">
-          ⚡ One-Click Demo Evaluator Credentials
-        </p>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            onClick={() => fillDemoCredentials('admin@salonbook.com', 'Admin@1234')}
-            className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-white border border-stone-200 hover:border-amber-800 text-stone-800 hover:text-amber-900 text-xs font-medium transition-all shadow-2xs cursor-pointer active:scale-95"
-          >
-            <Shield className="w-3.5 h-3.5 text-amber-800" />
-            <span>Demo Admin</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => fillDemoCredentials('customer@salonbook.com', 'Customer@1234')}
-            className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-white border border-stone-200 hover:border-amber-800 text-stone-800 hover:text-amber-900 text-xs font-medium transition-all shadow-2xs cursor-pointer active:scale-95"
-          >
-            <User className="w-3.5 h-3.5 text-amber-800" />
-            <span>Demo Customer</span>
-          </button>
-        </div>
       </div>
 
       {/* Form */}
