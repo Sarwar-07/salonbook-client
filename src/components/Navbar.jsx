@@ -76,7 +76,7 @@ export default function Navbar() {
   const dashboardHref = user?.role === 'admin' ? '/dashboard/admin' : '/dashboard/customer';
 
   return (
-    <header className="sticky top-0 z-50 bg-[#FAF7F2]/85 backdrop-blur-xl border-b border-stone-200/70 transition-colors">
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-stone-200/80 transition-colors shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Brand Logo on Left */}
@@ -99,13 +99,13 @@ export default function Navbar() {
                   onClick={closeMenus}
                   className={`relative px-4 py-2 text-xs uppercase tracking-widest font-semibold transition-all duration-300 ${
                     active
-                      ? 'text-[#824D25] font-bold'
-                      : 'text-stone-600 hover:text-[#181512]'
+                      ? 'text-[#121110] font-bold'
+                      : 'text-stone-600 hover:text-[#121110]'
                   }`}
                 >
                   <span>{link.name}</span>
                   {active && (
-                    <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#C48E60] via-[#A2683A] to-[#824D25] rounded-full animate-in fade-in duration-200" />
+                    <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-[#C89B6E] via-[#A2683A] to-[#824D25] rounded-full animate-in fade-in duration-200" />
                   )}
                 </Link>
               );
@@ -123,7 +123,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setIsDropdownOpen((prev) => !prev)}
-                  className="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-full border border-stone-300/80 bg-white/90 hover:border-[#A2683A]/50 hover:bg-[#FAF7F2] transition-all cursor-pointer shadow-xs"
+                  className="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-full border border-stone-300 bg-white hover:border-[#C89B6E] hover:bg-[#FAF7F2] transition-all cursor-pointer shadow-xs"
                 >
                   <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-br from-[#A2683A] to-[#824D25] text-white flex items-center justify-center text-xs font-semibold shrink-0">
                     {user.image && !imgError ? (
@@ -224,14 +224,14 @@ export default function Navbar() {
                 <Link
                   href="/login"
                   onClick={closeMenus}
-                  className="px-4 py-2 text-xs uppercase tracking-widest font-semibold text-stone-700 hover:text-[#181512] transition-colors"
+                  className="px-4 py-2 text-xs uppercase tracking-widest font-semibold text-stone-700 hover:text-[#121110] transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
                   onClick={closeMenus}
-                  className="px-5 py-2.5 text-xs uppercase tracking-widest font-semibold text-white bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 rounded-full shadow-xs hover:shadow transition-all duration-200 active:scale-95"
+                  className="px-5 py-2.5 text-xs uppercase tracking-widest font-semibold text-white bg-[#121110] hover:bg-[#25221F] rounded-full shadow-xs hover:shadow transition-all duration-200 active:scale-95"
                 >
                   Sign Up
                 </Link>

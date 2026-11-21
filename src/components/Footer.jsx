@@ -23,25 +23,25 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-[#181512] text-stone-300 border-t border-stone-800/80">
+    <footer className="bg-[#121110] text-stone-300 border-t border-stone-800/80">
       {/* Top Editorial Invitation Banner */}
       <div className="border-b border-stone-800/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-stone-900/40 border border-stone-800/80 rounded-3xl p-6 sm:p-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-[#181614] border border-stone-800/80 rounded-3xl p-6 sm:p-8">
             <div className="space-y-1.5 text-center md:text-left">
-              <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#C48E60]">
+              <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#C89B6E]">
                 Private Reservations
               </span>
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#FAF7F2]">
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white">
                 Experience Bespoke Beauty &amp; Serenity
               </h3>
-              <p className="text-xs sm:text-sm text-stone-400 max-w-xl">
+              <p className="text-xs sm:text-sm text-stone-400 max-w-xl font-light">
                 Reserve your signature treatment with our master stylists and holistic estheticians. Instant real-time confirmation.
               </p>
             </div>
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 text-[#FAF7F2] font-semibold text-xs uppercase tracking-widest transition-all duration-200 shadow-md active:scale-95 shrink-0"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#C89B6E] to-[#A2683A] hover:opacity-95 text-[#121110] font-bold text-xs uppercase tracking-widest transition-all duration-200 shadow-md active:scale-95 shrink-0"
             >
               <span>Explore Treatments</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -58,7 +58,7 @@ export default function Footer() {
             <Link href="/" className="inline-flex items-center group">
               <Logo variant="light" showTagline />
             </Link>
-            <p className="text-xs sm:text-sm text-stone-400 leading-relaxed max-w-sm">
+            <p className="text-xs sm:text-sm text-stone-400 leading-relaxed max-w-sm font-light">
               SalonBook redefines the luxury salon and spa experience. Combining visionary hair architecture with botanical restorative therapies, our artisans curate a personal sanctuary of rejuvenation and effortless elegance.
             </p>
 
@@ -69,7 +69,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Instagram"
-                className="w-9 h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-400 hover:text-[#C48E60] hover:border-[#C48E60]/50 transition-all cursor-pointer"
+                className="w-9 h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-400 hover:text-[#C89B6E] hover:border-[#C89B6E]/50 transition-all cursor-pointer"
               >
                 <svg
                   width="18"
@@ -92,7 +92,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Facebook"
-                className="w-9 h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-400 hover:text-[#C48E60] hover:border-[#C48E60]/50 transition-all cursor-pointer"
+                className="w-9 h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-400 hover:text-[#C89B6E] hover:border-[#C89B6E]/50 transition-all cursor-pointer"
               >
                 <svg
                   width="18"
@@ -109,7 +109,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Twitter / X"
-                className="w-9 h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-400 hover:text-[#C48E60] hover:border-[#C48E60]/50 transition-all cursor-pointer"
+                className="w-9 h-9 rounded-full bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-400 hover:text-[#C89B6E] hover:border-[#C89B6E]/50 transition-all cursor-pointer"
               >
                 <svg
                   width="18"
@@ -125,7 +125,7 @@ export default function Footer() {
 
           {/* Column 2: Important Navigation Links (2.5 cols) */}
           <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#C48E60]">
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#C89B6E]">
               Navigation
             </h4>
             <ul className="space-y-2.5">
@@ -133,7 +133,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-xs sm:text-sm text-stone-400 hover:text-[#FAF7F2] transition-colors"
+                    className="text-xs sm:text-sm text-stone-400 hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -144,22 +144,22 @@ export default function Footer() {
 
           {/* Column 3: Salon Contact Info & Concierge (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#C48E60]">
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#C89B6E]">
               Private Concierge
             </h4>
             <div className="space-y-3 text-xs sm:text-sm text-stone-400">
               <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#C48E60] shrink-0" />
+                <Phone className="w-4 h-4 text-[#C89B6E] shrink-0" />
                 <p className="text-stone-300 font-medium">+1 (800) 555-SALON</p>
               </div>
 
               <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-[#C48E60] shrink-0" />
+                <Mail className="w-4 h-4 text-[#C89B6E] shrink-0" />
                 <p className="text-stone-300">concierge@salonbook.com</p>
               </div>
 
               <div className="pt-2 border-t border-stone-800/60">
-                <p className="text-[11px] text-stone-500 leading-relaxed">
+                <p className="text-[11px] text-stone-500 leading-relaxed font-light">
                   For private atelier bookings, VIP bridal parties, or press appointments, our senior concierge desk is at your service.
                 </p>
               </div>
@@ -168,12 +168,12 @@ export default function Footer() {
 
           {/* Column 4: Salon Address & Opening Hours (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#C48E60]">
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#C89B6E]">
               Atelier &amp; Hours
             </h4>
-            <div className="space-y-3.5 text-xs sm:text-sm text-stone-400">
+            <div className="space-y-3.5 text-xs sm:text-sm text-stone-400 font-light">
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#C48E60] shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#C89B6E] shrink-0 mt-0.5" />
                 <p className="text-xs leading-relaxed text-stone-300">
                   452 Madison Avenue, 8th Floor<br />
                   New York, NY 10022
@@ -181,14 +181,14 @@ export default function Footer() {
               </div>
 
               <div className="flex items-start gap-2.5">
-                <Clock className="w-4 h-4 text-[#C48E60] shrink-0 mt-0.5" />
+                <Clock className="w-4 h-4 text-[#C89B6E] shrink-0 mt-0.5" />
                 <div className="text-xs leading-relaxed">
                   <p className="text-stone-300 font-medium">Mon – Sat: 9:00 AM – 8:00 PM</p>
                   <p className="text-stone-500">Sunday: 10:00 AM – 6:00 PM</p>
                 </div>
               </div>
 
-              <p className="text-[11px] text-[#C48E60] italic">
+              <p className="text-[11px] text-[#C89B6E] italic">
                 Complimentary private valet parking on Madison Ave.
               </p>
             </div>
