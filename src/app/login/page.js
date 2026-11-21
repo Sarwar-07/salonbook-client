@@ -63,7 +63,14 @@ function LoginForm() {
       });
 
       if (res?.error) {
-        toast.error(res.error.message || 'Invalid email or password');
+        const error = res.error;
+        if (error.status >= 500 || error.code === 'INTERNAL_SERVER_ERROR') {
+          toast.error(
+            'Authentication server error—please check database connectivity and try again.'
+          );
+        } else {
+          toast.error(error.message || 'Invalid email or password');
+        }
         return;
       }
 
@@ -100,7 +107,13 @@ function LoginForm() {
       }
     } catch (err) {
       console.error('Sign in error:', err);
-      toast.error(err.message || 'Something went wrong. Please try again.');
+      if (err?.status >= 500 || err?.code === 'INTERNAL_SERVER_ERROR') {
+        toast.error(
+          'Authentication server error—please check database connectivity and try again.'
+        );
+      } else {
+        toast.error(err.message || 'Something went wrong. Please try again.');
+      }
     } finally {
       setLoading(false);
     }

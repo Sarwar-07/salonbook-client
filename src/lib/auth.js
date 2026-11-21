@@ -1,21 +1,26 @@
 import dns from 'node:dns';
-dns.setServers(['1.1.1.1', '8.8.8.8']);
+
+// Only override DNS servers in local development.
+// Overriding DNS inside Vercel's AWS Lambda runtime can break MongoDB SRV resolution.
+if (process.env.NODE_ENV !== 'production') {
+  try {
+    dns.setServers(['1.1.1.1', '8.8.8.8']);
+  } catch {
+    // Ignore DNS override errors in environments that restrict it
+  }
+}
 
 import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { MongoClient } from 'mongodb';
 
-let client;
-if (process.env.NODE_ENV === 'development') {
-  if (!globalThis._mongoClient) {
-    globalThis._mongoClient = new MongoClient(process.env.MONGODB_URI);
-  }
-  client = globalThis._mongoClient;
-} else {
-  client = new MongoClient(process.env.MONGODB_URI);
+if (!globalThis._mongoClient) {
+  globalThis._mongoClient = new MongoClient(process.env.MONGODB_URI);
 }
+const client = globalThis._mongoClient;
 
-const db = client.db(process.env.DB_NAME || 'salonbook_db');
+const dbName = process.env.DB_NAME || 'salonbook_db';
+const db = client.db(dbName);
 
 const hasGoogleCreds = Boolean(
   process.env.GOOGLE_CLIENT_ID &&
@@ -26,10 +31,14 @@ const hasGoogleCreds = Boolean(
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, { client }),
-  baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
+  baseURL:
+    process.env.BETTER_AUTH_URL ||
+    process.env.NEXT_PUBLIC_APP_URL ||
+    'http://localhost:3000',
   secret: process.env.BETTER_AUTH_SECRET,
   trustedOrigins: [
     'http://localhost:3000',
+    'https://salonbook-client-three.vercel.app',
     process.env.BETTER_AUTH_URL,
     process.env.NEXT_PUBLIC_APP_URL,
   ].filter(Boolean),
@@ -37,7 +46,7 @@ export const auth = betterAuth({
   account: {
     accountLinking: {
       enabled: true,
-      trustedProviders: ["google"],
+      trustedProviders: ['google'],
       requireLocalEmailVerified: false,
     },
   },
@@ -47,7 +56,7 @@ export const auth = betterAuth({
           google: {
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            prompt: "select_account",
+            prompt: 'select_account',
           },
         },
       }
