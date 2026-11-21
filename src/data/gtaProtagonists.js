@@ -3,6 +3,8 @@ export const GTA_PROTAGONISTS = [
     id: 'lucia',
     name: 'Lucia Caminos',
     game: 'GTA VI',
+    gameRoman: 'VI',
+    image: '/gta/lucia.jpg',
     location: 'Vice City',
     eraBadge: 'GTA VI • Vice City',
     eraGroup: 'GTA VI',
@@ -12,12 +14,13 @@ export const GTA_PROTAGONISTS = [
     accentColor: '#FF2E93',
     barberNote:
       'High-gloss tropical botanical serum finish tailored for South Beach humidity and sunset cruising on Ocean Drive.',
-    portraitVariant: 'lucia',
   },
   {
     id: 'jason',
     name: 'Jason Duval',
     game: 'GTA VI',
+    gameRoman: 'VI',
+    image: '/gta/jason.jpg',
     location: 'Leonida Keys',
     eraBadge: 'GTA VI • Leonida Keys',
     eraGroup: 'GTA VI',
@@ -27,12 +30,13 @@ export const GTA_PROTAGONISTS = [
     accentColor: '#00F0FF',
     barberNote:
       'Matte clay sea-salt crop paired with razor-shaped jawline contours built for open highway throttle.',
-    portraitVariant: 'jason',
   },
   {
     id: 'tommy',
     name: 'Tommy Vercetti',
     game: 'GTA: Vice City',
+    gameRoman: 'VC',
+    image: '/gta/tommy.jpg',
     location: '1986',
     eraBadge: 'GTA: Vice City • 1986',
     eraGroup: 'Classics',
@@ -42,12 +46,13 @@ export const GTA_PROTAGONISTS = [
     accentColor: '#00F0FF',
     barberNote:
       'The definitive 1980s Starfish Island kingpin pomade finish with tea-tree hot towel blade precision.',
-    portraitVariant: 'tommy',
   },
   {
     id: 'cj',
     name: 'Carl "CJ" Johnson',
     game: 'GTA: San Andreas',
+    gameRoman: 'SA',
+    image: '/gta/cj.jpg',
     location: 'Grove St',
     eraBadge: 'GTA: San Andreas • Grove St',
     eraGroup: 'Classics',
@@ -57,12 +62,13 @@ export const GTA_PROTAGONISTS = [
     accentColor: '#FF7A00',
     barberNote:
       'Laser-straight geometric front line-up and zero-gap taper fade straight out of the legendary Reece Barber Shop.',
-    portraitVariant: 'cj',
   },
   {
     id: 'michael',
     name: 'Michael De Santa',
     game: 'GTA V',
+    gameRoman: 'V',
+    image: '/gta/michael.jpg',
     location: 'Vinewood',
     eraBadge: 'GTA V • Vinewood',
     eraGroup: 'GTA V',
@@ -72,12 +78,13 @@ export const GTA_PROTAGONISTS = [
     accentColor: '#00F0FF',
     barberNote:
       'Discreet silver-temple scissor tailoring combined with an active volcanic charcoal purifying mask.',
-    portraitVariant: 'michael',
   },
   {
     id: 'franklin',
     name: 'Franklin Clinton',
     game: 'GTA V',
+    gameRoman: 'V',
+    image: '/gta/franklin.jpg',
     location: 'Los Santos',
     eraBadge: 'GTA V • Los Santos',
     eraGroup: 'GTA V',
@@ -87,12 +94,13 @@ export const GTA_PROTAGONISTS = [
     accentColor: '#FF7A00',
     barberNote:
       'High skin fade with keratin conditioning wash and aromatic cedarwood beard oil sculpting.',
-    portraitVariant: 'franklin',
   },
   {
     id: 'trevor',
     name: 'Trevor Philips',
     game: 'GTA V',
+    gameRoman: 'V',
+    image: '/gta/trevor.jpg',
     location: 'Blaine County',
     eraBadge: 'GTA V • Blaine County',
     eraGroup: 'GTA V',
@@ -102,12 +110,13 @@ export const GTA_PROTAGONISTS = [
     accentColor: '#FF2E93',
     barberNote:
       'Heavy-duty heated volcanic basalt stones and eucalyptus detox steam to revive the roughest desert wanderer.',
-    portraitVariant: 'trevor',
   },
   {
     id: 'niko',
     name: 'Niko Bellic',
     game: 'GTA IV',
+    gameRoman: 'IV',
+    image: '/gta/niko.jpg',
     location: 'Hove Beach',
     eraBadge: 'GTA IV • Liberty City',
     eraGroup: 'Classics',
@@ -117,12 +126,13 @@ export const GTA_PROTAGONISTS = [
     accentColor: '#00F0FF',
     barberNote:
       'Clean #2 guard uniform buzz with winterized barrier-repair cold cream treatment against Atlantic harbor winds.',
-    portraitVariant: 'niko',
   },
   {
     id: 'claude',
     name: 'Claude',
     game: 'GTA III',
+    gameRoman: 'III',
+    image: '/gta/claude.jpg',
     location: 'Portland',
     eraBadge: 'GTA III • Liberty City',
     eraGroup: 'Classics',
@@ -132,7 +142,6 @@ export const GTA_PROTAGONISTS = [
     accentColor: '#FF7A00',
     barberNote:
       'Silent, utilitarian dark matte scissor crop with rapid peppermint scalp revival therapy.',
-    portraitVariant: 'claude',
   },
 ];
 
@@ -159,4 +168,3 @@ export function getMatchingProtagonist(service) {
 
   return GTA_PROTAGONISTS[0];
 }
-
