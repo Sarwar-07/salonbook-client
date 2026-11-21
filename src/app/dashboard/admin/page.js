@@ -89,6 +89,16 @@ export default function AdminDashboardPage() {
   const [userSearch, setUserSearch] = useState('');
   const [updatingUserId, setUpdatingUserId] = useState(null);
 
+  // Generic Confirmation Modal (React modal, never window.confirm)
+  const [confirmModal, setConfirmModal] = useState({
+    isOpen: false,
+    title: '',
+    message: '',
+    confirmLabel: 'Confirm',
+    isDanger: false,
+    action: null,
+  });
+
   // 1. Role & Route Protection
   useEffect(() => {
     if (!authLoading) {
@@ -291,20 +301,26 @@ export default function AdminDashboardPage() {
     }
   };
 
-  const handleDeleteService = async (serviceId) => {
-    const confirmed = window.confirm('Are you sure you want to delete this service permanently?');
-    if (!confirmed) return;
-
-    try {
-      await apiRequest(`/api/services/${serviceId}`, {
-        method: 'DELETE',
-      });
-      toast.success('Service deleted successfully');
-      await refreshAllData();
-    } catch (err) {
-      console.error('Delete error:', err);
-      toast.error(err.message || 'Failed to delete service');
-    }
+  const handleDeleteService = (serviceId) => {
+    setConfirmModal({
+      isOpen: true,
+      title: 'Delete Service',
+      message: 'Are you sure you want to permanently delete this salon treatment? This action cannot be reversed.',
+      confirmLabel: 'Delete Service',
+      isDanger: true,
+      action: async () => {
+        try {
+          await apiRequest(`/api/services/${serviceId}`, {
+            method: 'DELETE',
+          });
+          toast.success('Service deleted successfully');
+          await refreshAllData();
+        } catch (err) {
+          console.error('Delete error:', err);
+          toast.error(err.message || 'Failed to delete service');
+        }
+      },
+    });
   };
 
   // ==========================================
@@ -330,35 +346,39 @@ export default function AdminDashboardPage() {
   // ==========================================
   // TAB 4: USERS ROLE & BLOCK HANDLERS
   // ==========================================
-  const handleToggleUserRole = async (targetUser) => {
+  const handleToggleUserRole = (targetUser) => {
     if (String(targetUser._id) === String(user?._id)) {
       toast.error('You cannot change your own admin role.');
       return;
     }
 
     const nextRole = targetUser.role === 'admin' ? 'customer' : 'admin';
-    const confirmed = window.confirm(
-      `Are you sure you want to change ${targetUser.name}'s role to ${nextRole}?`
-    );
-    if (!confirmed) return;
-
-    setUpdatingUserId(targetUser._id);
-    try {
-      await apiRequest(`/api/admin/users/${targetUser._id}/role`, {
-        method: 'PATCH',
-        body: { role: nextRole },
-      });
-      toast.success(`User role changed to ${nextRole}`);
-      await refreshAllData();
-    } catch (err) {
-      console.error('Role update error:', err);
-      toast.error(err.message || 'Failed to update user role');
-    } finally {
-      setUpdatingUserId(null);
-    }
+    setConfirmModal({
+      isOpen: true,
+      title: 'Change User Role',
+      message: `Are you sure you want to change ${targetUser.name}'s role to "${nextRole}"?`,
+      confirmLabel: `Change to ${nextRole}`,
+      isDanger: false,
+      action: async () => {
+        setUpdatingUserId(targetUser._id);
+        try {
+          await apiRequest(`/api/admin/users/${targetUser._id}/role`, {
+            method: 'PATCH',
+            body: { role: nextRole },
+          });
+          toast.success(`User role changed to ${nextRole}`);
+          await refreshAllData();
+        } catch (err) {
+          console.error('Role update error:', err);
+          toast.error(err.message || 'Failed to update user role');
+        } finally {
+          setUpdatingUserId(null);
+        }
+      },
+    });
   };
 
-  const handleToggleUserBlock = async (targetUser) => {
+  const handleToggleUserBlock = (targetUser) => {
     if (String(targetUser._id) === String(user?._id)) {
       toast.error('You cannot block your own admin account.');
       return;
@@ -366,25 +386,31 @@ export default function AdminDashboardPage() {
 
     const nextBlocked = !targetUser.isBlocked;
     const actionWord = nextBlocked ? 'block' : 'unblock';
-    const confirmed = window.confirm(
-      `Are you sure you want to ${actionWord} ${targetUser.name}?`
-    );
-    if (!confirmed) return;
-
-    setUpdatingUserId(targetUser._id);
-    try {
-      await apiRequest(`/api/admin/users/${targetUser._id}/block`, {
-        method: 'PATCH',
-        body: { isBlocked: nextBlocked },
-      });
-      toast.success(`User has been ${nextBlocked ? 'blocked' : 'unblocked'}`);
-      await refreshAllData();
-    } catch (err) {
-      console.error('Block status error:', err);
-      toast.error(err.message || 'Failed to update block status');
-    } finally {
-      setUpdatingUserId(null);
-    }
+    setConfirmModal({
+      isOpen: true,
+      title: nextBlocked ? 'Suspend User Account' : 'Restore User Account',
+      message: `Are you sure you want to ${actionWord} ${targetUser.name}? ${
+        nextBlocked ? 'They will no longer be able to log in or book appointments.' : 'They will regain full access to their client account.'
+      }`,
+      confirmLabel: nextBlocked ? 'Suspend User' : 'Restore User',
+      isDanger: nextBlocked,
+      action: async () => {
+        setUpdatingUserId(targetUser._id);
+        try {
+          await apiRequest(`/api/admin/users/${targetUser._id}/block`, {
+            method: 'PATCH',
+            body: { isBlocked: nextBlocked },
+          });
+          toast.success(`User has been ${nextBlocked ? 'blocked' : 'unblocked'}`);
+          await refreshAllData();
+        } catch (err) {
+          console.error('Block status error:', err);
+          toast.error(err.message || 'Failed to update block status');
+        } finally {
+          setUpdatingUserId(null);
+        }
+      },
+    });
   };
 
   // Filter lists
@@ -475,14 +501,14 @@ export default function AdminDashboardPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-stone-200">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs uppercase tracking-wider text-amber-800 font-semibold bg-amber-800/10 px-2.5 py-0.5 rounded-full border border-amber-800/20">
+            <span className="text-[11px] uppercase tracking-widest text-[#824D25] font-semibold bg-[#EEDCC8]/40 px-2.5 py-0.5 rounded-full border border-[#A2683A]/30">
               Admin Portal
             </span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight mt-1">
+          <h1 className="font-serif text-3xl sm:text-4xl font-semibold text-[#181512] tracking-tight mt-1">
             Salon Control Suite
           </h1>
-          <p className="text-xs sm:text-sm text-stone-500 mt-1">
+          <p className="text-xs sm:text-sm text-stone-500 mt-1 font-light">
             Monitor real-time salon operations, treatment offerings, master bookings, and client accounts.
           </p>
         </div>
@@ -491,7 +517,7 @@ export default function AdminDashboardPage() {
           <button
             type="button"
             onClick={openAddServiceModal}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-800 hover:bg-amber-900 text-white font-semibold text-xs sm:text-sm shadow-sm transition-all duration-200 cursor-pointer active:scale-95"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 text-white font-medium text-xs sm:text-sm shadow-md shadow-[#824D25]/15 transition-all duration-200 cursor-pointer active:scale-95"
           >
             <Plus className="w-4 h-4" />
             <span>Add New Service</span>
@@ -506,7 +532,7 @@ export default function AdminDashboardPage() {
           onClick={() => setActiveTab('overview')}
           className={`pb-3.5 text-xs sm:text-sm font-semibold border-b-2 whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
             activeTab === 'overview'
-              ? 'border-amber-800 text-amber-900'
+              ? 'border-[#A2683A] text-[#824D25]'
               : 'border-transparent text-stone-500 hover:text-stone-800'
           }`}
         >
@@ -519,7 +545,7 @@ export default function AdminDashboardPage() {
           onClick={() => setActiveTab('services')}
           className={`pb-3.5 text-xs sm:text-sm font-semibold border-b-2 whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
             activeTab === 'services'
-              ? 'border-amber-800 text-amber-900'
+              ? 'border-[#A2683A] text-[#824D25]'
               : 'border-transparent text-stone-500 hover:text-stone-800'
           }`}
         >
@@ -532,7 +558,7 @@ export default function AdminDashboardPage() {
           onClick={() => setActiveTab('appointments')}
           className={`pb-3.5 text-xs sm:text-sm font-semibold border-b-2 whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
             activeTab === 'appointments'
-              ? 'border-amber-800 text-amber-900'
+              ? 'border-[#A2683A] text-[#824D25]'
               : 'border-transparent text-stone-500 hover:text-stone-800'
           }`}
         >
@@ -545,7 +571,7 @@ export default function AdminDashboardPage() {
           onClick={() => setActiveTab('users')}
           className={`pb-3.5 text-xs sm:text-sm font-semibold border-b-2 whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
             activeTab === 'users'
-              ? 'border-amber-800 text-amber-900'
+              ? 'border-[#A2683A] text-[#824D25]'
               : 'border-transparent text-stone-500 hover:text-stone-800'
           }`}
         >
@@ -558,7 +584,7 @@ export default function AdminDashboardPage() {
           onClick={() => setActiveTab('transactions')}
           className={`pb-3.5 text-xs sm:text-sm font-semibold border-b-2 whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
             activeTab === 'transactions'
-              ? 'border-amber-800 text-amber-900'
+              ? 'border-[#A2683A] text-[#824D25]'
               : 'border-transparent text-stone-500 hover:text-stone-800'
           }`}
         >
@@ -1661,7 +1687,7 @@ export default function AdminDashboardPage() {
                 <button
                   type="submit"
                   disabled={savingService || serviceImageUploading}
-                  className="px-6 py-2.5 rounded-full bg-amber-800 hover:bg-amber-900 text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer disabled:opacity-50"
+                  className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 text-white text-xs font-medium shadow-sm shadow-[#824D25]/20 transition-all cursor-pointer disabled:opacity-50"
                 >
                   {savingService ? (
                     <span className="flex items-center gap-1.5">
@@ -1674,6 +1700,57 @@ export default function AdminDashboardPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Generic React Confirmation Modal (Replacing all window.confirm) */}
+      {confirmModal.isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs">
+          <div className="bg-white border border-stone-200/90 rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <h3 className="font-serif text-xl font-bold text-stone-900">
+                {confirmModal.title}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setConfirmModal((prev) => ({ ...prev, isOpen: false }))}
+                className="p-1 rounded-full text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <p className="text-sm text-stone-600 leading-relaxed font-light">
+              {confirmModal.message}
+            </p>
+
+            <div className="pt-2 flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setConfirmModal((prev) => ({ ...prev, isOpen: false }))}
+                className="px-5 py-2.5 rounded-full border border-stone-300 text-xs font-semibold text-stone-700 hover:bg-stone-50 transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={async () => {
+                  const action = confirmModal.action;
+                  setConfirmModal((prev) => ({ ...prev, isOpen: false }));
+                  if (action) {
+                    await action();
+                  }
+                }}
+                className={`px-5 py-2.5 rounded-full text-xs font-semibold shadow-xs transition-colors cursor-pointer ${
+                  confirmModal.isDanger
+                    ? 'bg-rose-700 hover:bg-rose-800 text-white'
+                    : 'bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 text-white'
+                }`}
+              >
+                {confirmModal.confirmLabel}
+              </button>
+            </div>
           </div>
         </div>
       )}

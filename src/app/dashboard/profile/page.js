@@ -102,9 +102,9 @@ function ProfileForm({ user, onProfileUpdated }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Live Avatar Preview Row */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 bg-[#FAF8F5] border border-stone-200/80 rounded-2xl">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 bg-[#FAF7F2] border border-stone-200/80 rounded-2xl">
         <div className="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
-          <div className="relative w-24 h-24 rounded-full overflow-hidden bg-amber-800 text-white flex items-center justify-center text-xl font-bold border-2 border-white shadow-md shrink-0">
+          <div className="relative w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-[#A2683A] to-[#824D25] text-white flex items-center justify-center text-xl font-bold border-2 border-white shadow-md shrink-0">
             {previewUrl && !previewError ? (
               <Image
                 src={previewUrl}
@@ -119,15 +119,15 @@ function ProfileForm({ user, onProfileUpdated }) {
             )}
           </div>
           <div className="space-y-1">
-            <h2 className="font-serif text-lg font-bold text-stone-900">
+            <h2 className="font-serif text-xl font-semibold text-[#181512]">
               {name || 'Your Name'}
             </h2>
-            <p className="text-xs text-stone-500">{user?.email}</p>
+            <p className="text-xs text-stone-500 font-light">{user?.email}</p>
             <div className="pt-1">
               <span
                 className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                   user?.role === 'admin'
-                    ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                    ? 'bg-[#EEDCC8]/40 text-[#824D25] border border-[#A2683A]/30'
                     : 'bg-stone-100 text-stone-700 border border-stone-200'
                 }`}
               >
@@ -142,12 +142,12 @@ function ProfileForm({ user, onProfileUpdated }) {
         <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold shadow-2xs transition-colors cursor-pointer shrink-0">
           {isUploadingPhoto ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin text-amber-800" />
+              <Loader2 className="w-4 h-4 animate-spin text-[#A2683A]" />
               <span>Uploading to ImgBB...</span>
             </>
           ) : (
             <>
-              <Upload className="w-4 h-4 text-amber-800" />
+              <Upload className="w-4 h-4 text-[#A2683A]" />
               <span>Upload New Photo</span>
             </>
           )}
@@ -165,8 +165,8 @@ function ProfileForm({ user, onProfileUpdated }) {
       <div className="space-y-4">
         {/* Full Name */}
         <div>
-          <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
-            Full Name <span className="text-amber-800">*</span>
+          <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-widest mb-1.5">
+            Full Name <span className="text-[#A2683A]">*</span>
           </label>
           <div className="relative">
             <User className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -176,7 +176,7 @@ function ProfileForm({ user, onProfileUpdated }) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Genevieve Dupont"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 text-sm text-stone-900 placeholder:text-stone-400 bg-stone-50/50"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 bg-[#FAF7F2]/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#A2683A]/20 focus:border-[#A2683A] text-sm text-[#181512] placeholder:text-stone-400 transition-all"
             />
           </div>
         </div>
@@ -184,7 +184,7 @@ function ProfileForm({ user, onProfileUpdated }) {
         {/* Email (Read-Only) */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider">
+            <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-widest">
               Email Address
             </label>
             <span className="text-[10px] text-stone-400 uppercase font-medium">Read-Only</span>
@@ -203,7 +203,7 @@ function ProfileForm({ user, onProfileUpdated }) {
         {/* Phone Number */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider">
+            <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-widest">
               Phone Number
             </label>
             <span className="text-[10px] text-stone-400 font-normal">Optional</span>
@@ -215,7 +215,7 @@ function ProfileForm({ user, onProfileUpdated }) {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="+1 (555) 234-5678"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 text-sm text-stone-900 placeholder:text-stone-400 bg-stone-50/50"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 bg-[#FAF7F2]/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#A2683A]/20 focus:border-[#A2683A] text-sm text-[#181512] placeholder:text-stone-400 transition-all"
             />
           </div>
         </div>
@@ -223,7 +223,7 @@ function ProfileForm({ user, onProfileUpdated }) {
         {/* Profile Photo (Upload or URL) */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider">
+            <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-widest">
               Profile Photo
             </label>
             <span className="text-[10px] text-stone-400 font-normal">Optional</span>
@@ -234,12 +234,12 @@ function ProfileForm({ user, onProfileUpdated }) {
               <label className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold shadow-2xs transition-colors cursor-pointer">
                 {isUploadingPhoto ? (
                   <>
-                    <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-800" />
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-[#A2683A]" />
                     <span>Uploading...</span>
                   </>
                 ) : (
                   <>
-                    <Upload className="w-3.5 h-3.5 text-amber-800" />
+                    <Upload className="w-3.5 h-3.5 text-[#A2683A]" />
                     <span>Upload Image (ImgBB)</span>
                   </>
                 )}
@@ -276,7 +276,7 @@ function ProfileForm({ user, onProfileUpdated }) {
                   setPreviewError(false);
                 }}
                 placeholder="Or paste image URL (https://images.unsplash.com/...)"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 text-sm text-stone-900 placeholder:text-stone-400 bg-stone-50/50"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 bg-[#FAF7F2]/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#A2683A]/20 focus:border-[#A2683A] text-sm text-[#181512] placeholder:text-stone-400 transition-all"
               />
             </div>
           </div>
@@ -288,7 +288,7 @@ function ProfileForm({ user, onProfileUpdated }) {
         <button
           type="submit"
           disabled={isSaving || isUploadingPhoto}
-          className="w-full py-3.5 px-4 rounded-xl font-semibold text-sm text-white bg-amber-800 hover:bg-amber-900 shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-98"
+          className="w-full py-3.5 px-4 rounded-xl font-medium text-sm text-white bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 shadow-md shadow-[#824D25]/15 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-98"
         >
           {isSaving ? (
             <>

@@ -141,7 +141,7 @@ function RegisterForm() {
   };
 
   return (
-    <div className="max-w-md w-full mx-auto bg-white border border-stone-200/90 rounded-3xl p-8 sm:p-10 shadow-sm">
+    <div className="max-w-md w-full mx-auto bg-white/90 backdrop-blur-md border border-stone-200/80 rounded-3xl p-8 sm:p-10 shadow-xl shadow-stone-900/5">
       {/* Brand Header */}
       <div className="text-center space-y-2 mb-8">
         <div className="flex justify-center mb-4">
@@ -149,10 +149,10 @@ function RegisterForm() {
             <Logo showTagline />
           </Link>
         </div>
-        <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight">
+        <h1 className="font-serif text-3xl font-semibold text-[#181512] tracking-tight">
           Create an Account
         </h1>
-        <p className="text-xs sm:text-sm text-stone-500">
+        <p className="text-xs sm:text-sm text-stone-500 font-light">
           Begin your personalized journey with SalonBook
         </p>
       </div>
@@ -160,8 +160,8 @@ function RegisterForm() {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Full Name */}
         <div>
-          <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
-            Full Name <span className="text-amber-800">*</span>
+          <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-widest mb-1.5">
+            Full Name <span className="text-[#A2683A]">*</span>
           </label>
           <div className="relative">
             <User className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -171,15 +171,15 @@ function RegisterForm() {
               onChange={(e) => setName(e.target.value)}
               placeholder="Genevieve Dupont"
               required
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 transition-colors text-sm text-stone-900 placeholder:text-stone-400 bg-stone-50/50"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 bg-[#FAF7F2]/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#A2683A]/20 focus:border-[#A2683A] transition-all text-sm text-[#181512] placeholder:text-stone-400"
             />
           </div>
         </div>
 
         {/* Email Address */}
         <div>
-          <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
-            Email Address <span className="text-amber-800">*</span>
+          <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-widest mb-1.5">
+            Email Address <span className="text-[#A2683A]">*</span>
           </label>
           <div className="relative">
             <Mail className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -189,7 +189,7 @@ function RegisterForm() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
               required
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 transition-colors text-sm text-stone-900 placeholder:text-stone-400 bg-stone-50/50"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 bg-[#FAF7F2]/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#A2683A]/20 focus:border-[#A2683A] transition-all text-sm text-[#181512] placeholder:text-stone-400"
             />
           </div>
         </div>
@@ -197,15 +197,15 @@ function RegisterForm() {
         {/* Profile Photo (ImgBB Upload or URL) */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider">
+            <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-widest">
               Profile Photo
             </label>
             <span className="text-[11px] text-stone-400 font-normal">Optional</span>
           </div>
 
-          <div className="flex items-center gap-4 p-3.5 bg-stone-50/70 border border-stone-200 rounded-2xl">
+          <div className="flex items-center gap-4 p-3.5 bg-[#FAF7F2]/80 border border-stone-200/80 rounded-2xl">
             {/* Live Avatar Preview */}
-            <div className="relative w-14 h-14 rounded-full overflow-hidden bg-amber-800/10 border-2 border-stone-200 text-stone-500 flex items-center justify-center shrink-0">
+            <div className="relative w-14 h-14 rounded-full overflow-hidden bg-[#824D25]/10 border-2 border-stone-200 text-stone-500 flex items-center justify-center shrink-0">
               {image ? (
                 <Image
                   src={image}
@@ -224,12 +224,12 @@ function RegisterForm() {
               <label className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold shadow-2xs transition-colors cursor-pointer">
                 {imageUploading ? (
                   <>
-                    <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-800" />
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-[#A2683A]" />
                     <span>Uploading...</span>
                   </>
                 ) : (
                   <>
-                    <Upload className="w-3.5 h-3.5 text-amber-800" />
+                    <Upload className="w-3.5 h-3.5 text-[#A2683A]" />
                     <span>{image ? 'Change Photo' : 'Upload Photo'}</span>
                   </>
                 )}
@@ -266,15 +266,15 @@ function RegisterForm() {
               value={image}
               onChange={(e) => setImage(e.target.value)}
               placeholder="Or paste image URL (https://...)"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 transition-colors text-xs text-stone-900 placeholder:text-stone-400 bg-stone-50/30"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 bg-[#FAF7F2]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#A2683A]/20 focus:border-[#A2683A] transition-all text-xs text-[#181512] placeholder:text-stone-400"
             />
           </div>
         </div>
 
         {/* Password */}
         <div>
-          <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
-            Password <span className="text-amber-800">*</span>
+          <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-widest mb-1.5">
+            Password <span className="text-[#A2683A]">*</span>
           </label>
           <div className="relative">
             <Lock className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -285,7 +285,7 @@ function RegisterForm() {
               placeholder="At least 6 characters"
               required
               minLength={6}
-              className="w-full pl-10 pr-10 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 transition-colors text-sm text-stone-900 placeholder:text-stone-400 bg-stone-50/50"
+              className="w-full pl-10 pr-10 py-3 rounded-xl border border-stone-200 bg-[#FAF7F2]/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#A2683A]/20 focus:border-[#A2683A] transition-all text-sm text-[#181512] placeholder:text-stone-400"
             />
             <button
               type="button"
@@ -303,8 +303,8 @@ function RegisterForm() {
 
         {/* Confirm Password */}
         <div>
-          <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
-            Confirm Password <span className="text-amber-800">*</span>
+          <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-widest mb-1.5">
+            Confirm Password <span className="text-[#A2683A]">*</span>
           </label>
           <div className="relative">
             <Lock className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -314,7 +314,7 @@ function RegisterForm() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm your password"
               required
-              className="w-full pl-10 pr-10 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 transition-colors text-sm text-stone-900 placeholder:text-stone-400 bg-stone-50/50"
+              className="w-full pl-10 pr-10 py-3 rounded-xl border border-stone-200 bg-[#FAF7F2]/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#A2683A]/20 focus:border-[#A2683A] transition-all text-sm text-[#181512] placeholder:text-stone-400"
             />
             <button
               type="button"
@@ -331,7 +331,7 @@ function RegisterForm() {
         <button
           type="submit"
           disabled={loading || imageUploading}
-          className="w-full mt-2 py-3.5 px-4 rounded-xl font-semibold text-sm text-white bg-amber-800 hover:bg-amber-900 shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed active:scale-98"
+          className="w-full mt-2 py-3.5 px-4 rounded-xl font-medium text-sm text-white bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 shadow-md shadow-[#824D25]/15 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed active:scale-98"
         >
           {loading ? (
             <>
@@ -367,7 +367,7 @@ function RegisterForm() {
         type="button"
         onClick={handleGoogleSignUp}
         disabled={googleLoading}
-        className="w-full py-3 px-4 rounded-xl font-medium text-sm text-stone-700 bg-white border border-stone-300 hover:bg-stone-50 hover:border-stone-400 transition-all flex items-center justify-center gap-2.5 shadow-2xs cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full py-3 px-4 rounded-xl font-medium text-sm text-[#181512] bg-white border border-stone-200 hover:bg-stone-50 hover:border-stone-300 transition-all flex items-center justify-center gap-2.5 shadow-2xs cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {googleLoading ? (
           <Loader2 className="w-4 h-4 animate-spin text-stone-500" />
@@ -399,7 +399,7 @@ function RegisterForm() {
         Already have an account?{' '}
         <Link
           href="/login"
-          className="font-semibold text-amber-800 hover:underline transition-colors"
+          className="font-medium text-[#A2683A] hover:text-[#824D25] hover:underline transition-colors"
         >
           Sign in
         </Link>

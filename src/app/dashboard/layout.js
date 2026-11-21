@@ -42,7 +42,7 @@ export default function DashboardLayout({ children }) {
   if (loading || !user) {
     return (
       <div className="min-h-[75vh] flex flex-col items-center justify-center gap-3">
-        <Loader2 className="w-8 h-8 animate-spin text-amber-800" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#A2683A]" />
         <p className="text-xs font-semibold uppercase tracking-widest text-stone-500">
           Loading Dashboard...
         </p>
@@ -112,7 +112,7 @@ export default function DashboardLayout({ children }) {
           <Link href="/" className="inline-flex items-center group">
             <Logo />
           </Link>
-          <span className="text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+          <span className="text-[10px] uppercase font-bold tracking-wider text-[#824D25] bg-[#EEDCC8]/40 px-2 py-0.5 rounded-md border border-[#A2683A]/30">
             {isAdmin ? 'Admin' : 'Client'}
           </span>
         </div>
@@ -129,11 +129,11 @@ export default function DashboardLayout({ children }) {
                 onClick={() => setMobileOpen(false)}
                 className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all ${
                   active
-                    ? 'bg-amber-800 text-white font-semibold shadow-xs'
-                    : 'text-stone-700 hover:text-stone-900 hover:bg-stone-100/80'
+                    ? 'bg-gradient-to-r from-[#A2683A] to-[#824D25] text-white shadow-sm shadow-[#824D25]/15'
+                    : 'text-stone-700 hover:text-[#181512] hover:bg-stone-100/80'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${active ? 'text-white' : 'text-stone-500'}`} />
+                <Icon className={`w-4 h-4 ${active ? 'text-white' : 'text-stone-400'}`} />
                 <span>{link.name}</span>
               </Link>
             );
@@ -142,9 +142,9 @@ export default function DashboardLayout({ children }) {
       </div>
 
       {/* Bottom User Card & Logout */}
-      <div className="pt-4 border-t border-stone-200 space-y-3">
-        <div className="flex items-center gap-3 p-2 bg-[#FAF8F5] rounded-xl border border-stone-200/60">
-          <div className="w-9 h-9 rounded-full bg-amber-800 text-white flex items-center justify-center text-xs font-bold overflow-hidden shrink-0">
+      <div className="pt-4 border-t border-stone-200/80 space-y-3">
+        <div className="flex items-center gap-3 p-2 bg-[#FAF7F2] rounded-xl border border-stone-200/60">
+          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#A2683A] to-[#824D25] text-white flex items-center justify-center text-xs font-bold overflow-hidden shrink-0">
             {user.image ? (
               <Image
                 src={user.image}
@@ -159,7 +159,7 @@ export default function DashboardLayout({ children }) {
             )}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold text-stone-900 truncate leading-tight">
+            <p className="text-xs font-bold text-[#181512] truncate leading-tight">
               {user.name}
             </p>
             <p className="text-[10px] text-stone-500 truncate leading-tight">
@@ -168,7 +168,7 @@ export default function DashboardLayout({ children }) {
             <span
               className={`inline-block mt-0.5 text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.2 rounded ${
                 isAdmin
-                  ? 'bg-amber-100 text-amber-900'
+                  ? 'bg-[#EEDCC8]/40 text-[#824D25]'
                   : 'bg-stone-200 text-stone-700'
               }`}
             >

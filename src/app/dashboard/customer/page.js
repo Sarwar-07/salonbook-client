@@ -193,13 +193,13 @@ export default function CustomerDashboardPage() {
       {/* Top Welcome Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-stone-200">
         <div>
-          <span className="text-xs uppercase tracking-wider text-amber-800 font-semibold">
+          <span className="text-[11px] uppercase tracking-widest text-[#824D25] font-semibold bg-[#EEDCC8]/40 px-2.5 py-0.5 rounded-full border border-[#A2683A]/30">
             Client Sanctuary
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl font-semibold text-[#181512] tracking-tight mt-1">
             Welcome, {user?.name || 'Valued Guest'}
           </h1>
-          <p className="text-xs sm:text-sm text-stone-500 mt-1">
+          <p className="text-xs sm:text-sm text-stone-500 mt-1 font-light">
             Review your signature treatments, real-time appointments, and transaction receipts.
           </p>
         </div>
@@ -207,7 +207,7 @@ export default function CustomerDashboardPage() {
         <div className="flex items-center gap-3">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-800 hover:bg-amber-900 text-white font-semibold text-xs sm:text-sm shadow-sm transition-all duration-200 active:scale-95"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 text-white font-medium text-xs sm:text-sm shadow-md shadow-[#824D25]/15 transition-all duration-200 active:scale-95"
           >
             <Plus className="w-4 h-4" />
             <span>Book New Treatment</span>
@@ -292,7 +292,7 @@ export default function CustomerDashboardPage() {
           onClick={() => setActiveTab('appointments')}
           className={`pb-3.5 text-sm font-semibold border-b-2 transition-all cursor-pointer flex items-center gap-2 ${
             activeTab === 'appointments'
-              ? 'border-amber-800 text-amber-900'
+              ? 'border-[#A2683A] text-[#824D25]'
               : 'border-transparent text-stone-500 hover:text-stone-800'
           }`}
         >
@@ -305,7 +305,7 @@ export default function CustomerDashboardPage() {
           onClick={() => setActiveTab('payments')}
           className={`pb-3.5 text-sm font-semibold border-b-2 transition-all cursor-pointer flex items-center gap-2 ${
             activeTab === 'payments'
-              ? 'border-amber-800 text-amber-900'
+              ? 'border-[#A2683A] text-[#824D25]'
               : 'border-transparent text-stone-500 hover:text-stone-800'
           }`}
         >
@@ -468,7 +468,7 @@ export default function CustomerDashboardPage() {
                             type="button"
                             disabled={payingAppointmentId === appt._id}
                             onClick={() => handleStripePayment(appt._id)}
-                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-800 hover:bg-amber-900 text-white font-semibold text-xs shadow-xs transition-colors cursor-pointer disabled:opacity-50"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 text-white font-medium text-xs shadow-xs transition-all cursor-pointer disabled:opacity-50"
                           >
                             {payingAppointmentId === appt._id ? (
                               <>

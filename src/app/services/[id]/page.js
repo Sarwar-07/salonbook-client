@@ -19,6 +19,7 @@ import {
   Check,
   Shield,
   ArrowRight,
+  Heart,
 } from 'lucide-react';
 
 const FALLBACK_IMAGE =
@@ -79,17 +80,22 @@ export default function ServiceDetailsPage() {
         const data = await apiRequest(`/api/services/${id}`);
         if (!isCancelled) {
           if (data && data._id) {
-            setService(data);
-            setImgSrc(data.image || FALLBACK_IMAGE);
-            setServiceError(null);
+            // Block inactive service booking
+            if (data.status === 'inactive') {
+              setServiceError('This salon treatment is currently unavailable.');
+            } else {
+              setService(data);
+              setImgSrc(data.image || FALLBACK_IMAGE);
+              setServiceError(null);
+            }
           } else {
-            setServiceError('Service not found');
+            setServiceError('Treatment not found');
           }
         }
       } catch (err) {
         if (!isCancelled) {
           console.error('Failed to load service:', err);
-          setServiceError(err.message || 'Service not found');
+          setServiceError(err.message || 'Treatment not found');
         }
       } finally {
         if (!isCancelled) {
@@ -176,7 +182,7 @@ export default function ServiceDetailsPage() {
         },
       });
 
-      toast.success('Appointment booked! Complete payment or manage it in your dashboard.');
+      toast.success('Appointment booked! Manage your reservation in the customer dashboard.');
       router.push('/dashboard/customer');
     } catch (err) {
       console.error('Booking failed:', err);
@@ -209,13 +215,13 @@ export default function ServiceDetailsPage() {
         <div className="h-6 w-48 bg-stone-200 rounded-md" />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="lg:col-span-7 space-y-6">
-            <div className="h-[420px] bg-stone-200 rounded-2xl w-full" />
+            <div className="h-[440px] bg-stone-200 rounded-3xl w-full" />
             <div className="h-8 bg-stone-200 rounded-md w-3/4" />
             <div className="h-4 bg-stone-200 rounded-md w-full" />
             <div className="h-4 bg-stone-200 rounded-md w-2/3" />
           </div>
           <div className="lg:col-span-5">
-            <div className="h-[520px] bg-stone-200 rounded-2xl w-full" />
+            <div className="h-[520px] bg-stone-200 rounded-3xl w-full" />
           </div>
         </div>
       </div>
@@ -229,19 +235,19 @@ export default function ServiceDetailsPage() {
         <div className="w-14 h-14 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mx-auto">
           <AlertCircle className="w-7 h-7" />
         </div>
-        <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-          Treatment Not Found
+        <h1 className="font-serif text-3xl font-bold text-[#181512]">
+          Treatment Unavailable
         </h1>
         <p className="text-sm text-stone-500 leading-relaxed max-w-md mx-auto">
-          The requested salon treatment may have been updated, relocated, or temporarily deactivated.
+          {serviceError || 'The requested salon treatment may have been retired or temporarily deactivated.'}
         </p>
         <div>
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-stone-900 hover:bg-stone-800 text-white font-medium text-sm transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-stone-900 hover:bg-stone-800 text-[#FAF7F2] font-semibold text-xs uppercase tracking-widest transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Back to All Services</span>
+            <span>Return to Catalog</span>
           </Link>
         </div>
       </div>
@@ -252,133 +258,143 @@ export default function ServiceDetailsPage() {
   const minDate = getTodayString();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-8">
-      {/* Breadcrumb Navigation */}
-      <div>
-        <Link
-          href="/services"
-          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-stone-500 hover:text-amber-800 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to All Services</span>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
+      {/* Editorial Breadcrumb Navigation */}
+      <nav className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-stone-500">
+        <Link href="/" className="hover:text-[#824D25] transition-colors">
+          Home
         </Link>
-      </div>
+        <span className="text-stone-300">/</span>
+        <Link href="/services" className="hover:text-[#824D25] transition-colors">
+          Services
+        </Link>
+        <span className="text-stone-300">/</span>
+        <span className="text-[#824D25] truncate max-w-[200px] sm:max-w-xs">{service.serviceName}</span>
+      </nav>
 
-      {/* Main 2-Column Responsive Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+      {/* Main 2-Column Responsive Luxury Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
         {/* LEFT COLUMN: Service Showcase & Details (7 cols) */}
         <div className="lg:col-span-7 space-y-8">
-          {/* Framed Service Image */}
-          <div className="relative h-[360px] sm:h-[460px] w-full rounded-2xl overflow-hidden bg-stone-100 shadow-md border border-stone-200">
+          {/* Large Rounded-3xl Treatment Hero Image */}
+          <div className="relative h-[380px] sm:h-[480px] w-full rounded-3xl overflow-hidden bg-stone-100 shadow-md border border-stone-200/90 group">
             <Image
               src={imgSrc}
               alt={service.serviceName}
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 700px"
-              className="object-cover"
+              className="object-cover group-hover:scale-104 transition-transform duration-700 ease-out"
               onError={() => setImgSrc(FALLBACK_IMAGE)}
               unoptimized
             />
-            {/* Category Badge */}
-            <div className="absolute top-4 left-4 z-10">
-              <span className="bg-[#FAF8F5]/95 backdrop-blur-xs text-amber-800 text-xs font-semibold px-4 py-1.5 rounded-full shadow-xs border border-stone-200/60">
-                {service.category}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-80" />
+
+            {/* Frosted Category Pill */}
+            <div className="absolute top-5 left-5 z-10">
+              <span className="bg-white/90 backdrop-blur-md text-[#824D25] text-[11px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full shadow-xs border border-white/60">
+                {service.category} Discipline
+              </span>
+            </div>
+
+            {/* Price Monogram Overlay */}
+            <div className="absolute bottom-5 left-5 z-10">
+              <span className="bg-[#181512]/90 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-base sm:text-lg font-serif font-bold shadow-md">
+                ${formattedPrice} USD
               </span>
             </div>
           </div>
 
-          {/* Service Title & Key Specs */}
+          {/* Service Title & Duration/Price Metadata Bar */}
           <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">
-                {service.serviceName}
-              </h1>
-              <div className="text-2xl sm:text-3xl font-bold text-amber-800 shrink-0">
-                ${formattedPrice}
-              </div>
-            </div>
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#181512] tracking-tight leading-tight">
+              {service.serviceName}
+            </h1>
 
-            {/* Duration pill */}
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-800/10 text-amber-900 text-xs font-medium border border-amber-800/15">
-                <Clock className="w-3.5 h-3.5 text-amber-800" />
-                <span>{service.duration} mins session</span>
+            {/* Metadata Bar */}
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#EEDCC8]/70 text-[#824D25] text-xs font-semibold border border-[#C48E60]/30">
+                <Clock className="w-3.5 h-3.5 text-[#824D25]" />
+                <span>{service.duration} mins personalized ritual</span>
               </span>
-              <span className="text-xs text-stone-400">•</span>
-              <span className="text-xs text-stone-500 font-medium">
-                Certified Master Stylist
+              <span className="text-stone-300">•</span>
+              <span className="inline-flex items-center gap-1.5 text-xs text-stone-600 font-medium">
+                <Sparkles className="w-3.5 h-3.5 text-[#A2683A]" />
+                <span>Private Consultation Included</span>
               </span>
             </div>
 
-            {/* Description */}
-            <div className="pt-2">
-              <h2 className="text-xs uppercase font-semibold tracking-wider text-stone-400 mb-2">
-                Treatment Overview
+            {/* Full Editorial Description */}
+            <div className="pt-4 border-t border-stone-200/80">
+              <h2 className="text-xs uppercase font-bold tracking-[0.2em] text-[#824D25] mb-2.5">
+                Treatment Overview &amp; Experience
               </h2>
-              <p className="text-stone-700 leading-relaxed text-sm sm:text-base whitespace-pre-line">
+              <p className="text-stone-700 leading-relaxed text-sm sm:text-base whitespace-pre-line font-normal">
                 {service.description}
               </p>
             </div>
           </div>
 
           {/* The SalonBook Experience Highlights Box */}
-          <div className="bg-white border border-stone-200/90 rounded-2xl p-6 sm:p-7 space-y-4 shadow-2xs">
-            <div className="flex items-center gap-2 text-stone-900">
-              <Sparkles className="w-5 h-5 text-amber-800" />
-              <h3 className="font-serif text-lg font-bold">The SalonBook Experience</h3>
+          <div className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xs">
+            <div className="flex items-center gap-2.5 text-[#181512]">
+              <Sparkles className="w-5 h-5 text-[#824D25]" />
+              <h3 className="font-serif text-xl font-bold">The SalonBook Atelier Standards</h3>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 pt-1">
               <div className="space-y-1.5">
-                <div className="w-8 h-8 rounded-full bg-amber-800/10 text-amber-800 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-[#FAF7F2] border border-stone-200 text-[#824D25] flex items-center justify-center">
                   <Sparkles className="w-4 h-4" />
                 </div>
-                <h4 className="text-xs font-bold text-stone-900">Herbal Tea Welcome</h4>
+                <h4 className="text-xs font-bold text-[#181512]">Herbal Welcome</h4>
                 <p className="text-xs text-stone-500 leading-relaxed">
-                  Complimentary bespoke organic infusion consultation on arrival.
+                  Complimentary bespoke organic tea infusion upon arrival.
                 </p>
               </div>
 
               <div className="space-y-1.5">
-                <div className="w-8 h-8 rounded-full bg-amber-800/10 text-amber-800 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-[#FAF7F2] border border-stone-200 text-[#824D25] flex items-center justify-center">
                   <Leaf className="w-4 h-4" />
                 </div>
-                <h4 className="text-xs font-bold text-stone-900">Botanical Formulations</h4>
+                <h4 className="text-xs font-bold text-[#181512]">Clean Botanicals</h4>
                 <p className="text-xs text-stone-500 leading-relaxed">
-                  100% cruelty-free, dermatologist-verified clean salon products.
+                  100% cruelty-free, clinical dermatological bio-actives.
                 </p>
               </div>
 
               <div className="space-y-1.5">
-                <div className="w-8 h-8 rounded-full bg-amber-800/10 text-amber-800 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-[#FAF7F2] border border-stone-200 text-[#824D25] flex items-center justify-center">
                   <CalendarCheck className="w-4 h-4" />
                 </div>
-                <h4 className="text-xs font-bold text-stone-900">Flexible Rescheduling</h4>
+                <h4 className="text-xs font-bold text-[#181512]">Private Suites</h4>
                 <p className="text-xs text-stone-500 leading-relaxed">
-                  Modify your scheduled slot with ease up to 24 hours prior.
+                  Acoustically balanced suite ensuring total discretion.
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Sticky Reservation Card (5 cols) */}
+        {/* RIGHT COLUMN: Sticky Frosted Reservation Card (5 cols) */}
         <div className="lg:col-span-5">
-          <div className="bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-sm sticky top-24 space-y-6">
+          <div className="bg-white/95 backdrop-blur-md border border-stone-200/90 rounded-3xl p-6 sm:p-8 shadow-sm sticky top-24 space-y-6">
             <div className="border-b border-stone-100 pb-4 space-y-1">
-              <h3 className="font-serif text-xl font-bold text-stone-900">
+              <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#824D25]">
+                Real-Time Availability
+              </span>
+              <h3 className="font-serif text-2xl font-bold text-[#181512]">
                 Reserve Your Appointment
               </h3>
               <p className="text-xs text-stone-500">
-                Instant slot reservation with automated confirmation.
+                Instant slot locking with automated customer confirmation.
               </p>
             </div>
 
             <form onSubmit={handleBooking} className="space-y-5">
               {/* Date Selector */}
               <div>
-                <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-2">
-                  Select Appointment Date
+                <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2">
+                  1. Appointment Date
                 </label>
                 <div className="relative">
                   <Calendar className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -388,21 +404,21 @@ export default function ServiceDetailsPage() {
                     value={appointmentDate}
                     onChange={(e) => setAppointmentDate(e.target.value)}
                     required
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 text-sm font-medium text-stone-900 bg-stone-50/50 cursor-pointer"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-[#A2683A]/20 focus:border-[#A2683A] text-xs sm:text-sm font-medium text-stone-900 bg-[#FAF7F2]/60 cursor-pointer"
                   />
                 </div>
               </div>
 
-              {/* Real-Time Time Slot Picker */}
+              {/* Real-Time Interactive Time Slot Picker Grid */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider">
-                    Select Time Slot
+                  <label className="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                    2. Select Time Slot
                   </label>
                   {slotsLoading && (
-                    <span className="text-[11px] text-amber-800 flex items-center gap-1 font-medium">
+                    <span className="text-[11px] text-[#824D25] flex items-center gap-1 font-semibold">
                       <Loader2 className="w-3 h-3 animate-spin" />
-                      Checking slots...
+                      Checking availability...
                     </span>
                   )}
                 </div>
@@ -418,12 +434,12 @@ export default function ServiceDetailsPage() {
                         type="button"
                         disabled={isBooked}
                         onClick={() => setSelectedSlot(slot)}
-                        className={`py-2 px-2.5 rounded-xl text-xs font-medium border text-center transition-all cursor-pointer relative ${
+                        className={`py-2.5 px-2 rounded-xl text-xs font-semibold border text-center transition-all cursor-pointer relative ${
                           isBooked
                             ? 'bg-stone-100 text-stone-400 border-stone-200 line-through cursor-not-allowed'
                             : isSelected
-                            ? 'bg-stone-900 text-[#FAF8F5] border-stone-900 shadow-xs font-semibold active:scale-95'
-                            : 'bg-white text-stone-800 border-stone-300 hover:border-amber-800 hover:bg-amber-50/20 active:scale-95'
+                            ? 'bg-gradient-to-r from-[#A2683A] to-[#824D25] text-[#FAF7F2] border-transparent shadow-xs font-bold active:scale-95'
+                            : 'bg-white text-stone-800 border-stone-300 hover:border-[#A2683A] hover:bg-[#FAF7F2] active:scale-95'
                         }`}
                       >
                         <span>{slot}</span>
@@ -441,8 +457,8 @@ export default function ServiceDetailsPage() {
               {/* Special Requests / Notes */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider">
-                    Stylist Notes & Sensitivities
+                  <label className="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                    3. Stylist Notes &amp; Requests
                   </label>
                   <span className="text-[10px] text-stone-400 font-normal">Optional</span>
                 </div>
@@ -452,12 +468,12 @@ export default function ServiceDetailsPage() {
                   maxLength={300}
                   rows={3}
                   placeholder="Hair texture, preferred stylist, allergy details, or consultation notes..."
-                  className="w-full p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 text-xs text-stone-900 placeholder:text-stone-400 bg-stone-50/50 resize-none"
+                  className="w-full p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-[#A2683A]/20 focus:border-[#A2683A] text-xs text-stone-900 placeholder:text-stone-400 bg-[#FAF7F2]/60 resize-none"
                 />
               </div>
 
               {/* Booking Summary Box */}
-              <div className="bg-[#FAF8F5] border border-stone-200/80 rounded-xl p-4 space-y-2 text-xs">
+              <div className="bg-[#FAF7F2] border border-stone-200/90 rounded-2xl p-4 space-y-2 text-xs">
                 <div className="flex justify-between text-stone-600">
                   <span>Selected Date:</span>
                   <span className="font-semibold text-stone-900">
@@ -467,16 +483,16 @@ export default function ServiceDetailsPage() {
                 <div className="flex justify-between text-stone-600">
                   <span>Time Slot:</span>
                   <span className="font-semibold text-stone-900">
-                    {selectedSlot || 'Please select'}
+                    {selectedSlot || 'Please select a slot'}
                   </span>
                 </div>
                 <div className="flex justify-between text-stone-600">
-                  <span>Duration:</span>
+                  <span>Ritual Duration:</span>
                   <span className="font-semibold text-stone-900">{service.duration} mins</span>
                 </div>
                 <div className="pt-2 border-t border-stone-200 flex justify-between text-sm">
-                  <span className="font-bold text-stone-900">Total Price:</span>
-                  <span className="font-bold text-amber-800">${formattedPrice}</span>
+                  <span className="font-serif font-bold text-stone-900">Total Investment:</span>
+                  <span className="font-serif font-bold text-[#824D25] text-lg">${formattedPrice}</span>
                 </div>
               </div>
 
@@ -485,23 +501,23 @@ export default function ServiceDetailsPage() {
                 <button
                   type="button"
                   onClick={() => router.push(`/login?callbackUrl=/services/${id}`)}
-                  className="w-full py-3.5 px-4 rounded-xl font-semibold text-sm text-white bg-amber-800 hover:bg-amber-900 shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+                  className="w-full py-4 px-4 rounded-xl font-bold text-xs uppercase tracking-widest text-[#FAF7F2] bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-98"
                 >
                   <span>Sign In to Reserve Slot</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               ) : user?.role === 'admin' ? (
-                <div className="p-4 bg-amber-50/80 border border-amber-200 rounded-xl space-y-2 text-center">
+                <div className="p-4 bg-amber-50/80 border border-amber-200/80 rounded-2xl space-y-2 text-center">
                   <div className="flex items-center justify-center gap-1.5 text-xs font-semibold text-amber-900">
                     <Shield className="w-4 h-4 text-amber-800" />
                     <span>Administrator Account</span>
                   </div>
                   <p className="text-[11px] text-amber-800 leading-relaxed">
-                    Administrators oversee and manage bookings rather than scheduling customer appointments.
+                    Administrators manage treatment schedules directly from the control dashboard.
                   </p>
                   <Link
                     href="/dashboard/admin"
-                    className="inline-block mt-1 text-xs font-semibold text-amber-900 hover:underline"
+                    className="inline-block mt-1 text-xs font-bold text-amber-900 hover:underline uppercase tracking-wider"
                   >
                     Go to Admin Dashboard →
                   </Link>
@@ -510,7 +526,7 @@ export default function ServiceDetailsPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting || !selectedSlot}
-                  className="w-full py-3.5 px-4 rounded-xl font-semibold text-sm text-white bg-amber-800 hover:bg-amber-900 shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed active:scale-98"
+                  className="w-full py-4 px-4 rounded-xl font-bold text-xs uppercase tracking-widest text-[#FAF7F2] bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed active:scale-98"
                 >
                   {isSubmitting ? (
                     <>
@@ -520,7 +536,7 @@ export default function ServiceDetailsPage() {
                   ) : (
                     <>
                       <Check className="w-4 h-4" />
-                      <span>Confirm & Reserve Appointment</span>
+                      <span>Confirm &amp; Reserve Appointment</span>
                     </>
                   )}
                 </button>

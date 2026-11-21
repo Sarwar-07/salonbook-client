@@ -121,7 +121,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="max-w-md w-full mx-auto bg-white border border-stone-200/90 rounded-3xl p-8 sm:p-10 shadow-sm">
+    <div className="max-w-md w-full mx-auto bg-white/90 backdrop-blur-md border border-stone-200/80 rounded-3xl p-8 sm:p-10 shadow-xl shadow-stone-900/5">
       {/* Brand Header */}
       <div className="text-center space-y-2 mb-8">
         <div className="flex justify-center mb-4">
@@ -129,10 +129,10 @@ function LoginForm() {
             <Logo showTagline />
           </Link>
         </div>
-        <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight">
+        <h1 className="font-serif text-3xl font-semibold text-[#181512] tracking-tight">
           Welcome Back
         </h1>
-        <p className="text-xs sm:text-sm text-stone-500">
+        <p className="text-xs sm:text-sm text-stone-500 font-light">
           Sign in to access your bespoke appointments & treatments
         </p>
       </div>
@@ -141,7 +141,7 @@ function LoginForm() {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Email Field */}
         <div>
-          <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
+          <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-widest mb-1.5">
             Email Address
           </label>
           <div className="relative">
@@ -152,7 +152,7 @@ function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
               required
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 transition-colors text-sm text-stone-900 placeholder:text-stone-400 bg-stone-50/50"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 bg-[#FAF7F2]/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#A2683A]/20 focus:border-[#A2683A] transition-all text-sm text-[#181512] placeholder:text-stone-400"
             />
           </div>
         </div>
@@ -160,7 +160,7 @@ function LoginForm() {
         {/* Password Field */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider">
+            <label className="block text-[11px] font-semibold text-stone-700 uppercase tracking-widest">
               Password
             </label>
           </div>
@@ -172,7 +172,7 @@ function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               required
-              className="w-full pl-10 pr-10 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 transition-colors text-sm text-stone-900 placeholder:text-stone-400 bg-stone-50/50"
+              className="w-full pl-10 pr-10 py-3 rounded-xl border border-stone-200 bg-[#FAF7F2]/60 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#A2683A]/20 focus:border-[#A2683A] transition-all text-sm text-[#181512] placeholder:text-stone-400"
             />
             <button
               type="button"
@@ -189,7 +189,7 @@ function LoginForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full mt-2 py-3.5 px-4 rounded-xl font-semibold text-sm text-white bg-amber-800 hover:bg-amber-900 shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed active:scale-98"
+          className="w-full mt-2 py-3.5 px-4 rounded-xl font-medium text-sm text-white bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 shadow-md shadow-[#824D25]/15 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed active:scale-98"
         >
           {loading ? (
             <>
@@ -220,7 +220,7 @@ function LoginForm() {
         type="button"
         onClick={handleGoogleSignIn}
         disabled={googleLoading}
-        className="w-full py-3 px-4 rounded-xl font-medium text-sm text-stone-700 bg-white border border-stone-300 hover:bg-stone-50 hover:border-stone-400 transition-all flex items-center justify-center gap-2.5 shadow-2xs cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full py-3 px-4 rounded-xl font-medium text-sm text-[#181512] bg-white border border-stone-200 hover:bg-stone-50 hover:border-stone-300 transition-all flex items-center justify-center gap-2.5 shadow-2xs cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {googleLoading ? (
           <Loader2 className="w-4 h-4 animate-spin text-stone-500" />
@@ -252,7 +252,7 @@ function LoginForm() {
         New to SalonBook?{' '}
         <Link
           href="/register"
-          className="font-semibold text-amber-800 hover:underline transition-colors"
+          className="font-medium text-[#A2683A] hover:text-[#824D25] hover:underline transition-colors"
         >
           Create an account
         </Link>

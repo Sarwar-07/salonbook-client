@@ -77,36 +77,36 @@ export default function AboutPage() {
   return (
     <div className="space-y-20 sm:space-y-28 lg:space-y-36 pb-24">
       {/* 1. HERO BANNER */}
-      <section className="bg-stone-900 text-[#FAF8F5] py-20 sm:py-28 relative overflow-hidden border-b border-stone-800">
+      <section className="bg-[#181512] text-[#FAF7F2] py-20 sm:py-28 relative overflow-hidden border-b border-stone-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl mx-auto space-y-6">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-semibold tracking-wider uppercase">
-            <Sparkles className="w-3.5 h-3.5" />
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#A2683A]/20 text-[#EEDCC8] border border-[#A2683A]/30 text-[11px] font-semibold tracking-widest uppercase">
+            <Sparkles className="w-3.5 h-3.5 text-[#C48E60]" />
             <span>Our Heritage & Philosophy</span>
           </span>
 
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-white leading-tight">
             Where Timeless Craftsmanship Meets Modern Serenity
           </h1>
 
-          <p className="text-stone-300 text-sm sm:text-base lg:text-lg leading-relaxed">
+          <p className="text-stone-300 font-light text-sm sm:text-base lg:text-lg leading-relaxed">
             Founded on the principle that self-care is a sacred ritual, SalonBook provides an unhurried sanctuary where visionary artisans and holistic therapies elevate your natural beauty.
           </p>
         </div>
 
         {/* Ambient Blur Background */}
-        <div className="absolute right-0 top-0 translate-x-1/4 -translate-y-1/4 w-96 h-96 rounded-full bg-amber-800/10 blur-3xl pointer-events-none" />
+        <div className="absolute right-0 top-0 translate-x-1/4 -translate-y-1/4 w-96 h-96 rounded-full bg-[#A2683A]/15 blur-3xl pointer-events-none" />
       </section>
 
       {/* 2. THE THREE PILLARS (STANDARDS) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14 space-y-2">
-          <p className="text-xs uppercase tracking-widest font-semibold text-amber-800">
+          <p className="text-xs uppercase tracking-widest font-semibold text-[#A2683A]">
             Our Core Principles
           </p>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900">
+          <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-[#181512]">
             Hygiene & Botanical Excellence
           </h2>
-          <p className="text-sm text-stone-600">
+          <p className="text-sm text-stone-600 font-light">
             A commitment to ethical wellness, purity of ingredients, and surgical precision.
           </p>
         </div>
@@ -117,13 +117,13 @@ export default function AboutPage() {
             return (
               <div
                 key={s.title}
-                className="bg-white border border-stone-200/90 rounded-2xl p-7 shadow-xs hover:shadow-md transition-shadow duration-200 space-y-4"
+                className="bg-white/90 backdrop-blur-sm border border-stone-200/80 rounded-2xl p-7 shadow-xs hover:shadow-lg transition-all duration-300 space-y-4"
               >
-                <div className="w-12 h-12 rounded-xl bg-amber-800/10 text-amber-800 border border-amber-800/20 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-[#824D25]/10 text-[#A2683A] border border-[#A2683A]/20 flex items-center justify-center">
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="font-serif text-lg font-bold text-stone-900">{s.title}</h3>
-                <p className="text-stone-600 text-sm leading-relaxed">{s.description}</p>
+                <h3 className="font-serif text-xl font-semibold text-[#181512]">{s.title}</h3>
+                <p className="text-stone-600 text-sm leading-relaxed font-light">{s.description}</p>
               </div>
             );
           })}
@@ -133,13 +133,13 @@ export default function AboutPage() {
       {/* 3. MEET OUR MASTER ARTISANS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14 space-y-2">
-          <p className="text-xs uppercase tracking-widest font-semibold text-amber-800">
+          <p className="text-xs uppercase tracking-widest font-semibold text-[#A2683A]">
             The Specialists
           </p>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900">
+          <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-[#181512]">
             Meet Our Master Artisans
           </h2>
-          <p className="text-sm text-stone-600">
+          <p className="text-sm text-stone-600 font-light">
             Each specialist brings over a decade of international editorial pedigree to your personalized appointment.
           </p>
         </div>
@@ -150,7 +150,7 @@ export default function AboutPage() {
             return (
               <div
                 key={art.name}
-                className="bg-white border border-stone-200/90 rounded-2xl overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col group"
+                className="bg-white/90 backdrop-blur-sm border border-stone-200/80 rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group"
               >
                 {/* Photo */}
                 <div className="relative h-72 w-full overflow-hidden bg-stone-100">
@@ -162,7 +162,7 @@ export default function AboutPage() {
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     unoptimized
                   />
-                  <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-xs text-amber-900 text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-stone-200">
+                  <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-xs text-[#824D25] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-stone-200">
                     {art.experience}
                   </div>
                 </div>
@@ -171,23 +171,23 @@ export default function AboutPage() {
                 <div className="p-6 flex flex-col flex-1 justify-between gap-4">
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-md bg-amber-800/10 text-amber-800 flex items-center justify-center">
+                      <div className="w-6 h-6 rounded-md bg-[#824D25]/10 text-[#A2683A] flex items-center justify-center">
                         <Icon className="w-3.5 h-3.5" />
                       </div>
-                      <span className="text-xs font-semibold text-amber-800 uppercase tracking-wide">
+                      <span className="text-xs font-semibold text-[#A2683A] uppercase tracking-wide">
                         {art.role}
                       </span>
                     </div>
 
-                    <h3 className="font-serif text-xl font-bold text-stone-900">
+                    <h3 className="font-serif text-xl font-semibold text-[#181512]">
                       {art.name}
                     </h3>
 
-                    <p className="text-xs text-stone-600 leading-relaxed font-medium">
+                    <p className="text-xs text-stone-700 leading-relaxed font-medium">
                       Specialty: {art.specialty}
                     </p>
 
-                    <p className="text-xs text-stone-500 leading-relaxed pt-1">
+                    <p className="text-xs text-stone-500 leading-relaxed pt-1 font-light">
                       {art.bio}
                     </p>
                   </div>
@@ -200,18 +200,18 @@ export default function AboutPage() {
 
       {/* 4. BOTTOM RESERVATION CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-stone-900 text-[#FAF8F5] rounded-3xl p-8 sm:p-14 text-center max-w-3xl mx-auto space-y-6 shadow-xl border border-stone-800">
-          <Heart className="w-8 h-8 text-amber-500 mx-auto" />
-          <h2 className="font-serif text-2xl sm:text-4xl font-bold text-white tracking-tight">
+        <div className="bg-[#181512] text-[#FAF7F2] rounded-3xl p-8 sm:p-14 text-center max-w-3xl mx-auto space-y-6 shadow-xl border border-stone-800">
+          <Heart className="w-8 h-8 text-[#C48E60] mx-auto" />
+          <h2 className="font-serif text-2xl sm:text-4xl font-semibold text-white tracking-tight">
             Experience Bespoke Beauty Firsthand
           </h2>
-          <p className="text-stone-300 text-sm max-w-lg mx-auto leading-relaxed">
+          <p className="text-stone-300 text-sm max-w-lg mx-auto leading-relaxed font-light">
             Reserve your consultation with our master stylists and certified therapists.
           </p>
           <div className="pt-2">
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-amber-600 hover:bg-amber-500 text-stone-950 font-semibold text-sm transition-all duration-200 shadow-md active:scale-95"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 text-white font-medium text-sm transition-all duration-200 shadow-md shadow-[#824D25]/20 active:scale-95"
             >
               <span>Explore Signature Treatments</span>
               <ArrowRight className="w-4 h-4" />
