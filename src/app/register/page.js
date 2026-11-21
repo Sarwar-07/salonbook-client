@@ -6,9 +6,9 @@ import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signUp, signIn } from '@/lib/auth-client';
 import { uploadImageToImgBB } from '@/lib/uploadImage';
+import Logo from '@/components/Logo';
 import toast from 'react-hot-toast';
 import {
-  Sparkles,
   Eye,
   EyeOff,
   Lock,
@@ -144,8 +144,10 @@ function RegisterForm() {
     <div className="max-w-md w-full mx-auto bg-white border border-stone-200/90 rounded-3xl p-8 sm:p-10 shadow-sm">
       {/* Brand Header */}
       <div className="text-center space-y-2 mb-8">
-        <div className="w-12 h-12 rounded-full bg-amber-800/10 text-amber-800 border border-amber-800/20 flex items-center justify-center mx-auto mb-3">
-          <Sparkles className="w-6 h-6" />
+        <div className="flex justify-center mb-4">
+          <Link href="/" className="inline-flex items-center group">
+            <Logo showTagline />
+          </Link>
         </div>
         <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight">
           Create an Account

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import Logo from '@/components/Logo';
 import {
-  Sparkles,
   MapPin,
   Phone,
   Mail,
@@ -58,13 +58,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           {/* Brand Story Column (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
-            <Link href="/" className="inline-flex items-center gap-2.5 group">
-              <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/30">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <span className="font-serif text-2xl font-bold text-stone-100 tracking-tight">
-                SalonBook
-              </span>
+            <Link href="/" className="inline-flex items-center group">
+              <Logo variant="light" showTagline />
             </Link>
             <p className="text-sm text-stone-400 leading-relaxed max-w-sm">
               SalonBook redefines the luxury salon and spa experience. From visionary hair design to restorative skin therapies, our master artisans curate an unparalleled sanctuary of rejuvenation and elegance.

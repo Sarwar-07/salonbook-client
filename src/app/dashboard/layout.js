@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import Logo from '@/components/Logo';
 import toast from 'react-hot-toast';
 import {
   LayoutDashboard,
@@ -17,7 +18,6 @@ import {
   Menu,
   X,
   Loader2,
-  Sparkles,
 } from 'lucide-react';
 
 export default function DashboardLayout({ children }) {
@@ -108,18 +108,13 @@ export default function DashboardLayout({ children }) {
       {/* Top Brand & Nav */}
       <div className="space-y-6">
         {/* SalonBook Brand Pill */}
-        <div className="px-3 py-2 flex items-center gap-2.5 border-b border-stone-200/80 pb-4">
-          <div className="w-9 h-9 rounded-full bg-amber-800/10 text-amber-800 border border-amber-800/20 flex items-center justify-center shrink-0">
-            <Sparkles className="w-4 h-4" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-serif text-lg font-bold text-stone-900 leading-tight">
-              SalonBook
-            </span>
-            <span className="text-[10px] uppercase font-bold tracking-wider text-amber-800">
-              {isAdmin ? 'Admin Console' : 'Client Suite'}
-            </span>
-          </div>
+        <div className="px-1 py-1 flex items-center justify-between border-b border-stone-200/80 pb-4">
+          <Link href="/" className="inline-flex items-center group">
+            <Logo />
+          </Link>
+          <span className="text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+            {isAdmin ? 'Admin' : 'Client'}
+          </span>
         </div>
 
         {/* Navigation Items */}
@@ -202,7 +197,7 @@ export default function DashboardLayout({ children }) {
       {/* Mobile Header Bar with Drawer Toggle */}
       <div className="md:hidden flex items-center justify-between px-4 py-3 bg-white border-b border-stone-200 sticky top-20 z-30">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-amber-800" />
+          <Logo iconOnly className="w-6 h-6" />
           <span className="font-serif font-bold text-stone-900 text-sm">
             {isAdmin ? 'Admin Console' : 'Dashboard Suite'}
           </span>

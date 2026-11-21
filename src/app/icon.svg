@@ -1,0 +1,61 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rounded deep espresso medallion base -->
+  <rect width="32" height="32" rx="7" fill="#1C1917" />
+  
+  <defs>
+    <linearGradient id="goldFaviconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#FBBF24" />
+      <stop offset="100%" stopColor="#D97706" />
+    </linearGradient>
+  </defs>
+
+  <!-- Luxury Arch Frame -->
+  <path
+    d="M 7 28 L 7 14 C 7 9.03 11.03 5 16 5 C 20.97 5 25 9.03 25 14 L 25 28 C 25 28.55 24.55 29 24 29 L 8 29 C 7.45 29 7 28.55 7 28 Z"
+    stroke="url(#goldFaviconGrad)"
+    stroke-width="1.2"
+    fill="rgba(245, 158, 11, 0.12)"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Crown 4-Point Starlight Sparkle -->
+  <path
+    d="M 16 1 C 16 2.8 17.2 3.8 19 3.8 C 17.2 3.8 16 4.8 16 6.5 C 16 4.8 14.8 3.8 13 3.8 C 14.8 3.8 16 2.8 16 1 Z"
+    fill="#FDE68A"
+  />
+
+  <!-- Center Botanical Lotus Petal -->
+  <path
+    d="M 16 25 C 14.5 20.5 14.5 15.5 16 11 C 17.5 15.5 17.5 20.5 16 25 Z"
+    fill="rgba(251, 191, 36, 0.25)"
+    stroke="url(#goldFaviconGrad)"
+    stroke-width="1"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Left Lotus Ribbon -->
+  <path
+    d="M 16 24 C 12.5 22.8 9.5 19.5 10.5 14.8 C 12 14.5 14.5 17.2 16 20.5"
+    stroke="url(#goldFaviconGrad)"
+    stroke-width="0.95"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Right Lotus Ribbon -->
+  <path
+    d="M 16 24 C 19.5 22.8 22.5 19.5 21.5 14.8 C 20 14.5 17.5 17.2 16 20.5"
+    stroke="url(#goldFaviconGrad)"
+    stroke-width="0.95"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Center Diamond Sparkle -->
+  <polygon points="16,8 17.5,9.5 16,11 14.5,9.5" fill="#FDE68A" />
+
+  <!-- Base Line -->
+  <line x1="11" y1="27" x2="21" y2="27" stroke="#F59E0B" stroke-width="0.8" stroke-opacity="0.8" stroke-linecap="round" />
+</svg>

@@ -5,8 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import Logo from '@/components/Logo';
 import {
-  Sparkles,
   Menu,
   X,
   ChevronDown,
@@ -82,19 +82,9 @@ export default function Navbar() {
           <Link
             href="/"
             onClick={closeMenus}
-            className="flex items-center gap-2.5 group transition-transform active:scale-95"
+            className="group transition-transform active:scale-95 inline-flex items-center"
           >
-            <div className="w-10 h-10 rounded-full bg-amber-800/10 flex items-center justify-center text-amber-800 border border-amber-800/20 group-hover:bg-amber-800 group-hover:text-white transition-colors duration-300">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-serif text-2xl font-bold tracking-tight text-stone-900 group-hover:text-amber-800 transition-colors">
-                SalonBook
-              </span>
-              <span className="text-[10px] uppercase tracking-widest text-stone-500 font-sans">
-                Haute Salon & Spa
-              </span>
-            </div>
+            <Logo showTagline />
           </Link>
 
           {/* Center Navigation Links (Desktop) */}

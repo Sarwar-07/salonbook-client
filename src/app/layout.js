@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "SalonBook | Luxury Salon & Spa Appointment Booking",
   description: "Luxury Salon & Spa Appointment Booking System",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
