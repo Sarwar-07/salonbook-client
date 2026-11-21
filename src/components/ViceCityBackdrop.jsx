@@ -16,157 +16,141 @@ export default function ViceCityBackdrop({ className = '' }) {
         preserveAspectRatio="xMidYMid slice"
       >
         <defs>
-          {/* Official GTA VI Leonida Dusk Sky Gradient: #3B2667 -> #B85D8E -> #F4977A */}
+          {/* Exact GTA VI Key Art Leonida Dusk Sky Gradient:
+              #4B367C (twilight lavender) -> #C96E9B (flamingo-rose) -> #F7B286 (warm golden-peach) */}
           <linearGradient id="vcSky" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#3B2667" />
-            <stop offset="42%" stopColor="#B85D8E" />
-            <stop offset="80%" stopColor="#F4977A" />
-            <stop offset="100%" stopColor="#FCD385" />
+            <stop offset="0%" stopColor="#4B367C" />
+            <stop offset="48%" stopColor="#C96E9B" />
+            <stop offset="82%" stopColor="#F7B286" />
+            <stop offset="100%" stopColor="#FCE7B0" />
           </linearGradient>
 
-          {/* Glowing Horizon Sun Gradient */}
-          <linearGradient id="vcSun" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#FFF7A1" />
-            <stop offset="35%" stopColor="#F4977A" />
-            <stop offset="75%" stopColor="#E11D48" />
-            <stop offset="100%" stopColor="#7E22CE" />
-          </linearGradient>
-
-          {/* Retro Sun Scanline Mask */}
-          <mask id="vcSunMask">
-            <rect width="1440" height="680" fill="#FFFFFF" />
-            <rect x="500" y="380" width="440" height="3" fill="#000000" />
-            <rect x="500" y="396" width="440" height="5" fill="#000000" />
-            <rect x="500" y="415" width="440" height="8" fill="#000000" />
-            <rect x="500" y="437" width="440" height="11" fill="#000000" />
-            <rect x="500" y="462" width="440" height="15" fill="#000000" />
-            <rect x="500" y="490" width="440" height="20" fill="#000000" />
-          </mask>
-
-          {/* Sun Glow Filter */}
-          <filter id="vcGlow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="40" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
+          {/* Soft Horizon Sun Radiance */}
+          <radialGradient id="vcSunGlow" cx="62%" cy="72%" r="48%">
+            <stop offset="0%" stopColor="#FFF2B2" stopOpacity="0.75" />
+            <stop offset="40%" stopColor="#F7B286" stopOpacity="0.5" />
+            <stop offset="80%" stopColor="#C96E9B" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#4B367C" stopOpacity="0" />
+          </radialGradient>
 
           {/* Ocean Water Gradient */}
           <linearGradient id="vcOcean" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#251447" />
-            <stop offset="35%" stopColor="#170B30" />
-            <stop offset="100%" stopColor="#0E061E" />
+            <stop offset="0%" stopColor="#2D1A4E" />
+            <stop offset="45%" stopColor="#22123D" />
+            <stop offset="100%" stopColor="#160B2B" />
           </linearGradient>
 
           {/* Water Sun Reflection Gradient */}
           <linearGradient id="vcReflection" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#F4977A" stopOpacity="0.45" />
-            <stop offset="50%" stopColor="#E11D48" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.05" />
+            <stop offset="0%" stopColor="#F7B286" stopOpacity="0.55" />
+            <stop offset="45%" stopColor="#C96E9B" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#FCE7B0" stopOpacity="0.08" />
           </linearGradient>
 
-          {/* Left-to-Right Readability Scrim Overlay */}
+          {/* Left-to-Right Twilight-Plum Readability Scrim */}
           <linearGradient id="vcReadabilityScrim" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#110B22" stopOpacity="0.90" />
-            <stop offset="55%" stopColor="#110B22" stopOpacity="0.68" />
-            <stop offset="100%" stopColor="#110B22" stopOpacity="0.20" />
+            <stop offset="0%" stopColor="#1C1238" stopOpacity="0.84" />
+            <stop offset="55%" stopColor="#1C1238" stopOpacity="0.54" />
+            <stop offset="100%" stopColor="#1C1238" stopOpacity="0.14" />
           </linearGradient>
         </defs>
 
         {/* 1. Sky Canvas */}
-        <rect width="1440" height="520" fill="url(#vcSky)" />
+        <rect width="1440" height="515" fill="url(#vcSky)" />
+        <rect width="1440" height="515" fill="url(#vcSunGlow)" />
 
-        {/* Subtle Stars in Upper Atmosphere */}
-        <g opacity="0.55">
-          <circle cx="120" cy="45" r="1.5" fill="#FFF" />
-          <circle cx="280" cy="70" r="1" fill="#FFF" />
-          <circle cx="430" cy="35" r="2" fill="#FFF" opacity="0.8" />
-          <circle cx="620" cy="60" r="1.5" fill="#FFF" />
-          <circle cx="890" cy="40" r="1" fill="#FFF" />
-          <circle cx="1080" cy="75" r="2" fill="#FFF" opacity="0.9" />
-          <circle cx="1320" cy="50" r="1.5" fill="#FFF" />
-          <circle cx="750" cy="90" r="1" fill="#FFF" />
+        {/* 2. Distant Flying Birds (Seagulls from GTA VI Key Art) */}
+        <g fill="#4B367C" opacity="0.68">
+          {/* Bird 1 */}
+          <path d="M590 135 Q605 118 622 134 Q638 118 654 135 Q638 127 622 139 Q605 127 590 135 Z" />
+          {/* Bird 2 (Lower Left) */}
+          <path d="M575 165 Q587 150 600 164 Q614 150 626 165 Q614 158 600 168 Q587 158 575 165 Z" />
+          {/* Bird 3 (Small High Distant) */}
+          <path d="M660 110 Q669 98 678 109 Q688 98 698 110 Q688 104 678 113 Q669 104 660 110 Z" />
         </g>
 
-        {/* 2. Low Horizon Glowing Striped Sun */}
-        <g filter="url(#vcGlow)">
-          <circle
-            cx="720"
-            cy="420"
-            r="140"
-            fill="url(#vcSun)"
-            mask="url(#vcSunMask)"
-          />
+        {/* 3. Pastel Lavender Vice City High-Rise Skyline */}
+        {/* Layer A: Far Distant Pastel Towers */}
+        <g fill="#8C6BA5" opacity="0.55">
+          <rect x="70" y="445" width="40" height="70" />
+          <rect x="115" y="430" width="30" height="85" />
+          <rect x="150" y="455" width="45" height="60" />
+          <polygon points="125,410 135,410 130,430" />
+          <rect x="230" y="440" width="55" height="75" />
+          <rect x="310" y="435" width="40" height="80" />
+          <rect x="360" y="420" width="50" height="95" />
+          <polygon points="380,395 390,395 385,420" />
+          <rect x="420" y="450" width="60" height="65" />
         </g>
 
-        {/* 3. Ocean / Horizon Water */}
-        <rect y="500" width="1440" height="180" fill="url(#vcOcean)" />
-        <polygon points="630,500 810,500 920,680 520,680" fill="url(#vcReflection)" />
-        <line x1="560" y1="515" x2="880" y2="515" stroke="#F4977A" strokeWidth="1.5" opacity="0.4" />
-        <line x1="520" y1="535" x2="920" y2="535" stroke="#E11D48" strokeWidth="1.5" opacity="0.35" />
-        <line x1="470" y1="560" x2="970" y2="560" stroke="#38BDF8" strokeWidth="1" opacity="0.3" />
-        <line x1="420" y1="595" x2="1020" y2="595" stroke="#E11D48" strokeWidth="1" opacity="0.25" />
+        {/* Layer B: Midground Twilight Lavender Skyline */}
+        <g fill="#573678" opacity="0.85">
+          {/* Left Cluster */}
+          <rect x="90" y="460" width="50" height="55" />
+          <rect x="145" y="440" width="40" height="75" />
+          <rect x="200" y="465" width="60" height="50" />
+          <rect x="280" y="450" width="45" height="65" />
+          <rect x="340" y="435" width="65" height="80" />
+          <rect x="355" y="415" width="35" height="20" />
+          <line x1="372" y1="415" x2="372" y2="390" stroke="#F7B286" strokeWidth="1.5" opacity="0.75" />
 
-        {/* 4. Pastel Art Deco Hotel Silhouettes on the Right */}
-        <g opacity="0.92">
-          {/* Hotel 1: Stepped Art Deco Tower */}
-          <rect x="990" y="380" width="75" height="130" fill="#1C0E3E" />
-          <rect x="1005" y="355" width="45" height="25" fill="#1C0E3E" />
-          <rect x="1020" y="335" width="15" height="20" fill="#1C0E3E" />
-          <line x1="1027" y1="335" x2="1027" y2="305" stroke="#38BDF8" strokeWidth="2" opacity="0.8" />
-          <line x1="1027" y1="355" x2="1027" y2="500" stroke="#F43F5E" strokeWidth="2" opacity="0.6" />
-
-          {/* Hotel 2: Rounded Ocean Drive Pavilion */}
-          <rect x="1075" y="405" width="95" height="105" fill="#150B33" />
-          <path d="M1075 405 Q1122 375 1170 405 Z" fill="#150B33" />
-          <circle cx="1100" cy="425" r="3.5" fill="#38BDF8" opacity="0.6" />
-          <circle cx="1122" cy="425" r="3.5" fill="#38BDF8" opacity="0.6" />
-          <circle cx="1145" cy="425" r="3.5" fill="#38BDF8" opacity="0.6" />
-          <circle cx="1100" cy="450" r="3.5" fill="#F4977A" opacity="0.6" />
-          <circle cx="1122" cy="450" r="3.5" fill="#F4977A" opacity="0.6" />
-          <circle cx="1145" cy="450" r="3.5" fill="#F4977A" opacity="0.6" />
-
-          {/* Hotel 3: Classic Neon Pylon */}
-          <rect x="1185" y="360" width="65" height="150" fill="#1A0D3A" />
-          <rect x="1200" y="330" width="35" height="30" fill="#1A0D3A" />
-          <polygon points="1217,290 1210,330 1224,330" fill="#38BDF8" opacity="0.75" />
-          <line x1="1217" y1="330" x2="1217" y2="500" stroke="#38BDF8" strokeWidth="2" opacity="0.5" />
-
-          {/* Hotel 4: Distant skyline blocks */}
-          <rect x="1260" y="420" width="80" height="90" fill="#13092C" />
-          <rect x="1350" y="435" width="70" height="75" fill="#100725" />
+          {/* Right Skyline (Ocean Drive towers) */}
+          <rect x="980" y="410" width="65" height="105" />
+          <rect x="995" y="385" width="35" height="25" />
+          <line x1="1012" y1="385" x2="1012" y2="360" stroke="#FCE7B0" strokeWidth="1.5" opacity="0.75" />
+          <rect x="1055" y="430" width="85" height="85" />
+          <path d="M1055 430 Q1097 405 1140 430 Z" />
+          <rect x="1150" y="390" width="60" height="125" />
+          <polygon points="1175,360 1185,360 1180,390" />
+          <rect x="1220" y="425" width="70" height="90" />
+          <rect x="1300" y="445" width="85" height="70" />
         </g>
 
-        {/* 5. Layered Dark-Violet Palm Tree Silhouettes */}
-        <g fill="#0D0622">
-          {/* Left Palms */}
-          <path d="M70 540 Q110 380 180 260 Q170 260 100 390 Q60 480 50 540 Z" />
-          <path d="M180 260 Q260 210 320 250 Q250 260 180 260 Z" />
-          <path d="M180 260 Q280 260 320 310 Q250 300 180 260 Z" />
-          <path d="M180 260 Q230 330 250 380 Q210 340 180 260 Z" />
-          <path d="M180 260 Q170 180 200 130 Q180 190 180 260 Z" />
-          <path d="M180 260 Q110 180 70 170 Q120 220 180 260 Z" />
-          <path d="M180 260 Q90 240 40 270 Q110 275 180 260 Z" />
-          <path d="M180 260 Q100 300 60 350 Q120 320 180 260 Z" />
+        {/* 4. Ocean / Coastal Water Reflection */}
+        <rect y="510" width="1440" height="170" fill="url(#vcOcean)" />
+        <polygon points="560,510 880,510 1020,680 420,680" fill="url(#vcReflection)" />
+        <line x1="500" y1="525" x2="940" y2="525" stroke="#F7B286" strokeWidth="1.5" opacity="0.5" />
+        <line x1="460" y1="545" x2="980" y2="545" stroke="#C96E9B" strokeWidth="1.5" opacity="0.4" />
+        <line x1="410" y1="570" x2="1030" y2="570" stroke="#FCE7B0" strokeWidth="1.2" opacity="0.35" />
+        <line x1="350" y1="605" x2="1090" y2="605" stroke="#F7B286" strokeWidth="1" opacity="0.25" />
 
-          <path d="M140 540 Q150 430 190 340 Q182 340 132 440 Q120 490 120 540 Z" fill="#140A2E" />
-          <path d="M190 340 Q250 300 290 320 Q240 335 190 340 Z" fill="#140A2E" />
-          <path d="M190 340 Q250 360 270 410 Q225 385 190 340 Z" fill="#140A2E" />
-          <path d="M190 340 Q140 280 90 290 Q140 320 190 340 Z" fill="#140A2E" />
-          <path d="M190 340 Q130 350 80 390 Q135 375 190 340 Z" fill="#140A2E" />
+        {/* 5. Layered Dark-Plum Palm Tree Silhouettes (Framing Both Edges) */}
+        <g fill="#180E30">
+          {/* LEFT PALMS */}
+          <path d="M60 540 Q100 380 180 250 Q170 250 90 390 Q50 480 40 540 Z" />
+          {/* Main Palm Fronds */}
+          <path d="M180 250 Q265 200 325 240 Q255 250 180 250 Z" />
+          <path d="M180 250 Q285 250 325 300 Q255 290 180 250 Z" />
+          <path d="M180 250 Q235 320 255 370 Q215 330 180 250 Z" />
+          <path d="M180 250 Q170 170 200 120 Q180 180 180 250 Z" />
+          <path d="M180 250 Q110 170 70 160 Q120 210 180 250 Z" />
+          <path d="M180 250 Q90 230 40 260 Q110 265 180 250 Z" />
+          <path d="M180 250 Q100 290 60 340 Q120 310 180 250 Z" />
 
-          {/* Right Palms */}
-          <path d="M1390 540 Q1360 390 1290 280 Q1300 280 1370 400 Q1400 480 1410 540 Z" />
-          <path d="M1290 280 Q1210 230 1150 270 Q1220 280 1290 280 Z" />
-          <path d="M1290 280 Q1190 280 1150 330 Q1220 320 1290 280 Z" />
-          <path d="M1290 280 Q1240 350 1220 400 Q1260 360 1290 280 Z" />
-          <path d="M1290 280 Q1300 200 1270 150 Q1290 210 1290 280 Z" />
-          <path d="M1290 280 Q1360 200 1400 190 Q1350 240 1290 280 Z" />
-          <path d="M1290 280 Q1380 260 1430 290 Q1360 295 1290 280 Z" />
+          {/* Secondary Left Palm */}
+          <path d="M130 540 Q145 425 190 330 Q182 330 128 435 Q115 485 115 540 Z" fill="#251645" />
+          <path d="M190 330 Q255 290 295 310 Q245 325 190 330 Z" fill="#251645" />
+          <path d="M190 330 Q255 350 275 400 Q230 375 190 330 Z" fill="#251645" />
+          <path d="M190 330 Q140 270 90 280 Q140 310 190 330 Z" fill="#251645" />
+          <path d="M190 330 Q130 340 80 380 Q135 365 190 330 Z" fill="#251645" />
+
+          {/* RIGHT PALMS */}
+          <path d="M1400 540 Q1370 385 1295 270 Q1305 270 1380 395 Q1410 480 1420 540 Z" />
+          <path d="M1295 270 Q1215 220 1155 260 Q1225 270 1295 270 Z" />
+          <path d="M1295 270 Q1195 270 1155 320 Q1225 310 1295 270 Z" />
+          <path d="M1295 270 Q1245 340 1225 390 Q1265 350 1295 270 Z" />
+          <path d="M1295 270 Q1305 190 1275 140 Q1295 200 1295 270 Z" />
+          <path d="M1295 270 Q1365 190 1405 180 Q1355 230 1295 270 Z" />
+          <path d="M1295 270 Q1385 250 1435 280 Q1365 285 1295 270 Z" />
+
+          {/* Secondary Right Palm */}
+          <path d="M1330 540 Q1320 435 1275 340 Q1283 340 1335 440 Q1345 490 1345 540 Z" fill="#251645" />
+          <path d="M1275 340 Q1210 300 1170 320 Q1220 335 1275 340 Z" fill="#251645" />
+          <path d="M1275 340 Q1210 360 1190 410 Q1235 385 1275 340 Z" fill="#251645" />
+          <path d="M1275 340 Q1325 280 1375 290 Q1325 320 1275 340 Z" fill="#251645" />
         </g>
 
-        {/* 6. Dark Left-to-Right Readability Scrim (Ensures maximum contrast for hero text) */}
+        {/* 6. Left-to-Right Twilight-Plum Readability Scrim (Ensures Hero Headline & Description Are Sharp) */}
         <rect width="1440" height="680" fill="url(#vcReadabilityScrim)" />
       </svg>
     </div>
