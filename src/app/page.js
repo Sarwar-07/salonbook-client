@@ -174,6 +174,14 @@ export default function HomePage() {
                 >
                   <span>View Treatments</span>
                 </Link>
+
+                <Link
+                  href="/gta-eras"
+                  className="hidden gta6:inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-xs font-extrabold uppercase tracking-wider bg-gradient-to-r from-[#FDE08D] via-[#F7B286] to-[#F472B6] !text-[#1B103B] shadow-lg hover:brightness-105 transition"
+                >
+                  <span>Explore GTA Eras</span>
+                  <ArrowRight className="w-4 h-4 !text-[#1B103B]" />
+                </Link>
               </div>
 
               {/* 3-Stat Glassmorphic Strip */}

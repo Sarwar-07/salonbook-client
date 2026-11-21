@@ -196,7 +196,6 @@ export default function GtaProtagonistSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredProtagonists.map((p) => {
             const eraHref = `/gta-eras/${p.slug}`;
-            const categoryHref = `/services?category=${encodeURIComponent(p.category)}`;
 
             return (
               <div
@@ -242,21 +241,14 @@ export default function GtaProtagonistSection() {
                   </div>
                 </div>
 
-                {/* Card Bottom: Character & Era CTA + Book Category Link */}
-                <div className="pt-5 mt-5 border-t border-white/15 flex items-center justify-between gap-2">
+                {/* Card Bottom: Character & Era CTA */}
+                <div className="pt-5 mt-5 border-t border-white/15 flex items-center justify-between">
                   <Link
                     href={eraHref}
                     className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white hover:text-[#FCD34D] transition-all group-hover:translate-x-1"
                   >
                     <span>Character &amp; Era</span>
                     <ArrowRight className="w-3.5 h-3.5 text-[#F7B286] group-hover:text-[#FCD34D]" />
-                  </Link>
-
-                  <Link
-                    href={categoryHref}
-                    className="text-xs font-bold uppercase tracking-wider text-[#F7B286] hover:text-white transition-colors"
-                  >
-                    Book {p.category}
                   </Link>
                 </div>
               </div>

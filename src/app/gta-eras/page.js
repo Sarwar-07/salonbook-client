@@ -158,21 +158,14 @@ function ProtagonistCard({ model }) {
         </div>
       </div>
 
-      {/* Two Actions at Card Bottom */}
-      <div className="pt-5 mt-5 border-t border-white/15 flex items-center justify-between gap-2">
+      {/* Card Bottom: Character & Era CTA */}
+      <div className="pt-5 mt-5 border-t border-white/15 flex items-center justify-between">
         <Link
           href={`/gta-eras/${model.slug}`}
           className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white hover:text-[#FCD34D] transition-all group-hover:translate-x-1"
         >
           <span>Explore Character &amp; Era</span>
           <ArrowRight className="w-3.5 h-3.5 text-[#F7B286] group-hover:text-[#FCD34D]" />
-        </Link>
-
-        <Link
-          href={`/services?category=${encodeURIComponent(model.category)}`}
-          className="text-xs font-bold uppercase tracking-wider text-[#F7B286] hover:text-white transition-colors"
-        >
-          Book {model.category}
         </Link>
       </div>
     </div>
