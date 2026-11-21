@@ -103,8 +103,8 @@ export default function ThemeToggle({ className = '' }) {
       role="switch"
       aria-checked={isGta6}
       onClick={toggleTheme}
-      aria-label={isGta6 ? 'Switch back to Atelier default luxury theme' : 'Switch to GTA VI Mode'}
-      title={isGta6 ? 'Switch back to Atelier default theme' : 'Switch to GTA VI Mode'}
+      aria-label={isGta6 ? 'Switch back to Atelier default luxury theme' : 'Switch to GTA Mode'}
+      title={isGta6 ? 'Switch back to Atelier default theme' : 'Switch to GTA Mode'}
       className={`w-[156px] h-10 rounded-full p-1 relative inline-flex items-center justify-between cursor-pointer select-none transition-all duration-300 shrink-0 ${
         isGta6
           ? 'bg-[#160D30] border border-[#F7B286]/80 shadow-[0_0_18px_rgba(236,72,153,0.45)]'
@@ -127,7 +127,7 @@ export default function ThemeToggle({ className = '' }) {
         }`}
         aria-hidden="true"
       >
-        GTA VI
+        GTA
       </span>
 
       {/* Symmetrical Sliding Thumb */}
@@ -142,7 +142,7 @@ export default function ThemeToggle({ className = '' }) {
         {isGta6 ? (
           <>
             <WantedStar className="w-3.5 h-3.5 text-[#1B103B]" />
-            <span className="text-[10px] font-black tracking-wider leading-none text-[#1B103B]">GTA VI</span>
+            <span className="text-[10px] font-black tracking-wider leading-none text-[#1B103B]">GTA</span>
           </>
         ) : (
           <>
