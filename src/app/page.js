@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ServiceCard from '@/components/ServiceCard';
+import HeroSlideshow from '@/components/HeroSlideshow';
 import ViceCityBackdrop from '@/components/ViceCityBackdrop';
 import GtaProtagonistSection from '@/components/GtaProtagonistSection';
 import { apiRequest } from '@/lib/api';
@@ -198,48 +199,9 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right Column: Framed Editorial Salon Showcase Card (5 cols) */}
+            {/* Right Column: Luxury Salon Showcase Slideshow (5 cols) */}
             <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* Architectural Gold Halo Border */}
-                <div className="absolute -inset-3.5 rounded-[2.5rem] bg-gradient-to-br from-[#C89B6E]/30 via-transparent to-[#A2683A]/20 transform rotate-1 hidden sm:block pointer-events-none" />
-
-                {/* Main Hero Showcase Photo */}
-                <div className="relative h-[450px] sm:h-[530px] rounded-[2rem] overflow-hidden shadow-2xl border border-stone-800 bg-stone-900">
-                  <Image
-                    src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=85"
-                    alt="SalonBook Sanctuary Atelier"
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover object-center transform hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-                  {/* Corner Flagship Pill */}
-                  <div className="absolute top-4 right-4 z-20 bg-[#121110]/85 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-lg border border-stone-700 flex items-center gap-1.5 text-xs text-white">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#C89B6E]" />
-                    <span className="text-[10px] uppercase font-bold tracking-wider">Madison Ave Flagship</span>
-                  </div>
-                </div>
-
-                {/* Floating Glassmorphic Trust Badge */}
-                <div className="absolute -bottom-6 -left-4 sm:-left-6 z-20 bg-[#1C1A18]/90 backdrop-blur-md p-4 sm:p-5 rounded-2xl shadow-2xl border border-white/10 max-w-xs">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#C89B6E] to-[#824D25] text-white flex items-center justify-center shrink-0 shadow-sm">
-                      <Star className="w-5 h-5 fill-current" />
-                    </div>
-                    <div>
-                      <p className="font-serif font-bold text-sm sm:text-base text-white leading-tight">
-                        4.9★ Client Rating
-                      </p>
-                      <p className="text-[11px] text-[#C89B6E] font-semibold uppercase tracking-wider mt-0.5">
-                        Certified Master Stylists
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <HeroSlideshow />
             </div>
           </div>
         </div>

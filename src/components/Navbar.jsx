@@ -131,9 +131,9 @@ export default function Navbar() {
           </nav>
 
           {/* Right Side Auth Actions & Profile Pill (Desktop) */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-3 sm:gap-4">
             {/* Vice City Theme Switch */}
-            <ThemeToggle />
+            <ThemeToggle className="mx-1 sm:mx-2" />
 
             {loading ? (
               <div className="flex items-center gap-2">

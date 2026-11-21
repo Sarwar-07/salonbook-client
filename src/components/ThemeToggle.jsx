@@ -46,6 +46,15 @@ function WantedStar({ className }) {
   );
 }
 
+/* Crisp 4-point sparkle diamond icon */
+function SparkleDiamond({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
+    </svg>
+  );
+}
+
 export default function ThemeToggle({ className = '' }) {
   const theme = useSyncExternalStore(subscribe, getThemeSnapshot, getServerThemeSnapshot);
   const mounted = useSyncExternalStore(subscribeMounted, getMountedSnapshot, getServerMountedSnapshot);
@@ -81,9 +90,9 @@ export default function ThemeToggle({ className = '' }) {
     }
   };
 
-  /* Fixed-size placeholder for SSR / before hydration */
+  /* Symmetrical fixed-size placeholder for SSR / before hydration */
   if (!mounted) {
-    return <div className={`w-36 h-9 shrink-0 ${className}`} aria-hidden="true" />;
+    return <div className={`w-[156px] h-10 shrink-0 ${className}`} aria-hidden="true" />;
   }
 
   const isGta6 = theme === 'gta6';
@@ -94,68 +103,51 @@ export default function ThemeToggle({ className = '' }) {
       role="switch"
       aria-checked={isGta6}
       onClick={toggleTheme}
-      aria-label={isGta6 ? 'Switch back to Atelier default luxury theme' : 'Switch to GTA Mode'}
-      title={isGta6 ? 'Switch back to default Salon theme' : 'Switch to GTA Mode'}
-      className={`relative inline-flex items-center justify-between w-36 h-9 rounded-full p-1 cursor-pointer select-none transition-all duration-300 shrink-0 ${
+      aria-label={isGta6 ? 'Switch back to Atelier default luxury theme' : 'Switch to GTA VI Mode'}
+      title={isGta6 ? 'Switch back to Atelier default theme' : 'Switch to GTA VI Mode'}
+      className={`w-[156px] h-10 rounded-full p-1 relative inline-flex items-center justify-between cursor-pointer select-none transition-all duration-300 shrink-0 ${
         isGta6
-          ? 'border border-[#F7B286]/70'
-          : 'bg-[#1C1917] border border-stone-600/80 shadow-inner'
+          ? 'bg-[#160D30] border border-[#F7B286]/80 shadow-[0_0_18px_rgba(236,72,153,0.45)]'
+          : 'bg-[#F5EFE6] border border-[#C89B6E]/60 shadow-[inset_0_1px_2px_rgba(24,21,18,0.08)]'
       } ${className}`}
-      style={
-        isGta6
-          ? {
-              backgroundColor: '#160D30',
-              boxShadow: '0 0 16px rgba(236,72,153,0.45), inset 0 1px 3px rgba(0,0,0,0.4)',
-            }
-          : undefined
-      }
     >
-      {/* Fixed track labels */}
+      {/* Symmetrical Track Labels */}
       <span
-        className={`text-[10px] font-extrabold tracking-widest uppercase z-10 px-2.5 transition-colors duration-300 ${
-          isGta6 ? 'text-stone-500' : 'text-transparent'
+        className={`text-[10px] font-extrabold tracking-widest uppercase z-10 w-[70px] text-center transition-colors duration-300 ${
+          isGta6 ? 'text-[#E9D5FF]' : 'text-transparent'
         }`}
         aria-hidden="true"
       >
         SALON
       </span>
+
       <span
-        className={`text-[10px] font-extrabold tracking-widest uppercase z-10 px-2 transition-colors duration-300 ${
-          isGta6 ? 'text-transparent' : 'text-stone-500'
+        className={`text-[10px] font-extrabold tracking-widest uppercase z-10 w-[70px] text-center transition-colors duration-300 ${
+          isGta6 ? 'text-transparent' : 'text-[#4A3728]'
         }`}
         aria-hidden="true"
       >
         GTA VI
       </span>
 
-      {/* Sliding thumb */}
+      {/* Symmetrical Sliding Thumb */}
       <span
-        className={`absolute top-1 left-1 w-[68px] h-7 rounded-full transition-transform duration-300 ease-out flex items-center justify-center gap-1 shadow-md ${
+        className={`absolute top-1 left-1 w-[70px] h-8 rounded-full transition-transform duration-300 ease-out flex items-center justify-center gap-1.5 shadow-md z-20 ${
           isGta6
-            ? 'translate-x-[60px]'
-            : 'translate-x-0 bg-[#C89B6E] text-[#1C1917]'
+            ? 'translate-x-[74px] bg-gradient-to-r from-[#FDE08D] via-[#F7B286] to-[#F472B6] text-[#1B103B]'
+            : 'translate-x-0 bg-gradient-to-r from-[#A85A32] via-[#C89B6E] to-[#B87A4B] text-white'
         }`}
-        style={
-          isGta6
-            ? {
-                background: 'linear-gradient(135deg, #FDE08D 0%, #F7B286 50%, #F472B6 100%)',
-                color: '#1B103B',
-              }
-            : undefined
-        }
         aria-hidden="true"
       >
         {isGta6 ? (
           <>
-            <WantedStar className="w-3.5 h-3.5" />
-            <span className="text-[10px] font-black tracking-wider leading-none">GTA VI</span>
+            <WantedStar className="w-3.5 h-3.5 text-[#1B103B]" />
+            <span className="text-[10px] font-black tracking-wider leading-none text-[#1B103B]">GTA VI</span>
           </>
         ) : (
           <>
-            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
-            </svg>
-            <span className="text-[10px] font-black tracking-wider leading-none">SALON</span>
+            <SparkleDiamond className="w-3.5 h-3.5 text-white" />
+            <span className="text-[10px] font-black tracking-wider leading-none text-white">SALON</span>
           </>
         )}
       </span>
