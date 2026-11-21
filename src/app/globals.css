@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant gta6 (&:where(.gta6, .gta6 *));
+
 :root {
   --background: #FAF7F2;
   --foreground: #181512;
@@ -51,4 +53,117 @@ h1, h2, h3, h4, .font-serif {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #B6ABA0;
+}
+
+/* ======================================================== */
+/* GTA 6 VICE CITY THEME OVERRIDES (Triggered by html.gta6) */
+/* ======================================================== */
+html.gta6 {
+  --background: #0D0722;
+  --foreground: #FFF7ED;
+}
+
+html.gta6 body {
+  background-color: #0D0722;
+  color: #FFF7ED;
+  background-image:
+    radial-gradient(ellipse at 15% 15%, rgba(255, 46, 147, 0.12) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 85%, rgba(0, 240, 255, 0.10) 0%, transparent 45%);
+  background-attachment: fixed;
+}
+
+/* Light page and section surfaces converted to deep twilight violet */
+html.gta6 [class*="bg-[#FAF"],
+html.gta6 [class*="bg-[#F6F"],
+html.gta6 [class*="bg-[#F2E"],
+html.gta6 .bg-stone-50,
+html.gta6 .bg-stone-100 {
+  background-color: #0D0722 !important;
+}
+
+/* Cards, Modals, Inputs, and Dropdowns converted to dark twilight glass with neon magenta borders */
+html.gta6 .bg-white,
+html.gta6 [class*="bg-white/"] {
+  background-color: rgba(22, 12, 54, 0.90) !important;
+  border-color: rgba(255, 46, 147, 0.35) !important;
+  box-shadow: 0 8px 32px rgba(13, 7, 34, 0.7), 0 0 12px rgba(255, 46, 147, 0.15) !important;
+  color: #FFF7ED !important;
+}
+
+/* Header styled as frosted midnight violet with #FF2E93 bottom hairline border */
+html.gta6 header {
+  background-color: rgba(13, 7, 34, 0.85) !important;
+  border-bottom-color: #FF2E93 !important;
+  box-shadow: 0 4px 25px rgba(255, 46, 147, 0.18) !important;
+}
+
+/* Headings transformed to bold uppercase tracking with crisp #FFF7ED text and neon text-shadow */
+html.gta6 h1,
+html.gta6 h2,
+html.gta6 h3 {
+  color: #FFF7ED !important;
+  text-shadow: 0 0 12px rgba(255, 46, 147, 0.4), 0 0 24px rgba(0, 240, 255, 0.25);
+  letter-spacing: 0.03em;
+}
+
+/* Body / secondary text in high-contrast soft lavender */
+html.gta6 .text-stone-700,
+html.gta6 .text-stone-600,
+html.gta6 .text-stone-500 {
+  color: #DDD6FE !important;
+}
+
+html.gta6 .text-stone-400,
+html.gta6 .text-stone-300 {
+  color: #C4B5FD !important;
+}
+
+/* Border overrides */
+html.gta6 [class*="border-stone-"] {
+  border-color: rgba(255, 46, 147, 0.25) !important;
+}
+
+/* Form input fields & textareas */
+html.gta6 input,
+html.gta6 select,
+html.gta6 textarea {
+  background-color: rgba(13, 7, 34, 0.75) !important;
+  border-color: rgba(255, 46, 147, 0.4) !important;
+  color: #FFF7ED !important;
+}
+
+html.gta6 input:focus,
+html.gta6 select:focus,
+html.gta6 textarea:focus {
+  border-color: #00F0FF !important;
+  box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.25) !important;
+}
+
+/* Primary bronze / dark CTA buttons transformed into Vice City sunset gradient */
+html.gta6 [class*="bg-[#A85A32]"],
+html.gta6 [class*="bg-[#B45309]"],
+html.gta6 [class*="bg-[#181512]"],
+html.gta6 [class*="bg-[#121110]"],
+html.gta6 [class*="from-[#A2683A]"],
+html.gta6 [class*="from-[#C89B6E]"],
+html.gta6 .bg-amber-800 {
+  background: linear-gradient(135deg, #FF2E93 0%, #FF7A00 100%) !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 46, 147, 0.6) !important;
+  box-shadow: 0 0 15px rgba(255, 46, 147, 0.45) !important;
+}
+
+/* Accent icons and gold text turned into glowing cyan/magenta */
+html.gta6 [class*="text-[#824D25]"],
+html.gta6 [class*="text-[#A2683A]"],
+html.gta6 [class*="text-[#C89B6E]"] {
+  color: #00F0FF !important;
+}
+
+html.gta6 ::-webkit-scrollbar-track {
+  background: #0D0722;
+}
+
+html.gta6 ::-webkit-scrollbar-thumb {
+  background: #FF2E93;
 }

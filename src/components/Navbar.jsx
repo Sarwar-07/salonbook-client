@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Logo from '@/components/Logo';
+import ThemeToggle from '@/components/ThemeToggle';
 import {
   Menu,
   X,
@@ -114,6 +115,9 @@ export default function Navbar() {
 
           {/* Right Side Auth Actions & Profile Pill (Desktop) */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Vice City Theme Switch */}
+            <ThemeToggle />
+
             {loading ? (
               <div className="flex items-center gap-2">
                 <div className="h-10 w-28 bg-stone-200/70 rounded-full animate-pulse" />
@@ -323,7 +327,14 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Footer CTAs */}
-          <div className="pt-2 border-t border-stone-200">
+          <div className="pt-2 border-t border-stone-200 space-y-3">
+            <div className="flex items-center justify-between px-1">
+              <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider">
+                Theme Style
+              </span>
+              <ThemeToggle />
+            </div>
+
             {user ? (
               <button
                 type="button"

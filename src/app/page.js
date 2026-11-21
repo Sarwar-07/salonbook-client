@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ServiceCard from '@/components/ServiceCard';
+import ViceCityBackdrop from '@/components/ViceCityBackdrop';
 import { apiRequest } from '@/lib/api';
 import {
   Scissors,
@@ -124,6 +125,9 @@ export default function HomePage() {
       {/* 1. DRAMATIC OBSIDIAN HERO SECTION (`bg-[#121110]` text-white) */}
       {/* ======================================================== */}
       <section className="relative bg-[#121110] text-white pt-16 pb-20 sm:pt-24 sm:pb-28 lg:pt-28 lg:pb-36 overflow-hidden border-b border-stone-800/80">
+        {/* GTA 6 Vice City Sunset Illustration Backdrop (Pure SVG, zero external images) */}
+        <ViceCityBackdrop className="hidden gta6:block opacity-95" />
+
         {/* Subtle Ambient Radial Champagne Glow */}
         <div className="absolute top-0 right-0 w-[550px] h-[550px] bg-[#C89B6E]/12 rounded-full blur-[130px] pointer-events-none -translate-y-1/3 translate-x-1/4" />
         <div className="absolute bottom-0 left-0 w-[420px] h-[420px] bg-[#824D25]/15 rounded-full blur-[110px] pointer-events-none translate-y-1/3 -translate-x-1/4" />
