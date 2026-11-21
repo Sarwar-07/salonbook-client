@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/lib/api';
 import toast from 'react-hot-toast';
+import { uploadImageToImgBB } from '@/lib/uploadImage';
 import {
   BarChart3,
   Scissors,
@@ -27,6 +28,7 @@ import {
   X,
   Clock,
   Sparkles,
+  Upload,
 } from 'lucide-react';
 
 const FALLBACK_IMAGE =
@@ -76,6 +78,7 @@ export default function AdminDashboardPage() {
     description: '',
   });
   const [savingService, setSavingService] = useState(false);
+  const [serviceImageUploading, setServiceImageUploading] = useState(false);
 
   // Tab 3: Appointments filter
   const [appointmentFilter, setAppointmentFilter] = useState('All');
@@ -189,8 +192,45 @@ export default function AdminDashboardPage() {
     setIsServiceModalOpen(true);
   };
 
+  const handleServiceImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setServiceImageUploading(true);
+    try {
+      const imageUrl = await uploadImageToImgBB(file);
+      setServiceFormData((prev) => ({ ...prev, image: imageUrl }));
+      toast.success('Service photo uploaded successfully!');
+    } catch (err) {
+      console.error('Service image upload error:', err);
+      toast.error(err.message || 'Failed to upload image to ImgBB');
+    } finally {
+      setServiceImageUploading(false);
+      e.target.value = '';
+    }
+  };
+
   const handleSaveService = async (e) => {
     e.preventDefault();
+
+    const priceNum = Number(serviceFormData.price);
+    const durationNum = Number(serviceFormData.duration);
+
+    if (isNaN(priceNum) || priceNum <= 0) {
+      toast.error('Price must be a positive number greater than 0');
+      return;
+    }
+
+    if (isNaN(durationNum) || durationNum <= 0) {
+      toast.error('Duration must be a positive number greater than 0');
+      return;
+    }
+
+    if (!serviceFormData.image) {
+      toast.error('Please upload an image for this service');
+      return;
+    }
+
     setSavingService(true);
 
     try {
@@ -201,8 +241,8 @@ export default function AdminDashboardPage() {
           body: {
             serviceName: serviceFormData.serviceName,
             category: serviceFormData.category,
-            price: Number(serviceFormData.price),
-            duration: Number(serviceFormData.duration),
+            price: priceNum,
+            duration: durationNum,
             image: serviceFormData.image,
             status: serviceFormData.status,
             description: serviceFormData.description,
@@ -216,8 +256,8 @@ export default function AdminDashboardPage() {
           body: {
             serviceName: serviceFormData.serviceName,
             category: serviceFormData.category,
-            price: Number(serviceFormData.price),
-            duration: Number(serviceFormData.duration),
+            price: priceNum,
+            duration: durationNum,
             image: serviceFormData.image,
             status: serviceFormData.status,
             description: serviceFormData.description,
@@ -1518,32 +1558,78 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              {/* Image URL & Preview */}
+              {/* Image File Upload & Live Preview (No raw URL input) */}
               <div>
                 <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1">
-                  Image URL *
+                  Treatment Image *
                 </label>
-                <input
-                  type="url"
-                  required
-                  value={serviceFormData.image}
-                  onChange={(e) =>
-                    setServiceFormData({ ...serviceFormData, image: e.target.value })
-                  }
-                  placeholder="https://images.unsplash.com/..."
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800"
-                />
-                {serviceFormData.image && (
-                  <div className="mt-2 relative h-28 w-full rounded-xl overflow-hidden bg-stone-100 border border-stone-200">
-                    <Image
-                      src={serviceFormData.image}
-                      alt="Service preview"
-                      fill
-                      className="object-cover"
-                      unoptimized
+
+                <div className="space-y-3">
+                  <label
+                    className={`relative flex flex-col items-center justify-center p-5 border-2 border-dashed rounded-2xl cursor-pointer transition-all ${
+                      serviceImageUploading
+                        ? 'border-amber-400 bg-amber-50/50 cursor-wait'
+                        : 'border-stone-300 hover:border-amber-800 bg-[#FAF8F5] hover:bg-stone-50'
+                    }`}
+                  >
+                    <input
+                      type="file"
+                      accept="image/*"
+                      disabled={serviceImageUploading}
+                      onChange={handleServiceImageUpload}
+                      className="sr-only"
                     />
-                  </div>
-                )}
+
+                    {serviceImageUploading ? (
+                      <div className="flex flex-col items-center gap-2 py-2">
+                        <Loader2 className="w-6 h-6 animate-spin text-amber-800" />
+                        <span className="text-xs font-semibold text-amber-800">
+                          Uploading image to ImgBB...
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-1.5 text-center">
+                        <div className="w-10 h-10 rounded-full bg-white border border-stone-200 shadow-2xs flex items-center justify-center text-stone-600">
+                          <Upload className="w-4 h-4 text-amber-800" />
+                        </div>
+                        <span className="text-xs font-semibold text-stone-800">
+                          {serviceFormData.image ? 'Click to replace image' : 'Click to upload service photo'}
+                        </span>
+                        <span className="text-[11px] text-stone-400">
+                          PNG, JPG, WEBP or GIF (via ImgBB)
+                        </span>
+                      </div>
+                    )}
+                  </label>
+
+                  {/* Live Image Preview */}
+                  {serviceFormData.image && (
+                    <div className="relative rounded-2xl overflow-hidden border border-stone-200 bg-stone-100">
+                      <div className="relative h-36 w-full">
+                        <Image
+                          src={serviceFormData.image}
+                          alt="Service preview"
+                          fill
+                          className="object-cover"
+                          unoptimized
+                        />
+                      </div>
+                      <div className="p-2.5 bg-white/95 backdrop-blur-xs border-t border-stone-200 flex items-center justify-between text-xs">
+                        <span className="inline-flex items-center gap-1 font-semibold text-emerald-700">
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          Image Ready
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setServiceFormData((prev) => ({ ...prev, image: '' }))}
+                          className="text-stone-500 hover:text-rose-600 text-[11px] font-medium transition-colors cursor-pointer"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Description */}
@@ -1574,7 +1660,7 @@ export default function AdminDashboardPage() {
                 </button>
                 <button
                   type="submit"
-                  disabled={savingService}
+                  disabled={savingService || serviceImageUploading}
                   className="px-6 py-2.5 rounded-full bg-amber-800 hover:bg-amber-900 text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer disabled:opacity-50"
                 >
                   {savingService ? (

@@ -2,8 +2,10 @@
 
 import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signUp, signIn } from '@/lib/auth-client';
+import { uploadImageToImgBB } from '@/lib/uploadImage';
 import toast from 'react-hot-toast';
 import {
   Sparkles,
@@ -15,6 +17,7 @@ import {
   Image as ImageIcon,
   Loader2,
   ArrowRight,
+  Upload,
 } from 'lucide-react';
 
 function RegisterForm() {
@@ -32,6 +35,25 @@ function RegisterForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [imageUploading, setImageUploading] = useState(false);
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setImageUploading(true);
+    try {
+      const url = await uploadImageToImgBB(file);
+      setImage(url);
+      toast.success('Profile photo uploaded!');
+    } catch (err) {
+      console.error('Photo upload error:', err);
+      toast.error(err.message || 'Failed to upload photo');
+    } finally {
+      setImageUploading(false);
+      e.target.value = '';
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -170,22 +192,79 @@ function RegisterForm() {
           </div>
         </div>
 
-        {/* Photo URL (Optional) */}
+        {/* Profile Photo (ImgBB Upload or URL) */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
             <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider">
-              Profile Photo URL
+              Profile Photo
             </label>
             <span className="text-[11px] text-stone-400 font-normal">Optional</span>
           </div>
-          <div className="relative">
+
+          <div className="flex items-center gap-4 p-3.5 bg-stone-50/70 border border-stone-200 rounded-2xl">
+            {/* Live Avatar Preview */}
+            <div className="relative w-14 h-14 rounded-full overflow-hidden bg-amber-800/10 border-2 border-stone-200 text-stone-500 flex items-center justify-center shrink-0">
+              {image ? (
+                <Image
+                  src={image}
+                  alt="Avatar preview"
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
+              ) : (
+                <User className="w-6 h-6 text-stone-400" />
+              )}
+            </div>
+
+            {/* Direct File Upload via ImgBB */}
+            <div className="flex-1 space-y-1">
+              <label className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold shadow-2xs transition-colors cursor-pointer">
+                {imageUploading ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-800" />
+                    <span>Uploading...</span>
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-3.5 h-3.5 text-amber-800" />
+                    <span>{image ? 'Change Photo' : 'Upload Photo'}</span>
+                  </>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  disabled={imageUploading}
+                  onChange={handleImageUpload}
+                  className="sr-only"
+                />
+              </label>
+
+              {image ? (
+                <button
+                  type="button"
+                  onClick={() => setImage('')}
+                  className="block text-[11px] text-stone-400 hover:text-rose-600 transition-colors cursor-pointer"
+                >
+                  Remove photo
+                </button>
+              ) : (
+                <p className="text-[11px] text-stone-400">
+                  Upload directly via ImgBB (or paste URL below)
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Optional Direct URL input as fallback */}
+          <div className="relative mt-2">
             <ImageIcon className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="url"
               value={image}
               onChange={(e) => setImage(e.target.value)}
-              placeholder="https://example.com/avatar.jpg"
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 transition-colors text-sm text-stone-900 placeholder:text-stone-400 bg-stone-50/50"
+              placeholder="Or paste image URL (https://...)"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 transition-colors text-xs text-stone-900 placeholder:text-stone-400 bg-stone-50/30"
             />
           </div>
         </div>
@@ -249,13 +328,18 @@ function RegisterForm() {
         {/* Submit Button */}
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || imageUploading}
           className="w-full mt-2 py-3.5 px-4 rounded-xl font-semibold text-sm text-white bg-amber-800 hover:bg-amber-900 shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed active:scale-98"
         >
           {loading ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
               <span>Creating Account...</span>
+            </>
+          ) : imageUploading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>Uploading Photo...</span>
             </>
           ) : (
             <>

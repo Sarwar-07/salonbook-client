@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/lib/api';
 import toast from 'react-hot-toast';
+import { uploadImageToImgBB } from '@/lib/uploadImage';
 import {
   User,
   Mail,
@@ -17,6 +18,7 @@ import {
   Loader2,
   Check,
   Sparkles,
+  Upload,
 } from 'lucide-react';
 
 function ProfileForm({ user, onProfileUpdated }) {
@@ -24,7 +26,27 @@ function ProfileForm({ user, onProfileUpdated }) {
   const [phone, setPhone] = useState(user?.phone || '');
   const [image, setImage] = useState(user?.image || '');
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
   const [previewError, setPreviewError] = useState(false);
+
+  const handlePhotoUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingPhoto(true);
+    try {
+      const url = await uploadImageToImgBB(file);
+      setImage(url);
+      setPreviewError(false);
+      toast.success('Photo uploaded! Click "Save Profile Changes" to apply.');
+    } catch (err) {
+      console.error('Photo upload error:', err);
+      toast.error(err.message || 'Failed to upload photo to ImgBB');
+    } finally {
+      setIsUploadingPhoto(false);
+      e.target.value = '';
+    }
+  };
 
   const userInitials = (name || user?.name || 'U')
     .split(' ')
@@ -80,39 +102,63 @@ function ProfileForm({ user, onProfileUpdated }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Live Avatar Preview Row */}
-      <div className="flex flex-col sm:flex-row items-center gap-6 p-6 bg-[#FAF8F5] border border-stone-200/80 rounded-2xl">
-        <div className="relative w-24 h-24 rounded-full overflow-hidden bg-amber-800 text-white flex items-center justify-center text-xl font-bold border-2 border-white shadow-md shrink-0">
-          {previewUrl && !previewError ? (
-            <Image
-              src={previewUrl}
-              alt="Avatar preview"
-              fill
-              className="object-cover"
-              onError={() => setPreviewError(true)}
-              unoptimized
-            />
-          ) : (
-            <span>{userInitials}</span>
-          )}
-        </div>
-        <div className="text-center sm:text-left space-y-1">
-          <h2 className="font-serif text-lg font-bold text-stone-900">
-            {name || 'Your Name'}
-          </h2>
-          <p className="text-xs text-stone-500">{user?.email}</p>
-          <div className="pt-1">
-            <span
-              className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                user?.role === 'admin'
-                  ? 'bg-amber-100 text-amber-900 border border-amber-300'
-                  : 'bg-stone-100 text-stone-700 border border-stone-200'
-              }`}
-            >
-              <Shield className="w-3 h-3" />
-              <span>{user?.role === 'admin' ? 'Administrator' : 'Customer Client'}</span>
-            </span>
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 bg-[#FAF8F5] border border-stone-200/80 rounded-2xl">
+        <div className="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+          <div className="relative w-24 h-24 rounded-full overflow-hidden bg-amber-800 text-white flex items-center justify-center text-xl font-bold border-2 border-white shadow-md shrink-0">
+            {previewUrl && !previewError ? (
+              <Image
+                src={previewUrl}
+                alt="Avatar preview"
+                fill
+                className="object-cover"
+                onError={() => setPreviewError(true)}
+                unoptimized
+              />
+            ) : (
+              <span>{userInitials}</span>
+            )}
+          </div>
+          <div className="space-y-1">
+            <h2 className="font-serif text-lg font-bold text-stone-900">
+              {name || 'Your Name'}
+            </h2>
+            <p className="text-xs text-stone-500">{user?.email}</p>
+            <div className="pt-1">
+              <span
+                className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                  user?.role === 'admin'
+                    ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                    : 'bg-stone-100 text-stone-700 border border-stone-200'
+                }`}
+              >
+                <Shield className="w-3 h-3" />
+                <span>{user?.role === 'admin' ? 'Administrator' : 'Customer Client'}</span>
+              </span>
+            </div>
           </div>
         </div>
+
+        {/* Direct Upload Button next to avatar preview */}
+        <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold shadow-2xs transition-colors cursor-pointer shrink-0">
+          {isUploadingPhoto ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin text-amber-800" />
+              <span>Uploading to ImgBB...</span>
+            </>
+          ) : (
+            <>
+              <Upload className="w-4 h-4 text-amber-800" />
+              <span>Upload New Photo</span>
+            </>
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            disabled={isUploadingPhoto}
+            onChange={handlePhotoUpload}
+            className="sr-only"
+          />
+        </label>
       </div>
 
       {/* Inputs */}
@@ -174,26 +220,65 @@ function ProfileForm({ user, onProfileUpdated }) {
           </div>
         </div>
 
-        {/* Profile Photo URL */}
+        {/* Profile Photo (Upload or URL) */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
             <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider">
-              Profile Photo URL
+              Profile Photo
             </label>
             <span className="text-[10px] text-stone-400 font-normal">Optional</span>
           </div>
-          <div className="relative">
-            <ImageIcon className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <input
-              type="url"
-              value={image}
-              onChange={(e) => {
-                setImage(e.target.value);
-                setPreviewError(false);
-              }}
-              placeholder="https://images.unsplash.com/photo-..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 text-sm text-stone-900 placeholder:text-stone-400 bg-stone-50/50"
-            />
+
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <label className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold shadow-2xs transition-colors cursor-pointer">
+                {isUploadingPhoto ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-800" />
+                    <span>Uploading...</span>
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-3.5 h-3.5 text-amber-800" />
+                    <span>Upload Image (ImgBB)</span>
+                  </>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  disabled={isUploadingPhoto}
+                  onChange={handlePhotoUpload}
+                  className="sr-only"
+                />
+              </label>
+
+              {image && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setImage('');
+                    setPreviewError(false);
+                  }}
+                  className="text-xs text-stone-400 hover:text-rose-600 transition-colors cursor-pointer"
+                >
+                  Clear Photo
+                </button>
+              )}
+            </div>
+
+            <div className="relative">
+              <ImageIcon className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type="url"
+                value={image}
+                onChange={(e) => {
+                  setImage(e.target.value);
+                  setPreviewError(false);
+                }}
+                placeholder="Or paste image URL (https://images.unsplash.com/...)"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-800/20 focus:border-amber-800 text-sm text-stone-900 placeholder:text-stone-400 bg-stone-50/50"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -202,13 +287,18 @@ function ProfileForm({ user, onProfileUpdated }) {
       <div className="pt-2">
         <button
           type="submit"
-          disabled={isSaving}
+          disabled={isSaving || isUploadingPhoto}
           className="w-full py-3.5 px-4 rounded-xl font-semibold text-sm text-white bg-amber-800 hover:bg-amber-900 shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-98"
         >
           {isSaving ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
               <span>Saving Changes...</span>
+            </>
+          ) : isUploadingPhoto ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>Uploading Photo...</span>
             </>
           ) : (
             <>
