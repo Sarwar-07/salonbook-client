@@ -110,7 +110,7 @@ html.gta6 footer h2,
 html.gta6 footer h3,
 html.gta6 footer h4 {
   color: #FFFFFF !important;
-  text-shadow: 0 1px 8px rgba(18, 10, 38, 0.6) !important;
+  text-shadow: none !important;
 }
 
 html.gta6 footer p,
@@ -124,8 +124,26 @@ html.gta6 footer a:hover {
   color: #FCD34D !important;
 }
 
-/* High-contrast chunky white display typography */
-html.gta6 h1,
+/* Kill text-shadow blur on all small UI text — keep only on large display headings */
+html.gta6 button,
+html.gta6 a,
+html.gta6 span,
+html.gta6 p,
+html.gta6 label,
+html.gta6 input,
+html.gta6 select,
+html.gta6 td,
+html.gta6 th,
+html.gta6 li {
+  text-shadow: none !important;
+}
+
+/* High-contrast chunky white display typography (headings only) */
+html.gta6 h1 {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 8px rgba(20, 10, 45, 0.5) !important;
+}
+
 html.gta6 h2,
 html.gta6 h3,
 html.gta6 h4,
@@ -136,7 +154,7 @@ html.gta6 [class*="text-[#1C1917]"],
 html.gta6 .text-stone-900,
 html.gta6 .text-stone-800 {
   color: #FFFFFF !important;
-  text-shadow: 0 3px 14px rgba(20, 10, 45, 0.75), 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+  text-shadow: none !important;
 }
 
 /* Body / secondary text in soft cream-lavender */
@@ -162,7 +180,7 @@ html.gta6 .text-amber-800,
 html.gta6 .text-amber-700,
 html.gta6 .text-amber-600 {
   color: #FCD34D !important;
-  text-shadow: 0 1px 8px rgba(20, 10, 45, 0.6);
+  text-shadow: none !important;
 }
 
 /* Neutral borders */
@@ -252,10 +270,30 @@ html.gta6 a[class*="bg-amber-800"],
 html.gta6 a[class*="from-[#A2683A]"],
 html.gta6 a[class*="from-[#C89B6E]"] {
   background: #FFFFFF !important;
-  color: #241645 !important;
+  color: #1B103B !important;
   border: 1px solid rgba(255, 255, 255, 0.85) !important;
   box-shadow: 0 4px 18px rgba(248, 179, 133, 0.4), 0 0 12px rgba(212, 114, 156, 0.35) !important;
   font-weight: 800 !important;
+  text-shadow: none !important;
+}
+
+/* Force all children inside primary buttons to inherit dark text */
+html.gta6 button[class*="bg-[#A85A32]"] *,
+html.gta6 button[class*="bg-[#B45309]"] *,
+html.gta6 button[class*="bg-[#181512]"] *,
+html.gta6 button[class*="bg-[#121110]"] *,
+html.gta6 button[class*="bg-amber-800"] *,
+html.gta6 button[class*="from-[#A2683A]"] *,
+html.gta6 button[class*="from-[#C89B6E]"] *,
+html.gta6 a[class*="bg-[#A85A32]"] *,
+html.gta6 a[class*="bg-[#B45309]"] *,
+html.gta6 a[class*="bg-[#181512]"] *,
+html.gta6 a[class*="bg-[#121110]"] *,
+html.gta6 a[class*="bg-amber-800"] *,
+html.gta6 a[class*="from-[#A2683A]"] *,
+html.gta6 a[class*="from-[#C89B6E]"] * {
+  color: #1B103B !important;
+  text-shadow: none !important;
 }
 
 html.gta6 button[class*="bg-[#A85A32]"]:hover,
@@ -267,8 +305,21 @@ html.gta6 a[class*="bg-[#B45309]"]:hover,
 html.gta6 a[class*="bg-[#181512]"]:hover,
 html.gta6 a[class*="bg-[#121110]"]:hover {
   background: #FDE68A !important;
-  color: #241645 !important;
+  color: #1B103B !important;
   box-shadow: 0 6px 24px rgba(248, 179, 133, 0.55), 0 0 16px rgba(212, 114, 156, 0.5) !important;
+  text-shadow: none !important;
+}
+
+html.gta6 button[class*="bg-[#A85A32]"]:hover *,
+html.gta6 button[class*="bg-[#B45309]"]:hover *,
+html.gta6 button[class*="bg-[#181512]"]:hover *,
+html.gta6 button[class*="bg-[#121110]"]:hover *,
+html.gta6 a[class*="bg-[#A85A32]"]:hover *,
+html.gta6 a[class*="bg-[#B45309]"]:hover *,
+html.gta6 a[class*="bg-[#181512]"]:hover *,
+html.gta6 a[class*="bg-[#121110]"]:hover * {
+  color: #1B103B !important;
+  text-shadow: none !important;
 }
 
 /* Custom scrollbar in Vice City mode */

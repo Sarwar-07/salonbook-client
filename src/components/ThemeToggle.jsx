@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useSyncExternalStore, useEffect } from 'react';
-import { Sparkles } from 'lucide-react';
 
 function subscribe(callback) {
   if (typeof window === 'undefined') return () => {};
@@ -38,11 +37,19 @@ function getServerMountedSnapshot() {
   return false;
 }
 
+/* GTA wanted-star SVG (5-point) */
+function WantedStar({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2l2.9 6.3L22 9.2l-5 5.1L18.2 22 12 18.5 5.8 22 7 14.3l-5-5.1 7.1-.9z" />
+    </svg>
+  );
+}
+
 export default function ThemeToggle({ className = '' }) {
   const theme = useSyncExternalStore(subscribe, getThemeSnapshot, getServerThemeSnapshot);
   const mounted = useSyncExternalStore(subscribeMounted, getMountedSnapshot, getServerMountedSnapshot);
 
-  // Synchronize the DOM class on <html> without calling setState
   useEffect(() => {
     if (theme === 'gta6') {
       document.documentElement.classList.add('gta6');
@@ -74,9 +81,9 @@ export default function ThemeToggle({ className = '' }) {
     }
   };
 
-  // Fixed size placeholder on SSR / before hydration
+  /* Fixed-size placeholder for SSR / before hydration */
   if (!mounted) {
-    return <div className={`w-28 h-9 shrink-0 ${className}`} aria-hidden="true" />;
+    return <div className={`w-36 h-9 shrink-0 ${className}`} aria-hidden="true" />;
   }
 
   const isGta6 = theme === 'gta6';
@@ -84,37 +91,74 @@ export default function ThemeToggle({ className = '' }) {
   return (
     <button
       type="button"
+      role="switch"
+      aria-checked={isGta6}
       onClick={toggleTheme}
       aria-label={isGta6 ? 'Switch back to Atelier default luxury theme' : 'Switch to GTA Mode'}
-      title={isGta6 ? 'Switch back to Atelier default theme' : 'Switch to GTA Mode'}
-      className={`relative inline-flex items-center justify-center gap-1.5 px-3 py-1.5 h-9 rounded-full text-[11px] font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer select-none active:scale-95 shrink-0 shadow-sm ${
+      title={isGta6 ? 'Switch back to default Salon theme' : 'Switch to GTA Mode'}
+      className={`relative inline-flex items-center justify-between w-36 h-9 rounded-full p-1 cursor-pointer select-none transition-all duration-300 shrink-0 ${
         isGta6
-          ? 'text-white border border-[#FF2E93]/80 shadow-[0_0_15px_rgba(255,46,147,0.55)] hover:shadow-[0_0_22px_rgba(0,240,255,0.7)]'
-          : 'bg-[#FAF7F2] text-stone-700 hover:text-[#181512] border border-stone-300 hover:border-[#C89B6E] hover:bg-stone-50'
+          ? 'border border-[#F7B286]/70'
+          : 'bg-[#1C1917] border border-stone-600/80 shadow-inner'
       } ${className}`}
       style={
         isGta6
           ? {
-              background: 'linear-gradient(135deg, #FF2E93 0%, #FF7A00 50%, #00F0FF 100%)',
-              textShadow: '0 1px 2px rgba(0,0,0,0.5)',
+              backgroundColor: '#160D30',
+              boxShadow: '0 0 16px rgba(236,72,153,0.45), inset 0 1px 3px rgba(0,0,0,0.4)',
             }
           : undefined
       }
     >
-      {isGta6 ? (
-        <>
-          {/* Neon Palm Tree Icon */}
-          <svg className="w-4 h-4 fill-white drop-shadow-[0_0_4px_#FF2E93]" viewBox="0 0 24 24">
-            <path d="M12 2c.4 1.5.3 3.1-.3 4.6 2.3-1.6 5.1-2.2 7.7-1.6-1.9 2-4.6 3.1-7.4 3 2.5 1.2 4.6 3.2 5.9 5.6-2.6-.5-5.2-1.8-7.1-3.6.4 2.8.1 5.7-.9 8.3L8.5 22l-.9-7.5c-1.9 1.8-4.5 3.1-7.1 3.6 1.3-2.4 3.4-4.4 5.9-5.6-2.8.1-5.5-1-7.4-3 2.6-.6 5.4 0 7.7 1.6-.6-1.5-.7-3.1-.3-4.6 1.8 1.4 3.8 2.3 5.6 2.3 1.8 0 3.8-.9 5.6-2.3z" />
-          </svg>
-          <span className="font-extrabold tracking-widest text-white">GTA Mode: ON</span>
-        </>
-      ) : (
-        <>
-          <Sparkles className="w-3.5 h-3.5 text-[#C89B6E]" />
-          <span className="font-semibold text-stone-700">GTA Mode</span>
-        </>
-      )}
+      {/* Fixed track labels */}
+      <span
+        className={`text-[10px] font-extrabold tracking-widest uppercase z-10 px-2.5 transition-colors duration-300 ${
+          isGta6 ? 'text-stone-500' : 'text-transparent'
+        }`}
+        aria-hidden="true"
+      >
+        SALON
+      </span>
+      <span
+        className={`text-[10px] font-extrabold tracking-widest uppercase z-10 px-2 transition-colors duration-300 ${
+          isGta6 ? 'text-transparent' : 'text-stone-500'
+        }`}
+        aria-hidden="true"
+      >
+        GTA VI
+      </span>
+
+      {/* Sliding thumb */}
+      <span
+        className={`absolute top-1 left-1 w-[68px] h-7 rounded-full transition-transform duration-300 ease-out flex items-center justify-center gap-1 shadow-md ${
+          isGta6
+            ? 'translate-x-[60px]'
+            : 'translate-x-0 bg-[#C89B6E] text-[#1C1917]'
+        }`}
+        style={
+          isGta6
+            ? {
+                background: 'linear-gradient(135deg, #FDE08D 0%, #F7B286 50%, #F472B6 100%)',
+                color: '#1B103B',
+              }
+            : undefined
+        }
+        aria-hidden="true"
+      >
+        {isGta6 ? (
+          <>
+            <WantedStar className="w-3.5 h-3.5" />
+            <span className="text-[10px] font-black tracking-wider leading-none">GTA VI</span>
+          </>
+        ) : (
+          <>
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+            </svg>
+            <span className="text-[10px] font-black tracking-wider leading-none">SALON</span>
+          </>
+        )}
+      </span>
     </button>
   );
 }
