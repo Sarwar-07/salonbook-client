@@ -160,38 +160,38 @@ export default function Navbar() {
 
                 {/* Dropdown Menu */}
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-stone-200 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                    <div className="px-4 py-3 border-b border-stone-100">
-                      <p className="text-sm font-semibold text-[#181512] truncate">{user.name}</p>
-                      <p className="text-xs text-stone-500 truncate mt-0.5">{user.email}</p>
+                  <div className="absolute right-0 mt-2 w-64 bg-white gta6:bg-[#180F30]/95 rounded-2xl shadow-xl border border-stone-200 gta6:border-white/20 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150 gta6:backdrop-blur-xl">
+                    <div className="px-4 py-3 border-b border-stone-100 gta6:border-white/15 gta6:bg-transparent">
+                      <p className="text-sm font-semibold text-[#181512] gta6:text-white truncate">{user.name}</p>
+                      <p className="text-xs text-stone-500 gta6:text-[#DDD6FE] truncate mt-0.5">{user.email}</p>
                       <div className="mt-2 flex items-center gap-1.5">
                         <span
-                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider gta6:bg-[#FCD34D]/20 gta6:!text-[#FCD34D] gta6:border gta6:border-[#FCD34D]/40 ${
                             user.role === 'admin'
                               ? 'bg-[#EEDCC8] text-[#824D25] border border-[#C48E60]/40'
                               : 'bg-stone-100 text-stone-700 border border-stone-200'
                           }`}
                         >
                           {user.role === 'admin' ? (
-                            <ShieldCheck className="w-3 h-3 text-[#824D25]" />
+                            <ShieldCheck className="w-3 h-3 text-[#824D25] gta6:text-[#FCD34D]" />
                           ) : (
-                            <User className="w-3 h-3 text-stone-600" />
+                            <User className="w-3 h-3 text-stone-600 gta6:text-[#FCD34D]" />
                           )}
                           {user.role}
                         </span>
                       </div>
                     </div>
 
-                    <div className="py-1">
+                    <div className="py-1 gta6:bg-transparent">
                       <Link
                         href={dashboardHref}
                         onClick={closeMenus}
-                        className="flex items-center gap-2.5 px-4 py-2 text-sm text-stone-700 hover:bg-[#FAF7F2] hover:text-[#824D25] transition-colors"
+                        className="group flex items-center gap-2.5 px-4 py-2 text-sm text-stone-700 hover:bg-[#FAF7F2] hover:text-[#824D25] transition-colors duration-150 gta6:text-[#F3E8FF] gta6:hover:bg-white/15 gta6:hover:!text-[#FDE08D]"
                       >
                         {user.role === 'admin' ? (
-                          <LayoutDashboard className="w-4 h-4 text-stone-400" />
+                          <LayoutDashboard className="w-4 h-4 text-stone-400 group-hover:text-[#824D25] gta6:text-[#DDD6FE] gta6:group-hover:!text-[#FDE08D] transition-colors duration-150" />
                         ) : (
-                          <CalendarCheck className="w-4 h-4 text-stone-400" />
+                          <CalendarCheck className="w-4 h-4 text-stone-400 group-hover:text-[#824D25] gta6:text-[#DDD6FE] gta6:group-hover:!text-[#FDE08D] transition-colors duration-150" />
                         )}
                         <span>{user.role === 'admin' ? 'Admin Dashboard' : 'My Appointments'}</span>
                       </Link>
@@ -199,23 +199,23 @@ export default function Navbar() {
                       <Link
                         href="/dashboard/profile"
                         onClick={closeMenus}
-                        className="flex items-center gap-2.5 px-4 py-2 text-sm text-stone-700 hover:bg-[#FAF7F2] hover:text-[#824D25] transition-colors"
+                        className="group flex items-center gap-2.5 px-4 py-2 text-sm text-stone-700 hover:bg-[#FAF7F2] hover:text-[#824D25] transition-colors duration-150 gta6:text-[#F3E8FF] gta6:hover:bg-white/15 gta6:hover:!text-[#FDE08D]"
                       >
-                        <User className="w-4 h-4 text-stone-400" />
+                        <User className="w-4 h-4 text-stone-400 group-hover:text-[#824D25] gta6:text-[#DDD6FE] gta6:group-hover:!text-[#FDE08D] transition-colors duration-150" />
                         <span>My Profile</span>
                       </Link>
                     </div>
 
-                    <div className="pt-1 border-t border-stone-100">
+                    <div className="pt-1 border-t border-stone-100 gta6:border-white/15 gta6:bg-transparent">
                       <button
                         type="button"
                         onClick={() => {
                           closeMenus();
                           logout();
                         }}
-                        className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-rose-700 hover:bg-rose-50 transition-colors text-left cursor-pointer"
+                        className="group w-full flex items-center gap-2.5 px-4 py-2 text-sm text-rose-700 hover:bg-rose-50 transition-colors duration-150 text-left cursor-pointer gta6:text-[#FB7185] gta6:hover:bg-rose-500/20 gta6:hover:!text-[#FFE4E6]"
                       >
-                        <LogOut className="w-4 h-4 text-rose-600" />
+                        <LogOut className="w-4 h-4 text-rose-600 group-hover:text-rose-700 gta6:text-[#FB7185] gta6:group-hover:!text-[#FFE4E6] transition-colors duration-150" />
                         <span>Sign Out</span>
                       </button>
                     </div>

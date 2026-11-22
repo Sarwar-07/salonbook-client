@@ -334,3 +334,54 @@ html.gta6 ::-webkit-scrollbar-thumb {
 html.gta6 ::-webkit-scrollbar-thumb:hover {
   background: #F8B385;
 }
+
+/* ======================================================== */
+/* NAVBAR USER PROFILE DROPDOWN (GTA 6 Theme)               */
+/* ======================================================== */
+html.gta6 header [class*="w-64"] {
+  background-color: rgba(24, 15, 48, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.20) !important;
+  box-shadow: 0 16px 40px rgba(15, 8, 35, 0.75) !important;
+}
+
+html.gta6 header [class*="w-64"] div {
+  background-color: transparent !important;
+}
+
+html.gta6 header [class*="w-64"] a {
+  background-color: transparent !important;
+  color: #F3E8FF !important;
+}
+
+html.gta6 header [class*="w-64"] a:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #FDE08D !important;
+}
+
+html.gta6 header [class*="w-64"] a:hover * {
+  color: #FDE08D !important;
+}
+
+html.gta6 header [class*="w-64"] button {
+  background-color: transparent !important;
+  color: #FB7185 !important;
+}
+
+html.gta6 header [class*="w-64"] button:hover {
+  background-color: rgba(244, 63, 94, 0.20) !important;
+  color: #FFE4E6 !important;
+}
+
+html.gta6 header [class*="w-64"] button:hover * {
+  color: #FFE4E6 !important;
+}
+
+html.gta6 header [class*="w-64"] span[class*="rounded-full"] {
+  background-color: rgba(252, 211, 77, 0.20) !important;
+  color: #FCD34D !important;
+  border-color: rgba(252, 211, 77, 0.40) !important;
+}
+
+html.gta6 header [class*="w-64"] span[class*="rounded-full"] * {
+  color: #FCD34D !important;
+}
