@@ -258,22 +258,49 @@ export default function ServiceDetailsPage() {
   const minDate = getTodayString();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
-      {/* Editorial Breadcrumb Navigation */}
-      <nav className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-stone-500">
-        <Link href="/" className="hover:text-[#824D25] transition-colors">
-          Home
-        </Link>
-        <span className="text-stone-300">/</span>
-        <Link href="/services" className="hover:text-[#824D25] transition-colors">
-          Services
-        </Link>
-        <span className="text-stone-300">/</span>
-        <span className="text-[#824D25] truncate max-w-[200px] sm:max-w-xs">{service.serviceName}</span>
-      </nav>
+    <div className="space-y-8 sm:space-y-10 pb-24">
+      {/* Top Editorial Breadcrumb & Header Banner / GTA LEONIDA DUSK */}
+      <section className="py-6 sm:py-8 gta6:py-10 border-b border-stone-200/50 gta6:border-[#F7B286]/30 gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          {/* Editorial Breadcrumb Navigation */}
+          <nav className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-stone-500 gta6:text-[#FDE08D]">
+            <Link href="/" className="hover:text-[#824D25] gta6:hover:text-white transition-colors">
+              Home
+            </Link>
+            <span className="text-stone-300 gta6:text-white/40">/</span>
+            <Link href="/services" className="hover:text-[#824D25] gta6:hover:text-white transition-colors">
+              Services
+            </Link>
+            <span className="text-stone-300 gta6:text-white/40">/</span>
+            <span className="text-[#824D25] gta6:text-[#FDE08D] truncate max-w-[200px] sm:max-w-xs">{service.serviceName}</span>
+          </nav>
+
+          {/* Quick Category Monogram */}
+          <div className="hidden gta6:inline-flex items-center gap-2">
+            <span className="text-[11px] font-black uppercase tracking-[0.2em] px-3.5 py-1 rounded-full bg-[#160D30]/80 border border-[#F7B286]/40 text-[#FDE08D]">
+              {service.category} Discipline
+            </span>
+          </div>
+        </div>
+
+        {/* GTA Mode Leonida Sunset Glow & Palm Ambience */}
+        <div className="hidden gta6:block absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+          <div className="absolute -right-10 -bottom-10 w-96 h-96 rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#FF7A00]/25 via-[#FF2E93]/20 to-transparent blur-3xl" />
+          <div className="absolute left-1/4 top-0 w-72 h-72 rounded-full bg-[#3D2166]/40 blur-3xl" />
+          <svg viewBox="0 0 160 160" className="absolute -bottom-4 right-8 w-36 h-36 text-white/5 fill-current">
+            <path d="M10 160 Q20 100 60 60 Q50 60 20 105 Q10 135 10 160 Z" />
+            <path d="M60 60 Q110 30 140 50 Q100 60 60 60 Z" />
+            <path d="M60 60 Q120 60 140 90 Q105 85 60 60 Z" />
+            <path d="M60 60 Q95 100 110 130 Q90 105 60 60 Z" />
+            <path d="M60 60 Q30 45 10 55 Q40 60 60 60 Z" />
+            <path d="M60 60 Q30 75 15 100 Q45 85 60 60 Z" />
+          </svg>
+        </div>
+      </section>
 
       {/* Main 2-Column Responsive Luxury Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
         {/* LEFT COLUMN: Service Showcase & Details (7 cols) */}
         <div className="lg:col-span-7 space-y-8">
           {/* Large Rounded-3xl Treatment Hero Image */}
@@ -292,14 +319,14 @@ export default function ServiceDetailsPage() {
 
             {/* Frosted Category Pill */}
             <div className="absolute top-5 left-5 z-10">
-              <span className="bg-white/90 backdrop-blur-md text-[#824D25] text-[11px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full shadow-xs border border-white/60">
+              <span className="bg-white/90 gta6:bg-[#160D30]/90 gta6:border-[#F7B286]/40 gta6:text-[#FDE08D] backdrop-blur-md text-[#824D25] text-[11px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full shadow-xs border border-white/60">
                 {service.category} Discipline
               </span>
             </div>
 
             {/* Price Monogram Overlay */}
             <div className="absolute bottom-5 left-5 z-10">
-              <span className="bg-[#181512]/90 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-base sm:text-lg font-serif font-bold shadow-md">
+              <span className="bg-[#181512]/90 gta6:bg-gradient-to-r gta6:from-[#1B103B] gta6:to-[#3D2166] gta6:border gta6:border-[#F7B286]/40 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-base sm:text-lg font-serif font-bold shadow-md">
                 ${formattedPrice} USD
               </span>
             </div>
@@ -307,7 +334,7 @@ export default function ServiceDetailsPage() {
 
           {/* Service Title & Duration/Price Metadata Bar */}
           <div className="space-y-4">
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#181512] tracking-tight leading-tight">
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#181512] gta6:text-white tracking-tight leading-tight">
               {service.serviceName}
             </h1>
 
@@ -325,11 +352,11 @@ export default function ServiceDetailsPage() {
             </div>
 
             {/* Full Editorial Description */}
-            <div className="pt-4 border-t border-stone-200/80">
-              <h2 className="text-xs uppercase font-bold tracking-[0.2em] text-[#824D25] mb-2.5">
+            <div className="pt-4 border-t border-stone-200/80 gta6:border-white/15">
+              <h2 className="text-xs uppercase font-bold tracking-[0.2em] text-[#824D25] gta6:text-[#FDE08D] mb-2.5">
                 Treatment Overview &amp; Experience
               </h2>
-              <p className="text-stone-700 leading-relaxed text-sm sm:text-base whitespace-pre-line font-normal">
+              <p className="text-stone-700 gta6:text-[#F3E8FF] leading-relaxed text-sm sm:text-base whitespace-pre-line font-normal">
                 {service.description}
               </p>
             </div>
@@ -544,6 +571,7 @@ export default function ServiceDetailsPage() {
             </form>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
