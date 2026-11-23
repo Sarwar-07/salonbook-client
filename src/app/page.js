@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ServiceCard from '@/components/ServiceCard';
 import HeroSlideshow from '@/components/HeroSlideshow';
+import SalonAtelierBackdrop from '@/components/SalonAtelierBackdrop';
 import ViceCityBackdrop from '@/components/ViceCityBackdrop';
 import GtaProtagonistSection from '@/components/GtaProtagonistSection';
 import { apiRequest } from '@/lib/api';
@@ -124,9 +125,12 @@ export default function HomePage() {
   return (
     <div className="overflow-hidden bg-[#FAF7F2]">
       {/* ======================================================== */}
-      {/* 1. DRAMATIC OBSIDIAN HERO SECTION (`bg-[#121110]` text-white) */}
+      {/* 1. DRAMATIC OBSIDIAN HERO SECTION (`bg-[#181512]` text-white) */}
       {/* ======================================================== */}
-      <section className="relative bg-[#121110] text-white pt-16 pb-20 sm:pt-24 sm:pb-28 lg:pt-28 lg:pb-36 overflow-hidden border-b border-stone-800/80">
+      <section className="relative bg-[#181512] text-white pt-16 pb-20 sm:pt-24 sm:pb-28 lg:pt-28 lg:pb-36 overflow-hidden border-b border-stone-800/80">
+        {/* Salon Atelier Luxury Editorial Backdrop (Visible only in default SALON mode) */}
+        <SalonAtelierBackdrop />
+
         {/* GTA 6 Vice City Sunset Illustration Backdrop (Pure SVG, zero external images) */}
         <ViceCityBackdrop className="hidden gta6:block opacity-95" />
 
