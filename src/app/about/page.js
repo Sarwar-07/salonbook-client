@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import ViceCityBackdrop from '@/components/ViceCityBackdrop';
 import {
   Sparkles,
   Award,
@@ -78,6 +79,9 @@ export default function AboutPage() {
     <div className="space-y-20 sm:space-y-28 lg:space-y-36 pb-24">
       {/* 1. HERO BANNER */}
       <section className="bg-[#181512] gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] gta6:border-b gta6:border-[#F7B286]/30 text-[#FAF7F2] py-20 sm:py-28 relative overflow-hidden border-b border-stone-800">
+        {/* GTA 6 Vice City Sunset Illustration Backdrop */}
+        <ViceCityBackdrop className="hidden gta6:block" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl mx-auto space-y-6">
           <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#A2683A]/20 gta6:bg-[#160D30]/80 text-[#EEDCC8] gta6:text-[#FDE08D] border border-[#A2683A]/30 gta6:border-[#F7B286]/40 text-[11px] font-semibold tracking-widest uppercase">
             <Sparkles className="w-3.5 h-3.5 text-[#C48E60] gta6:text-[#FDE08D]" />
@@ -95,20 +99,6 @@ export default function AboutPage() {
 
         {/* Ambient Blur Background */}
         <div className="absolute right-0 top-0 translate-x-1/4 -translate-y-1/4 w-96 h-96 rounded-full bg-[#A2683A]/15 blur-3xl pointer-events-none gta6:hidden" />
-
-        {/* GTA Mode Leonida Sunset Glow & Palm Ambience */}
-        <div className="hidden gta6:block absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-          <div className="absolute -right-10 -bottom-10 w-96 h-96 rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#FF7A00]/25 via-[#FF2E93]/20 to-transparent blur-3xl" />
-          <div className="absolute left-1/4 top-0 w-72 h-72 rounded-full bg-[#3D2166]/40 blur-3xl" />
-          <svg viewBox="0 0 160 160" className="absolute -bottom-4 right-8 w-36 h-36 text-white/5 fill-current">
-            <path d="M10 160 Q20 100 60 60 Q50 60 20 105 Q10 135 10 160 Z" />
-            <path d="M60 60 Q110 30 140 50 Q100 60 60 60 Z" />
-            <path d="M60 60 Q120 60 140 90 Q105 85 60 60 Z" />
-            <path d="M60 60 Q95 100 110 130 Q90 105 60 60 Z" />
-            <path d="M60 60 Q30 45 10 55 Q40 60 60 60 Z" />
-            <path d="M60 60 Q30 75 15 100 Q45 85 60 60 Z" />
-          </svg>
-        </div>
       </section>
 
       {/* 2. THE THREE PILLARS (STANDARDS) */}

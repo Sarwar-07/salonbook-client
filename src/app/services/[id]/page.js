@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
+import ViceCityBackdrop from '@/components/ViceCityBackdrop';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/lib/api';
 import toast from 'react-hot-toast';
@@ -261,6 +262,9 @@ export default function ServiceDetailsPage() {
     <div className="space-y-8 sm:space-y-10 pb-24">
       {/* Top Editorial Breadcrumb & Header Banner / GTA LEONIDA DUSK */}
       <section className="py-6 sm:py-8 gta6:py-10 border-b border-stone-200/50 gta6:border-[#F7B286]/30 gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] relative overflow-hidden">
+        {/* GTA 6 Vice City Sunset Illustration Backdrop */}
+        <ViceCityBackdrop className="hidden gta6:block" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           {/* Editorial Breadcrumb Navigation */}
           <nav className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-stone-500 gta6:text-[#FDE08D]">
@@ -281,20 +285,6 @@ export default function ServiceDetailsPage() {
               {service.category} Discipline
             </span>
           </div>
-        </div>
-
-        {/* GTA Mode Leonida Sunset Glow & Palm Ambience */}
-        <div className="hidden gta6:block absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-          <div className="absolute -right-10 -bottom-10 w-96 h-96 rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#FF7A00]/25 via-[#FF2E93]/20 to-transparent blur-3xl" />
-          <div className="absolute left-1/4 top-0 w-72 h-72 rounded-full bg-[#3D2166]/40 blur-3xl" />
-          <svg viewBox="0 0 160 160" className="absolute -bottom-4 right-8 w-36 h-36 text-white/5 fill-current">
-            <path d="M10 160 Q20 100 60 60 Q50 60 20 105 Q10 135 10 160 Z" />
-            <path d="M60 60 Q110 30 140 50 Q100 60 60 60 Z" />
-            <path d="M60 60 Q120 60 140 90 Q105 85 60 60 Z" />
-            <path d="M60 60 Q95 100 110 130 Q90 105 60 60 Z" />
-            <path d="M60 60 Q30 45 10 55 Q40 60 60 60 Z" />
-            <path d="M60 60 Q30 75 15 100 Q45 85 60 60 Z" />
-          </svg>
         </div>
       </section>
 

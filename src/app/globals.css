@@ -336,19 +336,6 @@ html.gta6 ::-webkit-scrollbar-thumb:hover {
 }
 
 /* ======================================================== */
-/* INNER PAGE HERO BANNERS & SECTIONS (GTA 6 Theme)         */
-/* ======================================================== */
-/* Safety override: replace any remaining espresso-brown section/header backgrounds in GTA Mode */
-html.gta6 section[class*="bg-[#181512]"],
-html.gta6 header[class*="bg-[#181512]"],
-html.gta6 div[class*="bg-[#181512]"]:not(button):not(a):not([role="button"]),
-html.gta6 [class*="bg-[#181512]"]:not(button):not(a):not([role="button"]):not(span),
-html.gta6 .bg-\[\#181512\]:not(button):not(a):not([role="button"]):not(span) {
-  background: linear-gradient(135deg, #1B103B 0%, #361D5C 55%, #6B3A6E 100%) !important;
-  border-color: rgba(247, 178, 134, 0.30) !important;
-}
-
-/* ======================================================== */
 /* NAVBAR USER PROFILE DROPDOWN (GTA 6 Theme)               */
 /* ======================================================== */
 html.gta6 header [class*="w-64"] {

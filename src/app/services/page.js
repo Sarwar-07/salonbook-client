@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense, useTransition } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import ServiceCard from '@/components/ServiceCard';
+import ViceCityBackdrop from '@/components/ViceCityBackdrop';
 import { apiRequest } from '@/lib/api';
 import {
   Search,
@@ -139,6 +140,9 @@ function ServicesCatalog() {
     <div className="space-y-8 sm:space-y-12 pb-24 sm:pb-32">
       {/* 1. COMPACT EDITORIAL HEADER BANNER ON #181512 / GTA LEONIDA DUSK */}
       <section className="bg-[#181512] gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] gta6:border-b gta6:border-[#F7B286]/30 text-[#FAF7F2] py-12 sm:py-16 border-b border-stone-800 relative overflow-hidden">
+        {/* GTA 6 Vice City Sunset Illustration Backdrop */}
+        <ViceCityBackdrop className="hidden gta6:block" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-3 text-center sm:text-left">
           {/* Breadcrumb */}
           <nav className="flex items-center justify-center sm:justify-start gap-2 text-[10px] uppercase tracking-[0.25em] text-[#C48E60] gta6:text-[#FDE08D] font-bold">
@@ -160,20 +164,6 @@ function ServicesCatalog() {
 
         {/* Subtle Ambient Glow */}
         <div className="absolute right-0 top-0 translate-x-1/3 -translate-y-1/3 w-80 h-80 rounded-full bg-[#A2683A]/10 blur-3xl pointer-events-none gta6:hidden" />
-
-        {/* GTA Mode Leonida Sunset Glow & Palm Ambience */}
-        <div className="hidden gta6:block absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-          <div className="absolute -right-10 -bottom-10 w-96 h-96 rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#FF7A00]/25 via-[#FF2E93]/20 to-transparent blur-3xl" />
-          <div className="absolute left-1/4 top-0 w-72 h-72 rounded-full bg-[#3D2166]/40 blur-3xl" />
-          <svg viewBox="0 0 160 160" className="absolute -bottom-4 right-8 w-36 h-36 text-white/5 fill-current">
-            <path d="M10 160 Q20 100 60 60 Q50 60 20 105 Q10 135 10 160 Z" />
-            <path d="M60 60 Q110 30 140 50 Q100 60 60 60 Z" />
-            <path d="M60 60 Q120 60 140 90 Q105 85 60 60 Z" />
-            <path d="M60 60 Q95 100 110 130 Q90 105 60 60 Z" />
-            <path d="M60 60 Q30 45 10 55 Q40 60 60 60 Z" />
-            <path d="M60 60 Q30 75 15 100 Q45 85 60 60 Z" />
-          </svg>
-        </div>
       </section>
 
       {/* 2. FLOATING FROSTED GLASS FILTER & SEARCH BAR */}

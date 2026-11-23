@@ -6,7 +6,7 @@ export default function ViceCityBackdrop({ className = '' }) {
   return (
     <div
       aria-hidden="true"
-      className={`absolute inset-0 pointer-events-none overflow-hidden select-none z-0 ${className}`}
+      className={`absolute inset-0 w-full h-full pointer-events-none overflow-hidden select-none z-0 ${className}`}
     >
       <svg
         className="w-full h-full object-cover"
@@ -17,12 +17,12 @@ export default function ViceCityBackdrop({ className = '' }) {
       >
         <defs>
           {/* Authentic GTA VI Key Art Leonida Dusk Sky Gradient:
-              #5B4296 (twilight periwinkle) -> #D4729C (flamingo rose) -> #F8B385 (golden peach horizon) */}
+              #4B367C (twilight lavender) -> #C96E9B (rose pink) -> #F7B286 (golden-peach horizon) */}
           <linearGradient id="vcSky" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#5B4296" />
-            <stop offset="46%" stopColor="#D4729C" />
-            <stop offset="82%" stopColor="#F8B385" />
-            <stop offset="100%" stopColor="#FCE7BA" />
+            <stop offset="0%" stopColor="#4B367C" />
+            <stop offset="46%" stopColor="#C96E9B" />
+            <stop offset="82%" stopColor="#F7B286" />
+            <stop offset="100%" stopColor="#FDE08D" />
           </linearGradient>
 
           {/* Soft Horizon Sun Radiance */}
@@ -142,6 +142,12 @@ export default function ViceCityBackdrop({ className = '' }) {
           <path d="M1275 340 Q1325 280 1375 290 Q1325 320 1275 340 Z" fill="#251645" />
         </g>
       </svg>
+
+      {/* Balanced dark-plum readability scrim so white text is 100% crisp */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ backgroundColor: 'rgba(22, 13, 48, 0.58)' }}
+      />
     </div>
   );
 }
