@@ -58,7 +58,7 @@ export default function ContactPage() {
       {/* 1. TOP HERO HEADER BANNER / GTA LEONIDA SUNSET */}
       <section className="py-12 sm:py-16 gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] gta6:border-b gta6:border-[#F7B286]/30 relative overflow-hidden">
         {/* GTA 6 Vice City Sunset Illustration Backdrop */}
-        <ViceCityBackdrop className="hidden gta6:block" />
+        <ViceCityBackdrop variant="banner" className="hidden gta6:block" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-2xl mx-auto space-y-3">
           <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#A2683A]/10 text-[#824D25] border border-[#A2683A]/20 gta6:bg-[#160D30]/80 gta6:border-[#F7B286]/40 gta6:text-[#FDE08D] text-[11px] font-semibold tracking-widest uppercase">

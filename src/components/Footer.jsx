@@ -90,8 +90,15 @@ export default function Footer() {
       {/* Top Editorial Invitation Banner */}
       <div className="border-b border-stone-800/60 gta6:border-white/15 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-[#181614] gta6:bg-[rgba(18,10,38,0.78)] gta6:backdrop-blur-md border border-stone-800/80 gta6:border-white/20 rounded-3xl p-6 sm:p-8 gta6:shadow-xl">
-            <div className="space-y-1.5 text-center md:text-left">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-[#181614] gta6:bg-[linear-gradient(135deg,#2E1957_0%,#6D2E73_55%,#B85D8E_100%)] border border-stone-800/80 gta6:border-[#F7B286]/30 rounded-3xl p-6 sm:p-8 shadow-xl gta6:shadow-[0_12px_32px_rgba(15,8,36,0.55),0_0_24px_rgba(236,72,153,0.14)] relative overflow-hidden">
+            {/* Subtle palm watermark accent in GTA mode */}
+            <svg aria-hidden="true" viewBox="0 0 160 160" className="hidden gta6:block absolute -right-6 -bottom-6 w-36 h-36 text-white/5 fill-current pointer-events-none">
+              <path d="M10 160 Q20 100 60 60 Q50 60 20 105 Q10 135 10 160 Z" />
+              <path d="M60 60 Q110 30 140 50 Q100 60 60 60 Z" />
+              <path d="M60 60 Q120 60 140 90 Q105 85 60 60 Z" />
+              <path d="M60 60 Q95 100 110 130 Q90 105 60 60 Z" />
+            </svg>
+            <div className="space-y-1.5 text-center md:text-left relative z-10">
               <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#C89B6E] gta6:text-[#FCD34D]">
                 Private Reservations
               </span>
@@ -104,7 +111,7 @@ export default function Footer() {
             </div>
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#C89B6E] to-[#A2683A] hover:opacity-95 text-[#121110] font-bold text-xs uppercase tracking-widest transition-all duration-200 shadow-md active:scale-95 shrink-0"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#C89B6E] to-[#A2683A] hover:opacity-95 text-[#121110] font-bold text-xs uppercase tracking-widest transition-all duration-200 shadow-md active:scale-95 shrink-0 relative z-10"
             >
               <span>Explore Treatments</span>
               <ArrowRight className="w-3.5 h-3.5" />

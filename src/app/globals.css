@@ -64,7 +64,8 @@ html.gta6 {
 }
 
 html.gta6 body {
-  background: linear-gradient(180deg, #342263 0%, #52307A 35%, #7A3B7A 70%, #2B1A4E 100%) fixed !important;
+  background-color: #271A4C !important;
+  background-image: radial-gradient(circle at 15% 28%, rgba(244, 114, 182, 0.24) 0%, transparent 45%), radial-gradient(circle at 85% 62%, rgba(251, 146, 60, 0.22) 0%, transparent 45%), linear-gradient(180deg, #271A4C 0%, #44236C 36%, #6E2F74 68%, #261547 100%) !important;
   background-attachment: fixed !important;
   color: #FFFFFF;
 }
@@ -75,7 +76,8 @@ html.gta6 [class*="bg-[#F6F"],
 html.gta6 [class*="bg-[#F2E"],
 html.gta6 .bg-stone-50,
 html.gta6 .bg-stone-100 {
-  background: linear-gradient(180deg, #342263 0%, #52307A 35%, #7A3B7A 70%, #2B1A4E 100%) fixed !important;
+  background-color: #271A4C !important;
+  background-image: radial-gradient(circle at 15% 28%, rgba(244, 114, 182, 0.24) 0%, transparent 45%), radial-gradient(circle at 85% 62%, rgba(251, 146, 60, 0.22) 0%, transparent 45%), linear-gradient(180deg, #271A4C 0%, #44236C 36%, #6E2F74 68%, #261547 100%) !important;
   background-attachment: fixed !important;
 }
 
@@ -85,8 +87,8 @@ html.gta6 [class*="bg-white/"] {
   background-color: rgba(24, 15, 48, 0.84) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.24) !important;
-  box-shadow: 0 12px 36px rgba(15, 8, 35, 0.65) !important;
+  border: 1px solid rgba(247, 178, 134, 0.30) !important;
+  box-shadow: 0 12px 32px rgba(15, 8, 36, 0.55), 0 0 24px rgba(236, 72, 153, 0.14) !important;
   color: #FFFFFF !important;
 }
 
@@ -272,7 +274,7 @@ html.gta6 a[class*="from-[#C89B6E]"] {
   background: #FFFFFF !important;
   color: #1B103B !important;
   border: 1px solid rgba(255, 255, 255, 0.85) !important;
-  box-shadow: 0 4px 18px rgba(248, 179, 133, 0.4), 0 0 12px rgba(212, 114, 156, 0.35) !important;
+  box-shadow: 0 0 22px rgba(247, 178, 134, 0.45), 0 4px 18px rgba(248, 179, 133, 0.4) !important;
   font-weight: 800 !important;
   text-shadow: none !important;
 }
@@ -306,7 +308,7 @@ html.gta6 a[class*="bg-[#181512]"]:hover,
 html.gta6 a[class*="bg-[#121110]"]:hover {
   background: #FDE68A !important;
   color: #1B103B !important;
-  box-shadow: 0 6px 24px rgba(248, 179, 133, 0.55), 0 0 16px rgba(212, 114, 156, 0.5) !important;
+  box-shadow: 0 0 26px rgba(247, 178, 134, 0.65), 0 6px 24px rgba(248, 179, 133, 0.55) !important;
   text-shadow: none !important;
 }
 
@@ -333,6 +335,12 @@ html.gta6 ::-webkit-scrollbar-thumb {
 
 html.gta6 ::-webkit-scrollbar-thumb:hover {
   background: #F8B385;
+}
+
+/* CTA Banner above footer in GTA Mode */
+html.gta6 footer [class*="bg-[#181614]"] {
+  background: linear-gradient(135deg, #2E1957 0%, #6D2E73 55%, #B85D8E 100%) !important;
+  border-color: rgba(247, 178, 134, 0.30) !important;
 }
 
 /* ======================================================== */

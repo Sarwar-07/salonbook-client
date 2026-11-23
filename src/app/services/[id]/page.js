@@ -263,7 +263,7 @@ export default function ServiceDetailsPage() {
       {/* Top Editorial Breadcrumb & Header Banner / GTA LEONIDA DUSK */}
       <section className="py-6 sm:py-8 gta6:py-10 border-b border-stone-200/50 gta6:border-[#F7B286]/30 gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] relative overflow-hidden">
         {/* GTA 6 Vice City Sunset Illustration Backdrop */}
-        <ViceCityBackdrop className="hidden gta6:block" />
+        <ViceCityBackdrop variant="banner" className="hidden gta6:block" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           {/* Editorial Breadcrumb Navigation */}

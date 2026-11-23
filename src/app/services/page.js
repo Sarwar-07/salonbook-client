@@ -141,7 +141,7 @@ function ServicesCatalog() {
       {/* 1. COMPACT EDITORIAL HEADER BANNER ON #181512 / GTA LEONIDA DUSK */}
       <section className="bg-[#181512] gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] gta6:border-b gta6:border-[#F7B286]/30 text-[#FAF7F2] py-12 sm:py-16 border-b border-stone-800 relative overflow-hidden">
         {/* GTA 6 Vice City Sunset Illustration Backdrop */}
-        <ViceCityBackdrop className="hidden gta6:block" />
+        <ViceCityBackdrop variant="banner" className="hidden gta6:block" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-3 text-center sm:text-left">
           {/* Breadcrumb */}

@@ -80,7 +80,7 @@ export default function AboutPage() {
       {/* 1. HERO BANNER */}
       <section className="bg-[#181512] gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] gta6:border-b gta6:border-[#F7B286]/30 text-[#FAF7F2] py-20 sm:py-28 relative overflow-hidden border-b border-stone-800">
         {/* GTA 6 Vice City Sunset Illustration Backdrop */}
-        <ViceCityBackdrop className="hidden gta6:block" />
+        <ViceCityBackdrop variant="banner" className="hidden gta6:block" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl mx-auto space-y-6">
           <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#A2683A]/20 gta6:bg-[#160D30]/80 text-[#EEDCC8] gta6:text-[#FDE08D] border border-[#A2683A]/30 gta6:border-[#F7B286]/40 text-[11px] font-semibold tracking-widest uppercase">
@@ -204,22 +204,31 @@ export default function AboutPage() {
 
       {/* 4. BOTTOM RESERVATION CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#181512] gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] gta6:border-[#F7B286]/30 text-[#FAF7F2] rounded-3xl p-8 sm:p-14 text-center max-w-3xl mx-auto space-y-6 shadow-xl border border-stone-800">
-          <Heart className="w-8 h-8 text-[#C48E60] mx-auto" />
-          <h2 className="font-serif text-2xl sm:text-4xl font-semibold text-white tracking-tight">
-            Experience Bespoke Beauty Firsthand
-          </h2>
-          <p className="text-stone-300 text-sm max-w-lg mx-auto leading-relaxed font-light">
-            Reserve your consultation with our master stylists and certified therapists.
-          </p>
-          <div className="pt-2">
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 text-white font-medium text-sm transition-all duration-200 shadow-md shadow-[#824D25]/20 active:scale-95"
-            >
-              <span>Explore Signature Treatments</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+        <div className="bg-[#181512] gta6:bg-[linear-gradient(135deg,#2E1957_0%,#6D2E73_55%,#B85D8E_100%)] gta6:border-[#F7B286]/30 text-[#FAF7F2] rounded-3xl p-8 sm:p-14 text-center max-w-3xl mx-auto space-y-6 shadow-xl border border-stone-800 relative overflow-hidden">
+          {/* Subtle palm watermark accent in GTA mode */}
+          <svg aria-hidden="true" viewBox="0 0 160 160" className="hidden gta6:block absolute -right-6 -bottom-6 w-36 h-36 text-white/5 fill-current pointer-events-none">
+            <path d="M10 160 Q20 100 60 60 Q50 60 20 105 Q10 135 10 160 Z" />
+            <path d="M60 60 Q110 30 140 50 Q100 60 60 60 Z" />
+            <path d="M60 60 Q120 60 140 90 Q105 85 60 60 Z" />
+            <path d="M60 60 Q95 100 110 130 Q90 105 60 60 Z" />
+          </svg>
+          <div className="relative z-10 space-y-6">
+            <Heart className="w-8 h-8 text-[#C48E60] gta6:text-[#FCD34D] mx-auto" />
+            <h2 className="font-serif text-2xl sm:text-4xl font-semibold text-white tracking-tight">
+              Experience Bespoke Beauty Firsthand
+            </h2>
+            <p className="text-stone-300 gta6:text-[#F3E8FF] text-sm max-w-lg mx-auto leading-relaxed font-light">
+              Reserve your consultation with our master stylists and certified therapists.
+            </p>
+            <div className="pt-2">
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#A2683A] to-[#824D25] hover:opacity-95 text-white font-medium text-sm transition-all duration-200 shadow-md shadow-[#824D25]/20 active:scale-95"
+              >
+                <span>Explore Signature Treatments</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

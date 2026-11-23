@@ -2,7 +2,12 @@
 
 import React from 'react';
 
-export default function ViceCityBackdrop({ className = '' }) {
+export default function ViceCityBackdrop({ className = '', variant = 'hero' }) {
+  const scrimGradient =
+    variant === 'banner'
+      ? 'linear-gradient(90deg, rgba(22, 13, 48, 0.68) 0%, rgba(22, 13, 48, 0.38) 60%, rgba(22, 13, 48, 0.18) 100%)'
+      : 'linear-gradient(90deg, rgba(24, 14, 52, 0.48) 0%, rgba(24, 14, 52, 0.14) 48%, transparent 100%)';
+
   return (
     <div
       aria-hidden="true"
@@ -17,20 +22,20 @@ export default function ViceCityBackdrop({ className = '' }) {
       >
         <defs>
           {/* Authentic GTA VI Key Art Leonida Dusk Sky Gradient:
-              #4B367C (twilight lavender) -> #C96E9B (rose pink) -> #F7B286 (golden-peach horizon) */}
+              #4B367C (deep twilight violet) -> #D8649A (vivid flamingo-rose) -> #F9A66C -> #FDE08D (bright golden-peach sunlight) */}
           <linearGradient id="vcSky" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#4B367C" />
-            <stop offset="46%" stopColor="#C96E9B" />
-            <stop offset="82%" stopColor="#F7B286" />
+            <stop offset="42%" stopColor="#D8649A" />
+            <stop offset="78%" stopColor="#F9A66C" />
             <stop offset="100%" stopColor="#FDE08D" />
           </linearGradient>
 
           {/* Soft Horizon Sun Radiance */}
           <radialGradient id="vcSunGlow" cx="62%" cy="72%" r="48%">
-            <stop offset="0%" stopColor="#FFF2B2" stopOpacity="0.75" />
-            <stop offset="40%" stopColor="#F8B385" stopOpacity="0.5" />
-            <stop offset="80%" stopColor="#D4729C" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="#5B4296" stopOpacity="0" />
+            <stop offset="0%" stopColor="#FFF2B2" stopOpacity="0.8" />
+            <stop offset="40%" stopColor="#F9A66C" stopOpacity="0.55" />
+            <stop offset="80%" stopColor="#D8649A" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#4B367C" stopOpacity="0" />
           </radialGradient>
 
           {/* Ocean Water Gradient */}
@@ -42,9 +47,9 @@ export default function ViceCityBackdrop({ className = '' }) {
 
           {/* Water Sun Reflection Gradient */}
           <linearGradient id="vcReflection" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#F8B385" stopOpacity="0.55" />
-            <stop offset="45%" stopColor="#D4729C" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#FCE7BA" stopOpacity="0.08" />
+            <stop offset="0%" stopColor="#F9A66C" stopOpacity="0.6" />
+            <stop offset="45%" stopColor="#D8649A" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#FDE08D" stopOpacity="0.1" />
           </linearGradient>
         </defs>
 
@@ -143,10 +148,10 @@ export default function ViceCityBackdrop({ className = '' }) {
         </g>
       </svg>
 
-      {/* Balanced dark-plum readability scrim so white text is 100% crisp */}
+      {/* Directional text-legibility fade keeping the sunset bright and vivid */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ backgroundColor: 'rgba(22, 13, 48, 0.58)' }}
+        style={{ background: scrimGradient }}
       />
     </div>
   );
