@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
+import SalonAtelierBackdrop from '@/components/SalonAtelierBackdrop';
 import ViceCityBackdrop from '@/components/ViceCityBackdrop';
 import { useAuth } from '@/context/AuthContext';
 import { apiRequest } from '@/lib/api';
@@ -261,22 +262,25 @@ export default function ServiceDetailsPage() {
   return (
     <div className="space-y-8 sm:space-y-10 pb-24">
       {/* Top Editorial Breadcrumb & Header Banner / GTA LEONIDA DUSK */}
-      <section className="py-6 sm:py-8 gta6:py-10 border-b border-stone-200/50 gta6:border-[#F7B286]/30 gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] relative overflow-hidden">
+      <section className="py-6 sm:py-8 gta6:py-10 bg-[#181512] text-[#FAF7F2] border-b border-stone-800 gta6:border-[#F7B286]/30 gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] relative overflow-hidden">
+        {/* Salon Atelier Luxury Editorial Backdrop (Visible only in default SALON mode) */}
+        <SalonAtelierBackdrop variant="banner" />
+
         {/* GTA 6 Vice City Sunset Illustration Backdrop */}
         <ViceCityBackdrop variant="banner" className="hidden gta6:block" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           {/* Editorial Breadcrumb Navigation */}
-          <nav className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-stone-500 gta6:text-[#FDE08D]">
-            <Link href="/" className="hover:text-[#824D25] gta6:hover:text-white transition-colors">
+          <nav className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-stone-300 gta6:text-[#FDE08D]">
+            <Link href="/" className="hover:text-white transition-colors">
               Home
             </Link>
-            <span className="text-stone-300 gta6:text-white/40">/</span>
-            <Link href="/services" className="hover:text-[#824D25] gta6:hover:text-white transition-colors">
+            <span className="text-stone-500 gta6:text-white/40">/</span>
+            <Link href="/services" className="hover:text-white transition-colors">
               Services
             </Link>
-            <span className="text-stone-300 gta6:text-white/40">/</span>
-            <span className="text-[#824D25] gta6:text-[#FDE08D] truncate max-w-[200px] sm:max-w-xs">{service.serviceName}</span>
+            <span className="text-stone-500 gta6:text-white/40">/</span>
+            <span className="text-[#C89B6E] gta6:text-[#FDE08D] truncate max-w-[200px] sm:max-w-xs">{service.serviceName}</span>
           </nav>
 
           {/* Quick Category Monogram */}

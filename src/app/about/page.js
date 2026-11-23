@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import SalonAtelierBackdrop from '@/components/SalonAtelierBackdrop';
 import ViceCityBackdrop from '@/components/ViceCityBackdrop';
 import {
   Sparkles,
@@ -79,6 +80,9 @@ export default function AboutPage() {
     <div className="space-y-20 sm:space-y-28 lg:space-y-36 pb-24">
       {/* 1. HERO BANNER */}
       <section className="bg-[#181512] gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] gta6:border-b gta6:border-[#F7B286]/30 text-[#FAF7F2] py-20 sm:py-28 relative overflow-hidden border-b border-stone-800">
+        {/* Salon Atelier Luxury Editorial Backdrop (Visible only in default SALON mode) */}
+        <SalonAtelierBackdrop variant="banner" />
+
         {/* GTA 6 Vice City Sunset Illustration Backdrop */}
         <ViceCityBackdrop variant="banner" className="hidden gta6:block" />
 
@@ -205,6 +209,9 @@ export default function AboutPage() {
       {/* 4. BOTTOM RESERVATION CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-[#181512] gta6:bg-[linear-gradient(135deg,#2E1957_0%,#6D2E73_55%,#B85D8E_100%)] gta6:border-[#F7B286]/30 text-[#FAF7F2] rounded-3xl p-8 sm:p-14 text-center max-w-3xl mx-auto space-y-6 shadow-xl border border-stone-800 relative overflow-hidden">
+          {/* Salon Atelier Luxury Editorial Backdrop (Visible only in default SALON mode) */}
+          <SalonAtelierBackdrop variant="footer" />
+
           {/* Subtle palm watermark accent in GTA mode */}
           <svg aria-hidden="true" viewBox="0 0 160 160" className="hidden gta6:block absolute -right-6 -bottom-6 w-36 h-36 text-white/5 fill-current pointer-events-none">
             <path d="M10 160 Q20 100 60 60 Q50 60 20 105 Q10 135 10 160 Z" />

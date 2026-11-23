@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Logo from '@/components/Logo';
+import SalonAtelierBackdrop from '@/components/SalonAtelierBackdrop';
 import {
   MapPin,
   Phone,
@@ -22,7 +23,10 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative bg-[#121110] text-stone-300 border-t border-stone-800/80 overflow-hidden gta6:bg-[linear-gradient(180deg,#2B1A4E_0%,#6E3572_45%,#B85675_82%,#1D1138_100%)] gta6:border-t gta6:border-[#F8B385]/35">
+    <footer className="relative bg-[#181512] text-stone-300 border-t border-stone-800/80 overflow-hidden gta6:bg-[linear-gradient(180deg,#2B1A4E_0%,#6E3572_45%,#B85675_82%,#1D1138_100%)] gta6:border-t gta6:border-[#F8B385]/35">
+      {/* Salon Atelier Luxury Editorial Backdrop (Visible only in default SALON mode) */}
+      <SalonAtelierBackdrop variant="footer" />
+
       {/* GTA 6 Vice City Sunset & Palm Silhouette Upper Backdrop (Only visible in GTA mode) */}
       <div
         aria-hidden="true"
@@ -91,6 +95,9 @@ export default function Footer() {
       <div className="border-b border-stone-800/60 gta6:border-white/15 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-[#181614] gta6:bg-[linear-gradient(135deg,#2E1957_0%,#6D2E73_55%,#B85D8E_100%)] border border-stone-800/80 gta6:border-[#F7B286]/30 rounded-3xl p-6 sm:p-8 shadow-xl gta6:shadow-[0_12px_32px_rgba(15,8,36,0.55),0_0_24px_rgba(236,72,153,0.14)] relative overflow-hidden">
+            {/* Salon Atelier Luxury Editorial Backdrop (Visible only in default SALON mode) */}
+            <SalonAtelierBackdrop variant="footer" />
+
             {/* Subtle palm watermark accent in GTA mode */}
             <svg aria-hidden="true" viewBox="0 0 160 160" className="hidden gta6:block absolute -right-6 -bottom-6 w-36 h-36 text-white/5 fill-current pointer-events-none">
               <path d="M10 160 Q20 100 60 60 Q50 60 20 105 Q10 135 10 160 Z" />

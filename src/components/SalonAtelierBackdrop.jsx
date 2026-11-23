@@ -7,7 +7,7 @@ const SALON_IMG_PRIMARY =
 const SALON_IMG_FALLBACK =
   'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1800&q=80';
 
-export default function SalonAtelierBackdrop({ className = '' }) {
+export default function SalonAtelierBackdrop({ className = '', variant = 'hero' }) {
   const [imgSrc, setImgSrc] = useState(SALON_IMG_PRIMARY);
   const [hasError, setHasError] = useState(false);
 
@@ -17,6 +17,41 @@ export default function SalonAtelierBackdrop({ className = '' }) {
       setImgSrc(SALON_IMG_FALLBACK);
     }
   };
+
+  // 1. Texture Layer Opacity
+  let imgOpacityClass = 'opacity-25';
+  if (variant === 'banner') {
+    imgOpacityClass = 'opacity-[0.22]';
+  } else if (variant === 'footer') {
+    imgOpacityClass = 'opacity-[0.12]';
+  }
+
+  // 2. Scrim Layer Styling
+  let scrimGradient =
+    'linear-gradient(105deg, rgba(24, 21, 18, 0.94) 0%, rgba(24, 21, 18, 0.80) 52%, rgba(24, 21, 18, 0.62) 100%)';
+  if (variant === 'banner') {
+    scrimGradient =
+      'linear-gradient(105deg, rgba(24, 21, 18, 0.92) 0%, rgba(24, 21, 18, 0.78) 55%, rgba(24, 21, 18, 0.62) 100%)';
+  } else if (variant === 'footer') {
+    scrimGradient = 'rgba(24, 21, 18, 0.90)';
+  }
+
+  // 3. Ambient Glow Styling
+  let glowStyle =
+    'radial-gradient(circle at 75% 45%, rgba(200, 155, 110, 0.18) 0%, transparent 55%), radial-gradient(circle at 18% 25%, rgba(168, 90, 50, 0.14) 0%, transparent 50%)';
+  if (variant === 'banner') {
+    glowStyle =
+      'radial-gradient(circle at 80% 40%, rgba(200, 155, 110, 0.16) 0%, transparent 60%), radial-gradient(circle at 20% 30%, rgba(168, 90, 50, 0.10) 0%, transparent 50%)';
+  } else if (variant === 'footer') {
+    glowStyle =
+      'radial-gradient(circle at 75% 50%, rgba(200, 155, 110, 0.12) 0%, transparent 60%)';
+  }
+
+  // 4. SVG Line-Art Opacity
+  let svgOpacityClass = 'opacity-[0.14]';
+  if (variant === 'footer') {
+    svgOpacityClass = 'opacity-[0.10]';
+  }
 
   return (
     <div
@@ -29,37 +64,35 @@ export default function SalonAtelierBackdrop({ className = '' }) {
         src={imgSrc}
         alt=""
         onError={handleImageError}
-        className="w-full h-full object-cover object-center opacity-25 scale-105 transition-transform duration-1000 ease-out"
+        className={`w-full h-full object-cover object-center ${imgOpacityClass} scale-105 transition-transform duration-1000 ease-out`}
       />
 
       {/* 2. DIRECTIONAL ESPRESSO & CHAMPAGNE VIGNETTE SCRIM */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(105deg, rgba(24, 21, 18, 0.94) 0%, rgba(24, 21, 18, 0.80) 52%, rgba(24, 21, 18, 0.62) 100%)',
-        }}
+        style={{ background: scrimGradient }}
       />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(to bottom, transparent 55%, rgba(24, 21, 18, 0.75) 82%, #181512 100%)',
-        }}
-      />
+      {variant !== 'footer' && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              variant === 'banner'
+                ? 'linear-gradient(to bottom, transparent 65%, #181512 100%)'
+                : 'linear-gradient(to bottom, transparent 55%, rgba(24, 21, 18, 0.75) 82%, #181512 100%)',
+          }}
+        />
+      )}
 
       {/* 3. WARM CANDLELIGHT & BRASS RADIAL GLOWS */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 75% 45%, rgba(200, 155, 110, 0.18) 0%, transparent 55%), radial-gradient(circle at 18% 25%, rgba(168, 90, 50, 0.14) 0%, transparent 50%)',
-        }}
+        style={{ backgroundImage: glowStyle }}
       />
 
       {/* 4. FINE-LINE BOUTIQUE ARCH & BOTANICAL WATERMARK SVG */}
       <svg
-        className="absolute inset-0 w-full h-full object-cover opacity-[0.14]"
+        className={`absolute inset-0 w-full h-full object-cover ${svgOpacityClass}`}
         viewBox="0 0 1440 700"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

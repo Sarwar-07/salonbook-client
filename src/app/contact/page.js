@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import SalonAtelierBackdrop from '@/components/SalonAtelierBackdrop';
 import ViceCityBackdrop from '@/components/ViceCityBackdrop';
 import {
   MapPin,
@@ -56,19 +57,22 @@ export default function ContactPage() {
   return (
     <div className="space-y-10 sm:space-y-12 pb-20">
       {/* 1. TOP HERO HEADER BANNER / GTA LEONIDA SUNSET */}
-      <section className="py-12 sm:py-16 gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] gta6:border-b gta6:border-[#F7B286]/30 relative overflow-hidden">
+      <section className="bg-[#181512] gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] border-b border-stone-800 gta6:border-[#F7B286]/30 py-12 sm:py-16 relative overflow-hidden text-[#FAF7F2]">
+        {/* Salon Atelier Luxury Editorial Backdrop (Visible only in default SALON mode) */}
+        <SalonAtelierBackdrop variant="banner" />
+
         {/* GTA 6 Vice City Sunset Illustration Backdrop */}
         <ViceCityBackdrop variant="banner" className="hidden gta6:block" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-2xl mx-auto space-y-3">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#A2683A]/10 text-[#824D25] border border-[#A2683A]/20 gta6:bg-[#160D30]/80 gta6:border-[#F7B286]/40 gta6:text-[#FDE08D] text-[11px] font-semibold tracking-widest uppercase">
-            <Sparkles className="w-3.5 h-3.5 text-[#A2683A] gta6:text-[#FDE08D]" />
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#A2683A]/20 text-[#EEDCC8] border border-[#A2683A]/30 gta6:bg-[#160D30]/80 gta6:border-[#F7B286]/40 gta6:text-[#FDE08D] text-[11px] font-semibold tracking-widest uppercase">
+            <Sparkles className="w-3.5 h-3.5 text-[#C48E60] gta6:text-[#FDE08D]" />
             <span>Concierge Services</span>
           </span>
-          <h1 className="font-serif text-3xl sm:text-5xl font-semibold text-[#181512] gta6:text-white tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl font-semibold text-white tracking-tight">
             Connect With Our Concierge
           </h1>
-          <p className="text-sm sm:text-base text-stone-600 gta6:text-[#F3E8FF] leading-relaxed font-light">
+          <p className="text-sm sm:text-base text-stone-300 gta6:text-[#F3E8FF] leading-relaxed font-light">
             Whether planning a bridal bespoke suite, corporate retreat, or requesting a tailored treatment consultation, our team is at your service.
           </p>
         </div>

@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense, useTransition } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import ServiceCard from '@/components/ServiceCard';
+import SalonAtelierBackdrop from '@/components/SalonAtelierBackdrop';
 import ViceCityBackdrop from '@/components/ViceCityBackdrop';
 import { apiRequest } from '@/lib/api';
 import {
@@ -140,6 +141,9 @@ function ServicesCatalog() {
     <div className="space-y-8 sm:space-y-12 pb-24 sm:pb-32">
       {/* 1. COMPACT EDITORIAL HEADER BANNER ON #181512 / GTA LEONIDA DUSK */}
       <section className="bg-[#181512] gta6:bg-gradient-to-br gta6:from-[#1B103B] gta6:via-[#3D2166] gta6:to-[#7E4674] gta6:border-b gta6:border-[#F7B286]/30 text-[#FAF7F2] py-12 sm:py-16 border-b border-stone-800 relative overflow-hidden">
+        {/* Salon Atelier Luxury Editorial Backdrop (Visible only in default SALON mode) */}
+        <SalonAtelierBackdrop variant="banner" />
+
         {/* GTA 6 Vice City Sunset Illustration Backdrop */}
         <ViceCityBackdrop variant="banner" className="hidden gta6:block" />
 
