@@ -28,7 +28,8 @@ export function AuthProvider({ children }) {
       console.error('Failed to sign out:', err);
     }
     toast.success('Logged out successfully');
-    router.push('/');
+    router.push('/login');
+    router.refresh();
   }, [router]);
 
   const refreshUser = useCallback(async () => {
@@ -78,16 +79,7 @@ export function AuthProvider({ children }) {
 
           if (err.status === 403) {
             toast.error(err.message || 'Your account has been suspended by an administrator.');
-            if (typeof window !== 'undefined') {
-              localStorage.removeItem('salonbook_token');
-            }
-            setUser(null);
-            setToken(null);
-            try {
-              await signOut();
-            } catch (signOutErr) {
-              console.error('Failed to sign out:', signOutErr);
-            }
+            await logout();
           } else {
             toast.error(err.message || 'Failed to authenticate with server');
           }
@@ -119,7 +111,7 @@ export function AuthProvider({ children }) {
     return () => {
       isCancelled = true;
     };
-  }, [session?.user?.email, session?.user?.name, session?.user?.image, isPending]);
+  }, [session?.user?.email, session?.user?.name, session?.user?.image, isPending, logout]);
 
   return (
     <AuthContext.Provider
