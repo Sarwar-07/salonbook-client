@@ -57,10 +57,28 @@ function LoginForm() {
     setLoading(true);
 
     try {
-      const res = await signIn.email({
+      const credentials = {
         email: email.trim().toLowerCase(),
         password,
-      });
+      };
+
+      let res;
+      try {
+        res = await signIn.email(credentials);
+      } catch (err) {
+        if (err?.status >= 500 || err?.code === 'INTERNAL_SERVER_ERROR') {
+          await new Promise((r) => setTimeout(r, 1500));
+          res = await signIn.email(credentials);
+        } else {
+          throw err;
+        }
+      }
+
+      // Silent 1-time cold-start retry on 500 or INTERNAL_SERVER_ERROR
+      if (res?.error && (res.error.status >= 500 || res.error.code === 'INTERNAL_SERVER_ERROR')) {
+        await new Promise((r) => setTimeout(r, 1500));
+        res = await signIn.email(credentials);
+      }
 
       if (res?.error) {
         const error = res.error;

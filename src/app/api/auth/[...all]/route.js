@@ -1,4 +1,4 @@
-import { auth } from '@/lib/auth';
+import { auth, getClientPromise } from '@/lib/auth';
 import { toNextJsHandler } from 'better-auth/next-js';
 
 export const dynamic = 'force-dynamic';
@@ -7,6 +7,9 @@ const handlers = toNextJsHandler(auth);
 
 export async function GET(request, ...args) {
   try {
+    if (typeof getClientPromise === 'function') {
+      await getClientPromise();
+    }
     return await handlers.GET(request, ...args);
   } catch (err) {
     console.error('[BetterAuth Error]', err);
@@ -25,6 +28,9 @@ export async function GET(request, ...args) {
 
 export async function POST(request, ...args) {
   try {
+    if (typeof getClientPromise === 'function') {
+      await getClientPromise();
+    }
     return await handlers.POST(request, ...args);
   } catch (err) {
     console.error('[BetterAuth Error]', err);

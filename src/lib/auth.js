@@ -19,11 +19,26 @@ const mongoUri = (process.env.MONGODB_URI || '').trim();
 if (!globalThis._mongoClient) {
   globalThis._mongoClient = new MongoClient(mongoUri, {
     maxPoolSize: 10,
-    serverSelectionTimeoutMS: 5000,
-    socketTimeoutMS: 10000,
+    serverSelectionTimeoutMS: 15000,
+    connectTimeoutMS: 15000,
+    socketTimeoutMS: 15000,
   });
 }
 const client = globalThis._mongoClient;
+
+export function getClientPromise() {
+  if (!globalThis._mongoClientPromise) {
+    globalThis._mongoClientPromise = client.connect().catch((err) => {
+      // Reset cached promise on failure so transient errors don't poison subsequent requests
+      globalThis._mongoClientPromise = null;
+      throw err;
+    });
+  }
+  return globalThis._mongoClientPromise;
+}
+
+// Warm up connection in background without unhandled rejection
+getClientPromise().catch(() => {});
 
 const dbName = (process.env.DB_NAME || 'salonbook_db').trim();
 const db = client.db(dbName);
